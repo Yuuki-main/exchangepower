@@ -14,17 +14,18 @@ This project runs Next.js 16.4, and its APIs differ from older versions. Before 
 
 ## Folders
 
-| Path                       | What goes there                                                                                                      |
-| -------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `src/app/`                 | Routes only: `page.js`, `layout.js`, route-level metadata files. Keep logic thin and delegate to components and lib. |
-| `src/components/ui/`       | Generic building blocks with no business copy (Button, Card, Input, Dialog…).                                        |
-| `src/components/layout/`   | Site frame: TopBar, Header, MobileNav, Footer.                                                                       |
-| `src/components/sections/` | Page sections assembled from `ui/` (Hero, FaqList, CtaBand…). They receive content as props.                         |
-| `src/components/forms/`    | Form components (QuoteForm, QuoteDialog).                                                                            |
-| `src/content/`             | **All site copy and business data**: contact details, navigation, page copy, products, blog posts, legal text.       |
-| `src/lib/`                 | Plain helpers with no JSX where possible: content accessors, SEO helpers, `cn`, validation, email.                   |
-| `public/`                  | Static files served as-is (images, icons).                                                                           |
-| `docs/`                    | Project documentation.                                                                                               |
+| Path                        | What goes there                                                                                                      |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `src/app/`                  | Routes only: `page.js`, `layout.js`, route-level metadata files. Keep logic thin and delegate to components and lib. |
+| `src/components/ui/`        | Generic building blocks with no business copy (Button, Card, Input, Dialog…).                                        |
+| `src/components/layout/`    | Site frame: TopBar, Header, MobileNav, Footer.                                                                       |
+| `src/components/sections/`  | Page sections assembled from `ui/` (Hero, FaqList, CtaBand…). They receive content as props.                         |
+| `src/components/templates/` | Whole-page templates (ProductPage, CategoryHub). Route files load content and render one.                            |
+| `src/components/forms/`     | Form components (QuoteForm, QuoteDialog).                                                                            |
+| `src/content/`              | **All site copy and business data**: contact details, navigation, page copy, products, blog posts, legal text.       |
+| `src/lib/`                  | Plain helpers with no JSX where possible: content accessors, SEO helpers, `cn`, validation, email.                   |
+| `public/`                   | Static files served as-is (images, icons).                                                                           |
+| `docs/`                     | Project documentation.                                                                                               |
 
 ## Content
 

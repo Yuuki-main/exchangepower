@@ -1,6 +1,6 @@
 import "server-only";
 
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { ABOUT } from "@/content/about.js";
 import { BLOG } from "@/content/blog.js";
@@ -126,6 +126,24 @@ export function getImage(key) {
   return image;
 }
 
+/**
+ * An image approved for use (PLAN Part C item 7) whose file exists in
+ * public/, or null. Image slots render only when this returns an asset.
+ * @param {string | null | undefined} key
+ * @returns {ImageAsset | null}
+ */
+export function getApprovedImage(key) {
+  if (!key) return null;
+  const image = getImage(key);
+  if (!image.approved) return null;
+  if (!existsSync(path.join(process.cwd(), "public", image.localPath))) {
+    throw new Error(
+      `Content error: image "${key}" is approved but public${image.localPath} is missing (run npm run images:fetch)`,
+    );
+  }
+  return image;
+}
+
 // ---------------------------------------------------------------- products
 
 /** Validated once per server process. */
@@ -191,6 +209,24 @@ export function getProduct(category, slug) {
  */
 export function getProductBody(product) {
   return readContentFile(path.join("pages", product.bodyFile));
+}
+
+/**
+ * Pages to suggest after a product: its siblings in the same category, or
+ * (when a category has only one product) the other category hubs.
+ * @param {Product} product
+ * @param {number} [limit=3]
+ * @returns {Product[]}
+ */
+export function getRelatedProducts(product, limit = 3) {
+  const siblings = getProductsByCategory(product.category).filter(
+    (p) => p.slug !== product.slug,
+  );
+  if (siblings.length >= 2) return siblings.slice(0, limit);
+  const hubs = products.filter(
+    (p) => p.kind === "hub" && p.category !== product.category,
+  );
+  return [...siblings, ...hubs].slice(0, limit);
 }
 
 /** @param {Product} product */

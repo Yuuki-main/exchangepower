@@ -31,6 +31,11 @@
  * @property {{ desktop: string, mobile: string } | null} banner Image keys of the live page banner.
  * @property {string[]} highlights Bullet points shown on cards (may be empty).
  * @property {string[]} bodyImages Image keys shown beside the body copy on the live page (may be empty).
+ * @property {{ label: string, value: string, qualifier?: string }[]} keyFacts Figures that appear in this
+ *   product's own copy or FAQs (source noted in products.js). `qualifier` ("Up to",
+ *   "Under") is shown small above the value. Empty hides the panel.
+ * @property {string | null} [hubIntroOverride] Hubs only: approved new intro (Markdown)
+ *   that replaces the live body copy. null until approved.
  * @property {SeoMeta} seo
  * @property {Faq[]} faqs
  * @property {string} bodyFile Markdown file in src/content/pages/.
@@ -91,6 +96,7 @@
 
 /**
  * @typedef {object} ImageAsset
+ * @property {boolean} approved Shown on the site only when true (PLAN Part C item 7).
  * @property {string} src Source URL on the live site.
  * @property {string} localPath Planned public path (file under public/).
  * @property {string} alt Alt text ("" for decorative images).
@@ -245,6 +251,21 @@ export function assertProduct(product, index) {
     throw new Error(`Content error: ${label}.highlights must be an array`);
   if (!Array.isArray(p.bodyImages))
     throw new Error(`Content error: ${label}.bodyImages must be an array`);
+  if (!Array.isArray(p.keyFacts))
+    throw new Error(`Content error: ${label}.keyFacts must be an array`);
+  p.keyFacts.forEach((f, i) => {
+    assertString(f?.label, `${label}.keyFacts[${i}].label`);
+    assertString(f?.value, `${label}.keyFacts[${i}].value`);
+  });
+  if (
+    p.kind === "hub" &&
+    p.hubIntroOverride !== null &&
+    typeof p.hubIntroOverride !== "string"
+  ) {
+    throw new Error(
+      `Content error: ${label}.hubIntroOverride must be null or Markdown`,
+    );
+  }
 }
 
 /**

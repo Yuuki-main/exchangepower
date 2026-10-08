@@ -6,7 +6,7 @@
 // fields, internal links point to known routes, every live URL (PLAN.md A1)
 // has content, every image key exists. Exits with code 1 on any error.
 
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { ABOUT } from "../src/content/about.js";
 import { HOME } from "../src/content/home.js";
@@ -29,6 +29,7 @@ import {
 import { SOURCE_PAGES } from "./source-pages.mjs";
 
 const CONTENT = path.resolve(import.meta.dirname, "../src/content");
+const PUBLIC_DIR = path.resolve(import.meta.dirname, "../public");
 /** @type {string[]} */
 const errors = [];
 /** @type {string[]} */
@@ -279,6 +280,13 @@ for (const page of SOURCE_PAGES) {
 
 // ------------------------------------------------------------ images
 for (const [key, img] of Object.entries(IMAGES)) {
+  if (typeof img.approved !== "boolean")
+    errors.push(`images.${key}: "approved" must be true or false`);
+  if (img.approved && !existsSync(path.join(PUBLIC_DIR, img.localPath))) {
+    errors.push(
+      `images.${key}: approved but public${img.localPath} is missing (npm run images:fetch)`,
+    );
+  }
   if (!img.src.startsWith("https://"))
     errors.push(`images.${key}: src must be an https URL`);
   if (!img.localPath.startsWith("/images/"))

@@ -109,3 +109,12 @@ The redesigned homepage (`src/content/home.js`) uses **new short copy**. Every f
 - **Customer reviews:** the section is built but renders only when real, attributable reviews are added to `home.reviews.items`.
 - **Phone:** now shown as "08 6370 4963" (was "0863704963", see 4.4).
 - **Live homepage copy:** kept verbatim in `src/content/archive/home-live.js` for reference.
+
+## 10. Product pages (Step 6)
+
+- **Key facts panels** show only figures from each product's own FAQs or body copy. The source is noted next to each figure in `products.js`.
+  - Products with figures: 6.6kW, 10kW, 13.2kW, 30kW, 50kW and WA Residential Battery Rebates.
+  - Products without figures, so the panel is hidden: 7.7kW, 100kW, the three Solar Packages pages and the four hubs.
+- **Not used:** the 30kW FAQ says "130 to 180 metres of roof area". It almost certainly means square metres, but showing it as m² would change the source, so it's left out until confirmed.
+- **Hub intros** still show the duplicated live copy (3.1–3.2). Set `hubIntroOverride` (Markdown) on a hub in `products.js` to replace it.
+- **Images:** every image in `images.js` is `approved: false`, so no image slots render. To show one, download it (`npm run images:fetch`) and set `approved: true`.

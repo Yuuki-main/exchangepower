@@ -62,3 +62,46 @@ export function localBusinessJsonLd() {
     areaServed: { "@type": "State", name: "Western Australia" },
   };
 }
+
+/**
+ * BreadcrumbList structured data.
+ * @param {{ label: string, href: string }[]} items Home first, current page last.
+ */
+export function breadcrumbJsonLd(items) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.label,
+      item: new URL(item.href, SITE.url).href,
+    })),
+  };
+}
+
+/** Markdown → plain text (links keep their label; emphasis is dropped). */
+function markdownToText(/** @type {string} */ md) {
+  return md
+    .replace(/!?\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/[*_`#>]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * FAQPage structured data (FAQPage → mainEntity → Question → acceptedAnswer).
+ * Answers must match the visible text on the page.
+ * @param {{ question: string, answer: string }[]} faqs Answers in Markdown.
+ */
+export function faqPageJsonLd(faqs) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: markdownToText(faq.answer) },
+    })),
+  };
+}

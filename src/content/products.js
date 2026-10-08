@@ -20,6 +20,9 @@ export const PRODUCTS = [
     },
     faqs: [],
     bodyFile: "residential-solar.md",
+    keyFacts: [], // No figures in this page's copy or FAQs.
+    // Approved new intro (Markdown) replaces the duplicated live copy when set (CONTENT-NOTES 3.1–3.2).
+    hubIntroOverride: null,
     bodyHiddenOnLive: true,
   },
   {
@@ -72,6 +75,14 @@ export const PRODUCTS = [
       },
     ],
     bodyFile: "6-6kw-solar-system-wa.md",
+    keyFacts: [
+      // Source: FAQ "How much energy does a 6.6 kW solar panel system WA produce?"
+      { label: "Average daily output", value: "24–28 kWh" },
+      // Source: FAQ "How Many Panels are Required for a 6.6kw Solar System WA?"
+      { label: "Panels", value: "16–18" },
+      // Source: FAQ "What is the Payback Period for a 6.6kW Solar System WA?"
+      { label: "Expected payback", value: "3–5 years" },
+    ],
     bodyHiddenOnLive: false,
   },
   {
@@ -137,6 +148,7 @@ export const PRODUCTS = [
       },
     ],
     bodyFile: "7-7kw-solar-system-wa.md",
+    keyFacts: [], // No figures in this page's copy or FAQs.
     bodyHiddenOnLive: false,
   },
   {
@@ -202,6 +214,10 @@ export const PRODUCTS = [
       },
     ],
     bodyFile: "10kw-solar-system-wa.md",
+    keyFacts: [
+      // Source: FAQ "How much power does a 10kW solar system in Perth generate?"
+      { label: "Daily output", value: "35–45 kWh" },
+    ],
     bodyHiddenOnLive: false,
   },
   {
@@ -266,6 +282,12 @@ export const PRODUCTS = [
       },
     ],
     bodyFile: "13-2kw-solar-system.md",
+    keyFacts: [
+      // Source: FAQ "How many solar panels are required for a 13.2kW solar panel system WA?"
+      { label: "Panels", value: "28–32" },
+      // Source: FAQ "How long does 13.2kW solar installation WA take?"
+      { label: "Installation", value: "1–2 days" },
+    ],
     bodyHiddenOnLive: false,
   },
   {
@@ -284,6 +306,9 @@ export const PRODUCTS = [
     },
     faqs: [],
     bodyFile: "commercial-solar.md",
+    keyFacts: [], // No figures in this page's copy or FAQs.
+    // Approved new intro (Markdown) replaces the duplicated live copy when set (CONTENT-NOTES 3.1–3.2).
+    hubIntroOverride: null,
     bodyHiddenOnLive: true,
   },
   {
@@ -340,6 +365,14 @@ export const PRODUCTS = [
       },
     ],
     bodyFile: "30kw-solar-system.md",
+    keyFacts: [
+      // Source: FAQ "How much electricity does a 30kW solar system generate per day?"
+      { label: "Daily output", value: "120–150 kWh" },
+      // Source: FAQ "How many solar panels are required for a 30kW solar system?"
+      { label: "Panels", value: "54–56 × 550W" },
+      // Source: FAQ "How long does it take to install a 30kW solar system?"
+      { label: "Installation", value: "2–5 days" },
+    ],
     bodyHiddenOnLive: false,
   },
   {
@@ -399,6 +432,10 @@ export const PRODUCTS = [
       },
     ],
     bodyFile: "50kw-solar-system.md",
+    keyFacts: [
+      // Source: FAQ "How long does a 50kW solar system WA last?"
+      { label: "System life", value: "25+ years" },
+    ],
     bodyHiddenOnLive: false,
   },
   {
@@ -457,6 +494,7 @@ export const PRODUCTS = [
       },
     ],
     bodyFile: "100kw-solar-system.md",
+    keyFacts: [], // No figures in this page's copy or FAQs.
     bodyHiddenOnLive: false,
   },
   {
@@ -475,6 +513,9 @@ export const PRODUCTS = [
     },
     faqs: [],
     bodyFile: "solar-battery.md",
+    keyFacts: [], // No figures in this page's copy or FAQs.
+    // Approved new intro (Markdown) replaces the duplicated live copy when set (CONTENT-NOTES 3.1–3.2).
+    hubIntroOverride: null,
     bodyHiddenOnLive: true,
   },
   {
@@ -530,6 +571,20 @@ export const PRODUCTS = [
       },
     ],
     bodyFile: "wa-residential-battery-rebates.md",
+    keyFacts: [
+      // Source: Body: "Synergy battery rebate up to $5,000" (also FAQ 2)
+      { label: "Synergy customers", qualifier: "Up to", value: "$5,000" },
+      // Source: Body: "Horizon Power rebate up to $7,500" (also FAQ 2)
+      { label: "Horizon Power customers", qualifier: "Up to", value: "$7,500" },
+      // Source: Body: "households that install a 10kWh battery"
+      { label: "Battery size", value: "10kWh" },
+      // Source: Body: "no-interest loans of up to 10,000"
+      { label: "No-interest loan", qualifier: "Up to", value: "$10,000" },
+      // Source: Body: "annual combined income of less than 210, 000 dollars"
+      { label: "Household income", qualifier: "Under", value: "$210,000" },
+      // Source: Body: "The duration of repayment can go to ten years"
+      { label: "Loan repayment", qualifier: "Up to", value: "10 years" },
+    ],
     bodyHiddenOnLive: false,
   },
   {
@@ -548,6 +603,9 @@ export const PRODUCTS = [
     },
     faqs: [],
     bodyFile: "solar-packages.md",
+    keyFacts: [], // No figures in this page's copy or FAQs.
+    // Approved new intro (Markdown) replaces the duplicated live copy when set (CONTENT-NOTES 3.1–3.2).
+    hubIntroOverride: null,
     bodyHiddenOnLive: true,
   },
   {
@@ -598,6 +656,7 @@ export const PRODUCTS = [
       },
     ],
     bodyFile: "solar-panel-installation-in-wa.md",
+    keyFacts: [], // No figures in this page's copy or FAQs.
     bodyHiddenOnLive: false,
   },
   {
@@ -650,6 +709,7 @@ export const PRODUCTS = [
       },
     ],
     bodyFile: "solar-panel-installation-wangara.md",
+    keyFacts: [], // No figures in this page's copy or FAQs.
     bodyHiddenOnLive: false,
   },
   {
@@ -695,6 +755,7 @@ export const PRODUCTS = [
       },
     ],
     bodyFile: "solar-rebates-and-incentives-in-wa.md",
+    keyFacts: [], // No figures in this page's copy or FAQs.
     bodyHiddenOnLive: false,
   },
 ];

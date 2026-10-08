@@ -178,6 +178,86 @@
     overflow: hidden;
   }
 
+  /* Long-form Markdown content (components/sections/Prose.js). */
+  .prose-content {
+    max-width: 42rem;
+    font-size: var(--text-lg);
+    line-height: 1.75;
+    color: var(--color-neutral-800);
+
+    & > * + * {
+      margin-top: 1.25em;
+    }
+    & h2 {
+      margin-top: 2.25em;
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      line-height: var(--text-2xl--line-height);
+      font-weight: 600;
+      color: var(--color-brand-900);
+    }
+    & h3 {
+      margin-top: 1.75em;
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      line-height: var(--text-xl--line-height);
+      font-weight: 600;
+      color: var(--color-brand-900);
+    }
+    & h2 + *,
+    & h3 + * {
+      margin-top: 0.6em;
+    }
+    & strong {
+      font-weight: 600;
+      color: var(--color-foreground);
+    }
+    & a {
+      color: var(--color-brand-700);
+      text-decoration: underline;
+      text-decoration-color: var(--color-accent-500);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+    }
+    & a:hover {
+      text-decoration-color: currentColor;
+    }
+    & ul,
+    & ol {
+      padding-left: 1.25em;
+    }
+    & ul {
+      list-style: square;
+    }
+    & ol {
+      list-style: decimal;
+    }
+    & li + li {
+      margin-top: 0.4em;
+    }
+    & li::marker {
+      color: var(--color-accent-700);
+    }
+    & table {
+      display: block;
+      overflow-x: auto;
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--text-base);
+    }
+    & th,
+    & td {
+      border-bottom: 1px solid var(--color-border);
+      padding: 0.6em 0.75em 0.6em 0;
+      text-align: left;
+      vertical-align: top;
+    }
+    & th {
+      font-weight: 600;
+      color: var(--color-foreground);
+    }
+  }
+
   /* Scroll-linked reveal, CSS only. Browsers without scroll-driven
      animations (and reduced-motion users) simply show the content. */
   @supports (animation-timeline: view()) {

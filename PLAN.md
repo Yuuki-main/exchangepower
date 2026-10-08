@@ -391,6 +391,15 @@ src/
   - The FAQ JSON-LD validates (Rich Results Test or Schema validator).
   - Every page is static in the build output.
 - **Out of scope:** blog and legal pages.
+- **Step 6 notes (done 2026-10-09):**
+  - Templates live in `src/components/templates/` (`ProductPage`, `CategoryHub`). Data loading is in `src/lib/product-pages.js`, and route files are about 10 lines each.
+  - New sections: `Breadcrumbs`, `PageHeader`, `Prose` (styles in globals.css `.prose-content`), `KeyFacts`, `ProductCardGrid`, `RelatedProducts`, `CtaBand` and `MediaSlot`.
+  - **Unknown slugs and 404s:**
+    - With Cache Components, production served the fallback shell for unknown slugs with a 200 status (a soft 404).
+    - `export const ensureStatic = "navigation"` on each `[slug]` page fixes this: unknown slugs render fully before responding, so `notFound()` returns a real 404.
+    - `export const instant = false` allows navigations into these prerendered routes to wait for the page. Without it, `params` read outside `<Suspense>` raises the instant-navigation warning in dev.
+  - Redirects: `/category/solar/` and `/category/uncategorized/` go to `/blog/`, and `/residential-solar-system/` goes to `/residential-solar/`. All are 308.
+  - JSON-LD: BreadcrumbList on all 15 pages, and FAQPage on all 11 detail pages.
 
 ### Step 7 — Contact and enquiry forms with Resend _(server code only after approval, see Part C)_
 
