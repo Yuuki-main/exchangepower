@@ -50,7 +50,7 @@ This project runs Next.js 16.4, and its APIs differ from older versions. Before 
 
 ## Styling
 
-- Use Tailwind CSS 4 utility classes. Design tokens are defined with `@theme` in `src/app/globals.css`.
+- Use Tailwind CSS 4 utility classes. Design tokens are defined with `@theme` in `src/app/globals.css` and documented in `docs/DESIGN-TOKENS.md`. Tailwind's default palette is disabled, so use token colours only (prefer semantic ones such as `text-foreground-muted`).
 - Combine conditional classes with the `cn()` helper. Prettier sorts classes, including inside `cn(...)`.
 - Design mobile first: base styles target phones, and `sm:`, `md:`, `lg:` and `xl:` add larger layouts.
 
@@ -63,4 +63,5 @@ npm run lint          # ESLint (next/core-web-vitals + prettier)
 npm run format:check  # Prettier (npm run format to fix)
 npm run typecheck     # tsc --noEmit over JS via JSDoc
 npm run build         # production build (Turbopack)
+npm run check:contrast  # WCAG AA check of colour tokens (after palette changes)
 ```

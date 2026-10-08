@@ -277,6 +277,11 @@ src/
   - Only `Dialog` is marked `'use client'`.
   - Lint, typecheck and build pass.
 - **Out of scope:** page sections and real content.
+- **Step 2 notes (done 2026-10-09):**
+  - The palette is a proposal: deep teal-navy brand and solar amber accent. It's documented in `docs/DESIGN-TOKENS.md`, and `npm run check:contrast` checks 29 pairs, all passing AA.
+  - Fonts: Sora (display) and Inter (body), both variable fonts loaded with `next/font/google`.
+  - The reading-width token is `max-w-reading`, because `max-w-prose` is a built-in Tailwind utility.
+  - The UI kit adds no new runtime dependencies. `cn` is a small local helper and doesn't merge conflicting classes.
 
 ### Step 3 — Content layer
 
