@@ -9,9 +9,11 @@ export const SITE = {
   abn: "25693550202", // From Terms clause 1; not shown elsewhere on the live site.
   url: "https://exchangepower.com.au",
   tagline: "Solar Panels & Battery Solutions in Western Australia",
+  description:
+    "Solar and battery systems for Western Australian homes and businesses, designed, installed and connected by a local team in Wangara.",
 
   phone: {
-    display: "0863704963", // Shown like this on the live site; "08 6370 4963" is the usual format.
+    display: "08 6370 4963", // Live site shows "0863704963"; spaced for readability (CONTENT-NOTES 4.4).
     href: "tel:0863704963",
     international: "+61863704963",
   },
@@ -76,7 +78,10 @@ export const SITE = {
   },
 
   cta: {
-    quoteLabel: "Free Quote",
+    quoteLabel: "Get a free quote",
+    // Until the quote form exists (PLAN Step 7), quote buttons go to the
+    // homepage contact section. Change this one value to switch them all.
+    quoteHref: "/#get-a-quote",
     title: "Your Solar Journey, Made Simple",
     subtitle: "Get Started with your Free Consultation Today!",
     buttonLabel: "Click Here",

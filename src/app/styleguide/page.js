@@ -132,7 +132,7 @@ function Block({ id, title, children }) {
 
 export default function StyleguidePage() {
   return (
-    <main className="flex-1">
+    <div>
       <Section spacing="md" background="brand">
         <Badge tone="accent">Internal</Badge>
         <Heading level={1} size="display" className="mt-4">
@@ -479,6 +479,6 @@ export default function StyleguidePage() {
           ))}
         </div>
       </Block>
-    </main>
+    </div>
   );
 }

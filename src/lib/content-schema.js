@@ -74,6 +74,7 @@
  * @property {string} abn
  * @property {string} url Canonical origin, no trailing slash.
  * @property {string} tagline
+ * @property {string} description Short site description (footer, metadata).
  * @property {{ display: string, href: string, international: string }} phone
  * @property {string} email
  * @property {{ number: string, href: string }} whatsapp
@@ -83,7 +84,7 @@
  * @property {{ value: number, suffix: string, label: string }[]} stats
  * @property {{ rating: number, count: number, text: string, source: string | null, verified: boolean }} reviewSummary
  * @property {{ text: string, cta: { label: string, href: string | null } }} topBar
- * @property {{ quoteLabel: string, title: string, subtitle: string, buttonLabel: string }} cta
+ * @property {{ quoteLabel: string, quoteHref: string, title: string, subtitle: string, buttonLabel: string }} cta
  * @property {{ quickQuote: { fields: string[], submitLabel: string }, specialDeal: { title: string, fields: string[], submitLabel: string } }} forms
  * @property {{ copyright: string }} footer
  */
