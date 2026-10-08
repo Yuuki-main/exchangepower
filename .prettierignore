@@ -6,3 +6,6 @@ node_modules/
 package-lock.json
 next-env.d.ts
 *.tsbuildinfo
+
+# Imported content: kept byte-for-byte (verified by npm run content:verify)
+src/content/**/*.md

@@ -291,7 +291,7 @@ src/
   - `site.js`: name, phone (display and `tel:` formats), email, address (with structured parts), WhatsApp, NETCC badge, brands list, stats, review summary, legal footer text.
   - `navigation.js`: the header menu with submenus, and the footer columns.
   - `home.js` and `about.js`: section-by-section copy from audit sections A4 and A5.
-  - `products.js`: one entry for each of the 14 product, service and hub pages, with `slug`, `category`, `title`, `summary`, `image`, `seo { title, description }`, `faqs[]` and `bodyFile`.
+  - `products.js`: one entry for each of the 15 product, service and hub pages (4 hubs and 11 detail pages; the earlier count of 14 was wrong), with `slug`, `category`, `title`, `summary`, `image`, `seo { title, description }`, `faqs[]` and `bodyFile`.
   - `pages/*.md` (long-form product copy), `posts/*.md` (8 posts with frontmatter) and `legal/*.md` (Terms and Privacy). All copied **verbatim** from the live site, keeping the internal links but rewriting them to relative paths.
   - JSDoc `@typedef`s (`Product`, `Post`, `Faq`, `SeoMeta`, `NavItem`) and `src/lib/content.js` accessors, which throw a clear error at build time on a missing or invalid entry.
   - `src/lib/markdown.js`: renders Markdown on the server at build time. It uses one small dependency (for example `marked`), which never reaches the client bundle.
@@ -303,6 +303,13 @@ src/
   - Spot-checking 3 pages against the live site shows identical copy.
   - Typecheck passes.
 - **Out of scope:** page layouts. Pages can stay unstyled in this step.
+- **Step 3 notes (done 2026-10-09):**
+  - Content was imported by script: `npm run content:download` (raw HTML into the git-ignored `.cache/source-html/`), then `npm run content:import`, then `npm run content:verify`. The verifier confirms 40/40 blocks match the live site word for word.
+  - Totals: 15 products (4 hubs and 11 details), 8 posts, 63 FAQs, 2 legal pages, 42 images (registered only, not downloaded).
+  - Markdown is read with synchronous `fs` in `src/lib/content.js`. With Cache Components this completes during prerender, so content pages are static. A test route proved it: concrete slugs built as ○ Static, and `[slug]` itself showed ◐ (the shell for unknown slugs).
+  - `outputFileTracingIncludes` adds `src/content/**/*.md` to server traces.
+  - `package.json` now has `"type": "module"`, so the shared `src/lib/content-schema.js` loads in Node scripts without warnings.
+  - Hub intro copy is hidden on the live site and duplicates detail pages, and the homepage review block is hidden. See `docs/CONTENT-NOTES.md` sections 3 and 6 before building hubs in Step 6.
 
 ### Step 4 — Layout shell
 
@@ -344,17 +351,17 @@ src/
 
 ### Step 6 — Core service and product pages
 
-- **Goal:** the 4 category hubs and 14 detail pages, built on shared templates.
-- **Read first:** `dynamic-routes.md` and `generate-static-params.md` (note `params` is async), `01-app/03-api-reference/03-file-conventions/route-segment-config` (`dynamicParams`), and the redirects config docs.
+- **Goal:** the 4 category hubs and 11 detail pages, built on shared templates.
+- **Read first:** `dynamic-routes.md` and `generate-static-params.md` (note `params` is async), the "With Cache Components" section of `dynamic-routes.md`, and the redirects config docs. **`dynamicParams` is not available with Cache Components**: unknown slugs must call `notFound()` from the page (the content accessors return `null` for unknown slugs).
 - **Deliverables:**
   - One `ProductPage` template: `PageHeader` with breadcrumbs, a key-facts panel (figures from the copy, such as kWh per day, panel count and best-fit property type), `Prose` body, `FaqList`, related products, and a `CtaBand`.
   - One `CategoryHub` template: intro and card grid.
-  - Routes `residential-solar/`, `commercial-solar/`, `solar-battery/` and `solar-packages/`, each with a `[slug]` route using `generateStaticParams` and no unknown slugs allowed (unknown slugs return 404).
+  - Routes `residential-solar/`, `commercial-solar/`, `solar-battery/` and `solar-packages/`, each with a `[slug]` route using `generateStaticParams`. Unknown slugs call `notFound()` and return 404.
   - Redirects in `next.config.mjs`: `/category/solar/` → `/blog/`, `/category/uncategorized/` → `/blog/`, `/residential-solar-system/` → `/residential-solar/`. All are permanent.
   - FAQ and breadcrumb JSON-LD on each detail page.
 - **Files:** `src/app/{residential-solar,commercial-solar,solar-battery,solar-packages}/**`, `src/components/sections/{PageHeader,Breadcrumbs,Prose,FaqList,KeyFacts,RelatedProducts}.js`, `next.config.mjs`.
 - **Acceptance criteria:**
-  - All 18 URLs (4 hubs and 14 detail pages) return 200 at the same paths as the live site.
+  - All 15 URLs (4 hubs and 11 detail pages) return 200 at the same paths as the live site.
   - Unknown slugs return 404.
   - Old archive URLs return 308 redirects.
   - The FAQ JSON-LD validates (Rich Results Test or Schema validator).

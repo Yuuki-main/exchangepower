@@ -11,12 +11,19 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit -p jsconfig.json",
-    "check:contrast": "node scripts/check-contrast.mjs"
+    "check:contrast": "node scripts/check-contrast.mjs",
+    "content:download": "node scripts/download-source.mjs",
+    "content:import": "node scripts/import-content.mjs",
+    "check:content": "node scripts/check-content.mjs",
+    "content:verify": "node scripts/verify-import.mjs",
+    "images:fetch": "node scripts/fetch-images.mjs"
   },
   "dependencies": {
+    "marked": "^18.1.0",
     "next": "16.4.0",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",
@@ -26,9 +33,12 @@
     "eslint": "^9",
     "eslint-config-next": "16.4.0",
     "eslint-config-prettier": "^10.1.8",
+    "node-html-parser": "^9.0.4",
     "prettier": "^3.9.9",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4",
+    "turndown": "^7.2.4",
     "typescript": "^6.0.3"
-  }
+  },
+  "type": "module"
 }
