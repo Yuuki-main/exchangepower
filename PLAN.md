@@ -331,6 +331,13 @@ src/
   - There is no Cumulative Layout Shift (CLS) from the header.
   - Lint, typecheck and build pass.
 - **Out of scope:** page bodies and forms (the "Free Quote" buttons can link to `/contact/` for now).
+- **Step 4 notes (built during Step 5, 2026-10-09):**
+  - Done: `SiteHeader` (sticky, fixed height), `DesktopNav` (client; disclosure dropdowns), `MobileNav` (side sheet on the shared `Dialog`), `SiteFooter`, `Wordmark`, `CopyrightYear` (`"use cache"` + `cacheLife("max")`), root layout (`lang="en-AU"`, skip link, metadata, viewport), `not-found.js`, and `src/lib/seo.js`.
+  - Changes from the plan:
+    - **No `TopBar`:** the "Claim now" target is undecided (Part C item 8).
+    - **No compact-on-scroll header:** it would need JavaScript, and a fixed height already avoids layout shift.
+    - **Wordmark instead of logo:** a typeset wordmark stands in until logo use is approved (Part C item 7).
+    - **Quote buttons:** they link to `/#get-a-quote` (`site.cta.quoteHref`) until Step 7.
 
 ### Step 5 — Homepage
 
@@ -348,6 +355,23 @@ src/
   - Lighthouse mobile Performance on a production build is 90 or above.
   - The page is prerendered (static) in the build output.
 - **Out of scope:** working form submission.
+- **Step 5 notes (done 2026-10-09):**
+  - The brief for this step replaced the section list above with a new narrative:
+    1. Hero (with an illustrative day-curve SVG and the rebate strip)
+    2. Credentials
+    3. Solution index
+    4. System size guide
+    5. Battery and rebates
+    6. Process timeline
+    7. Why Exchange Power
+    8. Reviews (hidden until real reviews exist)
+    9. FAQ and guides
+    10. Contact section (`#get-a-quote`)
+  - The new copy is in `src/content/home.js`, with sources noted. See CONTENT-NOTES section 9.
+  - No photography is used, because the live images are unsuitable. Image slots can be added once real WA installation photos exist.
+  - Motion is CSS only: a hero rise, scroll-driven `.reveal` where supported, and a chart line draw. All of it is off under reduced motion. Framer Motion is not used.
+  - Lighthouse mobile on the production build scored Performance 96, Accessibility 100, Best Practices 100 and SEO 100. axe reported 0 violations.
+  - Option for Step 9: `experimental.inlineCss` would remove the one render-blocking stylesheet. It's experimental, so it was skipped.
 
 ### Step 6 — Core service and product pages
 

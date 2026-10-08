@@ -158,15 +158,26 @@ check(() => {
 });
 check(() => {
   assertSeo(HOME.seo, "home");
-  for (const key of [
-    HOME.hero.image,
-    HOME.why.image,
-    ...HOME.services.tabs.map((t) => t.image),
-    ...HOME.brands.items,
-  ]) {
-    if (key && !(key in IMAGES))
-      throw new Error(`home: image key "${key}" not in images.js`);
+  // Homepage FAQs point to real product FAQs.
+  HOME.faq.items.forEach(({ product, index }, i) => {
+    if (!PRODUCTS.find((p) => p.slug === product)?.faqs[index]) {
+      throw new Error(
+        `home.faq.items[${i}] points to a missing FAQ (${product} #${index})`,
+      );
+    }
+  });
+  // System sizes point to real products.
+  for (const item of HOME.systems.groups.flatMap((g) => g.items)) {
+    if (!PRODUCTS.some((p) => p.slug === item.slug && p.kind === "detail")) {
+      throw new Error(`home.systems: unknown product "${item.slug}"`);
+    }
   }
+  // Reviews must be attributable if present.
+  HOME.reviews.items.forEach((r, i) => {
+    assertString(r.quote, `home.reviews.items[${i}].quote`);
+    assertString(r.name, `home.reviews.items[${i}].name`);
+    assertString(r.location, `home.reviews.items[${i}].location`);
+  });
 });
 check(() => assertSeo(ABOUT.seo, "about"));
 
@@ -213,20 +224,33 @@ for (const { file, body } of [...productBodies, ...posts, ...legal]) {
     errors.push(`${file}: contains leftover theme markup`);
 }
 for (const s of [
-  ...HOME.services.tabs.flatMap((t) => t.paragraphs),
   ...ABOUT.intro,
   ABOUT.why.intro,
   ...ABOUT.why.items.map((i) => i.text),
 ]) {
-  for (const [, , href] of s.matchAll(mdLink))
-    checkLink(href, "home/about copy");
+  for (const [, , href] of s.matchAll(mdLink)) checkLink(href, "about copy");
 }
-HOME.services.tabs.forEach((t) =>
-  checkLink(t.cta.href, `home.services "${t.label}"`),
-);
-HOME.packages.tabs.forEach((t) =>
-  t.items.forEach((href) => checkLink(href, `home.packages "${t.label}"`)),
-);
+// Every link on the homepage (in-page anchors are checked against section ids).
+const homeAnchors = new Set([HOME.systems.id, HOME.finalCta.id]);
+/** @param {unknown} node @param {string} where */
+function walkHomeLinks(node, where) {
+  if (Array.isArray(node))
+    return node.forEach((n, i) => walkHomeLinks(n, `${where}[${i}]`));
+  if (!node || typeof node !== "object") return;
+  for (const [key, value] of Object.entries(node)) {
+    if (key === "href" && typeof value === "string") {
+      if (value.startsWith("#")) {
+        if (!homeAnchors.has(value.slice(1)))
+          errors.push(`${where}: anchor "${value}" has no matching section id`);
+      } else if (value.startsWith("/#")) {
+        if (!homeAnchors.has(value.slice(2)))
+          errors.push(`${where}: anchor "${value}" has no matching section id`);
+      } else checkLink(value, where);
+    } else walkHomeLinks(value, `${where}.${key}`);
+  }
+}
+walkHomeLinks(HOME, "home");
+walkHomeLinks(SITE.cta, "site.cta");
 
 /** @param {import("../src/lib/content-schema.js").NavItem[]} items @param {string} where */
 function walkNav(items, where) {

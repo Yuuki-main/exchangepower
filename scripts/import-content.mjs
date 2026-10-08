@@ -683,9 +683,11 @@ write(
   "products.js",
   `${header_("Product, service and category hub pages.")}/** @type {import("../lib/content-schema.js").Product[]} */\nexport const PRODUCTS = ${JSON.stringify(products, null, 2)};\n`,
 );
+// The live homepage copy is archived for reference. The new homepage content
+// (src/content/home.js) is written by hand and never overwritten.
 write(
-  "home.js",
-  `${header_("Homepage copy, section by section (PLAN.md A4). Strings in `paragraphs` are inline Markdown.")}export const HOME = ${JSON.stringify(homeData, null, 2)};\n`,
+  "archive/home-live.js",
+  `${header_("ARCHIVE: the live homepage copy, imported verbatim (not used by the app).")}export const HOME_LIVE = ${JSON.stringify(homeData, null, 2)};\n`,
 );
 write(
   "about.js",

@@ -86,6 +86,23 @@ export function getHome() {
   return HOME;
 }
 
+/**
+ * The homepage FAQs, resolved to the verbatim FAQ entries on product pages.
+ * @returns {(Faq & { href: string })[]}
+ */
+export function getHomeFaqs() {
+  return HOME.faq.items.map(({ product, index }, i) => {
+    const source = PRODUCTS.find((p) => p.slug === product);
+    const faq = source?.faqs[index];
+    if (!source || !faq) {
+      throw new Error(
+        `Content error: home.faq.items[${i}] points to a missing FAQ (${product} #${index})`,
+      );
+    }
+    return { ...faq, href: productPath(source) };
+  });
+}
+
 export function getAbout() {
   assertSeo(ABOUT.seo, "about");
   return ABOUT;
@@ -206,6 +223,14 @@ let postsCache;
 export function getAllPosts() {
   postsCache ??= loadPosts().sort((a, b) => b.date.localeCompare(a.date));
   return postsCache;
+}
+
+/**
+ * @param {number} count
+ * @returns {Post[]} The newest posts.
+ */
+export function getLatestPosts(count) {
+  return getAllPosts().slice(0, count);
 }
 
 /**

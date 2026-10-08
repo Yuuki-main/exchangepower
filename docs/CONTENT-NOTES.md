@@ -96,3 +96,16 @@ Across the product pages, the SEO copy is also keyword-stuffed and has many smal
 - Terms: each clause was one paragraph with line breaks. Clause titles ("1. Agreement") are now `##` headings and each line is its own paragraph.
 - Privacy: line-broken groups (the "We might utilize the data…" uses and the rights) are now bullet lists. The first line "Exchange Power's Privacy Policy" is a `##` heading.
 - About: the "Why Choose Exchange Power?" sub-points are split into a title and text (`about.js` `why.items`).
+
+## 9. New homepage copy (Step 5): needs approval
+
+The redesigned homepage (`src/content/home.js`) uses **new short copy**. Every fact in it comes from the live site, and the source is noted next to each line in the file. Please review the wording:
+
+- **Hero:** "Solar and batteries, designed around how you use power." The lead combines the About page ("designs, installs and connects solar PV systems") with the "Rebates made easy" promise.
+- **Process (6 steps):** built from the Terms and Conditions: quote valid 14 days (4.3), site-specific design with full refund if not accepted (2.6), grid-connection paperwork (2.5), installation to CEC guidelines at an agreed time (3.2, 4.3), system manual at handover (6.1), and the 5-year whole-system and workmanship warranty (11.3, 11.4).
+- **System sizes:** figures are taken from each system's FAQs (for example 6.6kW: 24–28 kWh a day, 16–18 panels, 3–5 year payback; 30kW: 120–150 kWh a day). These are the business's own published claims and should be confirmed.
+- **Credentials:** "50,000+ solar panels sold" and "1,000+ satisfied customers" are the live stats (see 4.5, still unverified). "Trusted by over 5,000 Australians" and "15000kWh+ batteries sold" are not used, because they contradict the other figures.
+- **Not used:** the "up to 80%" bill-reduction claim (unverifiable), the "4.8 from 1,194 reviews" rating (hidden on the live site, no source), and all live photography. Most live images are AI-generated banners with baked-in text, and the two real photos are 703px stock images of European houses.
+- **Customer reviews:** the section is built but renders only when real, attributable reviews are added to `home.reviews.items`.
+- **Phone:** now shown as "08 6370 4963" (was "0863704963", see 4.4).
+- **Live homepage copy:** kept verbatim in `src/content/archive/home-live.js` for reference.
