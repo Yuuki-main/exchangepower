@@ -1,10 +1,11 @@
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { QuoteForm } from "@/components/forms/QuoteForm";
 import { ContactMethods } from "./ContactMethods";
 
 /**
- * The homepage's closing section (anchor #get-a-quote): a large statement,
- * then every way to reach the team.
+ * The homepage's closing section (anchor #get-a-quote): a large statement
+ * and every way to reach the team, beside the compact quote form.
  *
  * @param {object} props
  * @param {string} props.id Anchor id.
@@ -47,12 +48,20 @@ export function ContactCta({ id, eyebrow, title, lead, site }) {
           <p className="mt-6 max-w-xl text-lg text-foreground-inverse-muted">
             {lead}
           </p>
+          <ContactMethods site={site} className="mt-10" />
         </div>
 
-        <ContactMethods
-          site={site}
-          className="self-end lg:col-span-5 lg:col-start-8"
-        />
+        {/* Light panel so the form keeps its normal (AA) colours on the dark band. */}
+        <div className="min-w-0 self-start bg-background p-5 text-foreground [--ring:var(--color-brand-600)] sm:p-8 lg:col-span-5 lg:col-start-8">
+          <h3 className="mb-6 font-display text-2xl font-semibold tracking-tight text-brand-900">
+            {site.forms.quote.title}
+          </h3>
+          <QuoteForm
+            variant="compact"
+            enquiryTypes={site.forms.quote.enquiryTypes}
+            submitLabel={site.forms.quote.submitLabel}
+          />
+        </div>
       </Container>
     </section>
   );

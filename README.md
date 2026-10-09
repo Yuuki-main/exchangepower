@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Exchange Power website
 
-## Getting Started
+The Exchange Power website (Solar and battery systems, Wangara WA), rebuilt with Next.js 16, React 19 and Tailwind CSS 4. Pages are static, and the only server code is one Server Action that emails quote requests through [Resend](https://resend.com).
 
-First, run the development server:
+See `PLAN.md` for the build plan, `docs/CONVENTIONS.md` for code conventions and `docs/CONTENT-NOTES.md` for content awaiting approval. A full handoff guide follows in Step 10.
+
+## Run locally
 
 ```bash
+npm install
+cp .env.example .env.local   # optional: the form works without a key in development
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Checks: `npm run lint`, `npm run format:check`, `npm run typecheck`, `npm run check:content`, `npm run build`, then `npm run check:links`.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Email setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The quote forms (`/contact/` and the homepage) call the `sendEnquiry` Server Action (`src/app/actions/send-enquiry.js`). It validates the enquiry, checks the anti-spam measures and sends it with Resend (`src/lib/email/resend.js`). Each email has the customer's address as Reply-To, so replying answers them directly.
 
-## Learn More
+### 1. Create the Resend account
 
-To learn more about Next.js, take a look at the following resources:
+1. Sign up at [resend.com](https://resend.com) with the business's email address.
+2. Go to **API Keys → Create API key**. Choose **Sending access**, optionally restricted to the domain below. Copy the key (it starts with `re_`); it is shown only once.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. Verify the domain
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. In Resend, go to **Domains → Add domain** and enter `exchangepower.com.au`. A subdomain such as `mail.exchangepower.com.au` also works, and keeps the main domain's records untouched.
+2. Resend shows DNS records: an **MX** and **TXT (SPF)** record for the sending subdomain, and a **TXT (DKIM)** record. Add them exactly as shown at the domain's DNS provider. Adding a **DMARC** TXT record (`_dmarc`) is recommended.
+3. Click **Verify**. DNS changes can take from a few minutes to a few hours.
 
-## Deploy on Vercel
+### 3. Set the environment variables in Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+In Vercel: **Project → Settings → Environment Variables**. Add these for **Production** (and **Preview** if previews should send email), then redeploy:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Name                 | Example                                           | Notes                                       |
+| -------------------- | ------------------------------------------------- | ------------------------------------------- |
+| `RESEND_API_KEY`     | `re_…`                                            | Secret. Never prefix with `NEXT_PUBLIC_`.   |
+| `CONTACT_TO_EMAIL`   | `info@exchangepower.com.au`                       | Where enquiries go. Comma-separate several. |
+| `CONTACT_FROM_EMAIL` | `Exchange Power <enquiries@exchangepower.com.au>` | Must use the verified domain.               |
+
+For local testing, put the same values in `.env.local` (git-ignored).
+
+### Test sender limits
+
+Before the domain is verified you can set `CONTACT_FROM_EMAIL="Exchange Power <onboarding@resend.dev>"`. Resend's test sender **only delivers to the email address of the Resend account owner**, so `CONTACT_TO_EMAIL` must be that address while testing. Switch to the verified domain before launch.
+
+### How it behaves
+
+- **Development without a key:** nothing is sent. The full email (subject, to, reply-to, text) is printed in the `npm run dev` console, and the form shows success.
+- **Production with a missing variable:** the form asks the visitor to call or email instead, and the server logs which variable is missing. Visitors never see configuration details.
+- **Spam protection:**
+  - **Hidden honeypot field:** submissions that fill it get a fake success and nothing is sent.
+  - **Signed time-to-submit token:** submissions made too soon after the form loads are rejected. Without JavaScript, the first submission asks the visitor to press Send again.
+  - **Rate limit:** 5 submissions per IP per 10 minutes, kept in memory. On Vercel that limit applies per serverless instance, so it is best-effort. Add a shared store (for example Upstash Redis) or Vercel Firewall rules if spam becomes a problem.

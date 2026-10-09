@@ -93,7 +93,7 @@ export const SITE = {
       fields: ["Name", "Email", "Phone"],
       submitLabel: "Submit",
     },
-    // Contact page quote form (Step 8 markup; sending is wired up in Step 7).
+    // Quote form (contact page, and the compact version on the homepage).
     quote: {
       title: "Request a free quote",
       enquiryTypes: [
@@ -104,8 +104,6 @@ export const SITE = {
         "Other",
       ],
       submitLabel: "Send enquiry",
-      notSentNotice:
-        "Online sending is being switched on soon, so this form doesn't send yet. Please call or email us in the meantime.",
     },
     specialDeal: {
       title: "Get A Special Deal",

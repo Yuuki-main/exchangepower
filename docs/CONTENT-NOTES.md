@@ -148,3 +148,26 @@ The redesigned homepage (`src/content/home.js`) uses **new short copy**. Every f
 - **Opening hours** aren't on the live site, so the contact page doesn't show any. Please supply them.
 - **Contact link:** the header and footer menus have no "Contact" item. The quote buttons reach the contact page. Consider adding "Contact" to the footer's useful links.
 - **Last updated dates:** neither legal page has one at the source, so none is shown.
+
+## 12. Enquiry form and email (Step 7)
+
+**New copy that needs approval:**
+
+- **Success:** "Thanks, your enquiry has been sent. We'll be in touch soon." This deliberately avoids promising a response time. Add one if the business commits to one.
+- **Error, can't send:** "Sorry, we couldn't send your enquiry just now. Please call us on 08 6370 4963 or email info@exchangepower.com.au."
+- **Rate limited:** "You've sent several enquiries in a short time. Please try again in a few minutes, or call us on 08 6370 4963."
+- **Spam checks:**
+  - "To help us block spam, please press Send enquiry again." (without JavaScript, or after a long time on the page)
+  - "That was quick! Please wait a moment, then press Send enquiry again."
+- **Field errors:** "Please check the highlighted fields." and "Please fix N fields."
+- **Phone error** (now Australian numbers only): "Enter an Australian phone number, for example 08 6370 4963 or 0412 345 678."
+- **Consent line:** "By sending this form you agree to our Privacy Policy. We only use your details to reply to your enquiry." This should match the Privacy Policy, which is due for legal review (item 5.19).
+- **Pending button label:** "Sending…"
+- **Homepage form heading:** "Request a free quote" (`site.forms.quote.title`).
+- **Footer:** a new "Contact" link (not on the live site).
+
+**Enquiry email format:**
+
+- **Subject:** `New enquiry: <Enquiry type>: <First name> <Last name>`, for example "New enquiry: Battery: Jane Smith".
+- **Body:** name, email, phone (normalised, for example "+61 8 6370 4963"), enquiry type, address or suburb, message, the page it was sent from and the time received (Perth time).
+- **Reply-To:** the customer's address.

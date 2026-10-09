@@ -107,6 +107,8 @@ export const FOOTER_NAV = [
     title: "Usefull Links",
     links: [
       { label: "Why Exchange Power?", href: "/about-exchange-power/" },
+      // Added in Step 7 (not on the live site).
+      { label: "Contact", href: "/contact/" },
       { label: "Terms & Conditions", href: "/terms-and-conditions/" },
       { label: "Privacy Policy", href: "/privacy-policy/" },
       { label: "Blog", href: "/blog/" },

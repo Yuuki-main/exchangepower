@@ -47,6 +47,7 @@ This project runs Next.js 16.4, and its APIs differ from older versions. Before 
 - Add `'use client'` only when a component needs the browser: state, effects, event handlers, refs, or browser APIs. Examples are the mobile menu toggle, the dialog and form interactivity.
 - Keep client components **small and at the leaves**. Pass server-rendered content in as `children` instead of making a whole section a client component.
 - Never import server-only code (secrets, `fs`, the email client) into a client component. Start server-only modules with `import 'server-only'`.
+- The only server code is the `sendEnquiry` Server Action in `src/app/actions/`. Client components may import it, because Next.js replaces it with a reference.
 - Environment variables with secrets must **not** use the `NEXT_PUBLIC_` prefix. `.env.example` lists every variable name, and real values go in `.env.local` (git-ignored) or the host's settings.
 
 ## Styling

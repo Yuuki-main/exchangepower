@@ -1,190 +1,263 @@
 "use client";
 
-import { useRef, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useActionState, useEffect, useRef, useState } from "react";
+import { sendEnquiry } from "@/app/actions/send-enquiry";
 import { Button } from "@/components/ui/Button";
 import { Field } from "@/components/ui/Field";
 import { AlertCircleIcon, CheckIcon } from "@/components/ui/Icon";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Textarea } from "@/components/ui/Textarea";
+import { cn } from "@/lib/cn";
+import { LIMITS, VARIANT_FIELDS, validateEnquiry } from "@/lib/validation";
 
-/** Field names, labels and the message shown for each kind of invalid value. */
-const FIELDS = /** @type {const} */ ({
-  firstName: { label: "First name", missing: "Enter your first name." },
-  lastName: { label: "Last name", missing: "Enter your last name." },
-  email: {
-    label: "Email",
-    missing: "Enter your email address.",
-    invalid: "Enter an email address like name@example.com.",
-  },
-  phone: {
-    label: "Phone",
-    missing: "Enter your phone number.",
-    invalid:
-      "Enter a phone number with 8 to 20 digits, for example 08 6370 4963.",
-  },
-  address: { label: "Address or suburb" },
-  enquiryType: {
-    label: "What is your enquiry about?",
-    missing: "Choose what your enquiry is about.",
-  },
-  message: {
-    label: "Message",
-    invalid: "Keep your message under 2,000 characters.",
-  },
+/** @typedef {import("@/app/actions/send-enquiry.js").EnquiryState} EnquiryState */
+/** @typedef {import("@/lib/validation.js").EnquiryField} EnquiryField */
+
+const LABELS = /** @type {const} */ ({
+  firstName: "First name",
+  lastName: "Last name",
+  email: "Email",
+  phone: "Phone",
+  address: "Address or suburb",
+  enquiryType: "What is your enquiry about?",
+  message: "Message",
 });
 
-/** @typedef {keyof typeof FIELDS} FieldName */
+/** @type {EnquiryState} */
+const INITIAL_STATE = {
+  ok: false,
+  status: "idle",
+  message: "",
+  fieldErrors: {},
+  values: {},
+  token: "",
+};
 
 /**
- * Returns the error message for one control, or "" if it is valid.
- * Uses the browser's native constraint validation (required, type, pattern).
- * @param {HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement} el
- */
-function messageFor(el) {
-  const f = /** @type {{ missing?: string, invalid?: string }} */ (
-    FIELDS[/** @type {FieldName} */ (el.name)]
-  );
-  if (!f || el.validity.valid) return "";
-  if (el.validity.valueMissing) return f.missing ?? "This field is required.";
-  return f.invalid ?? "Check this field.";
-}
-
-/**
- * Quote request form. Markup and client-side validation only: sending is
- * added in Step 7 (Resend). Native constraints do the checking; errors are
- * shown in a summary and next to each field (linked with aria-describedby).
+ * Quote request form, sent through the sendEnquiry Server Action (Resend).
+ *
+ * - The same rules run in the browser (instant feedback) and on the server
+ *   (src/lib/validation.js).
+ * - Works without JavaScript: the form posts to the action and the page
+ *   re-renders with the result.
+ * - Results are announced in a live region that receives focus.
  *
  * @param {object} props
- * @param {string[]} props.enquiryTypes
+ * @param {"full" | "compact"} [props.variant="full"] `compact` (homepage) asks
+ *   only for name, email, phone and enquiry type.
+ * @param {readonly string[]} props.enquiryTypes
  * @param {string} props.submitLabel
- * @param {string} props.notSentNotice Shown until sending is enabled.
- * @param {{ display: string, href: string }} props.phone
- * @param {string} props.email
+ * @param {string} [props.className]
  */
 export function QuoteForm({
+  variant = "full",
   enquiryTypes,
   submitLabel,
-  notSentNotice,
-  phone,
-  email,
+  className,
 }) {
-  const formRef = useRef(/** @type {HTMLFormElement | null} */ (null));
-  const summaryRef = useRef(/** @type {HTMLDivElement | null} */ (null));
-  const [errors, setErrors] = useState(
-    /** @type {Partial<Record<FieldName, string>>} */ ({}),
+  const [state, formAction, pending] = useActionState(
+    sendEnquiry,
+    INITIAL_STATE,
   );
-  const [attempted, setAttempted] = useState(false);
-  const [status, setStatus] = useState("");
+  const [clientErrors, setClientErrors] = useState(
+    /** @type {Partial<Record<EnquiryField, string>> | null} */ (null),
+  );
+  const [token, setToken] = useState("");
+  const statusRef = useRef(/** @type {HTMLDivElement | null} */ (null));
+  const pathname = usePathname();
+  const compact = variant === "compact";
+  const id = (/** @type {string} */ name) =>
+    `${compact ? "home-quote" : "quote"}-${name}`;
+  const fields = new Set(
+    /** @type {readonly string[]} */ (VARIANT_FIELDS[variant]),
+  );
 
-  /** Validates every field and returns the errors. */
-  function validateAll() {
-    /** @type {Partial<Record<FieldName, string>>} */
-    const next = {};
-    for (const el of /** @type {HTMLFormElement} */ (formRef.current)
-      .elements) {
-      const control = /** @type {HTMLInputElement} */ (el);
-      if (!(control.name in FIELDS)) continue;
-      const message = messageFor(control);
-      if (message) next[/** @type {FieldName} */ (control.name)] = message;
+  // Ask the server for a signed time-to-submit token once the form is on screen.
+  useEffect(() => {
+    const data = new FormData();
+    data.set("intent", "token");
+    sendEnquiry(undefined, data).then((s) => {
+      if (s.token) setToken(s.token);
+    });
+  }, []);
+
+  // Move focus to the result so it is announced and visible.
+  useEffect(() => {
+    if (["success", "invalid", "confirm", "error"].includes(state.status)) {
+      statusRef.current?.focus();
     }
-    return next;
-  }
+  }, [state]);
 
-  /** @param {React.FormEvent<HTMLFormElement>} event */
+  const errors =
+    clientErrors ?? (state.status === "invalid" ? state.fieldErrors : {});
+  const values = state.ok ? {} : state.values;
+  const errorList = /** @type {[EnquiryField, string][]} */ (
+    Object.entries(errors).filter(([, message]) => message)
+  );
+  const showResult =
+    !clientErrors && ["success", "confirm", "error"].includes(state.status);
+
+  /** @param {HTMLFormElement} form */
+  const check = (form) =>
+    validateEnquiry(
+      /** @type {Record<string, string>} */ (
+        Object.fromEntries(new FormData(form))
+      ),
+      {
+        variant,
+      },
+    ).fieldErrors;
+
+  /**
+   * Check in the browser first (the server checks again). If anything is
+   * wrong, stop the submission and show the errors.
+   * @param {React.FormEvent<HTMLFormElement>} event
+   */
   function handleSubmit(event) {
-    event.preventDefault();
-    setAttempted(true);
-    const next = validateAll();
-    setErrors(next);
-    if (Object.keys(next).length) {
-      setStatus("");
-      // Move focus to the summary so screen readers announce it.
-      requestAnimationFrame(() => summaryRef.current?.focus());
-      return;
+    const fieldErrors = check(event.currentTarget);
+    if (Object.keys(fieldErrors).length) {
+      event.preventDefault();
+      setClientErrors(fieldErrors);
+      requestAnimationFrame(() => statusRef.current?.focus());
+    } else {
+      setClientErrors(null);
     }
-    // TODO(step-7): send the enquiry to the server action that forwards it to
-    // Resend (PLAN.md Step 7), show a pending state, then success or failure.
-    setStatus(notSentNotice);
   }
 
   /**
-   * Re-check a field when it loses focus, once the user has tried to submit.
+   * Once errors are showing, re-check a field when it loses focus.
    * (Blur events from the fields bubble up to the form.)
    * @param {React.FocusEvent<HTMLFormElement>} event
    */
   function handleBlur(event) {
-    if (!attempted) return;
+    if (!clientErrors) return;
     const control = /** @type {HTMLInputElement} */ (
       /** @type {unknown} */ (event.target)
     );
-    if (!(control.name in FIELDS)) return;
-    setErrors((prev) => ({
+    if (!fields.has(control.name)) return;
+    const fieldErrors = check(event.currentTarget);
+    setClientErrors((prev) => ({
       ...prev,
-      [control.name]: messageFor(control) || undefined,
+      [control.name]: fieldErrors[/** @type {EnquiryField} */ (control.name)],
     }));
   }
 
-  const errorList = /** @type {[FieldName, string][]} */ (
-    Object.entries(errors).filter(([, m]) => m)
-  );
-
   return (
     <form
-      ref={formRef}
+      action={formAction}
       noValidate
       onSubmit={handleSubmit}
       onBlur={handleBlur}
-      aria-describedby="quote-form-note"
-      className="grid gap-6 sm:grid-cols-2"
+      aria-busy={pending}
+      className={cn("relative grid gap-6 sm:grid-cols-2", className)}
     >
-      {errorList.length ? (
-        <div
-          ref={summaryRef}
+      <input type="hidden" name="variant" value={variant} />
+      <input type="hidden" name="source" value={pathname} />
+      <input type="hidden" name="token" value={state.token || token} />
+
+      {/* Honeypot: hidden from people and assistive tech; bots fill it in. */}
+      <div
+        aria-hidden="true"
+        className="absolute left-[-10000px] h-px w-px overflow-hidden"
+      >
+        <label htmlFor={id("website")}>Leave this field empty</label>
+        <input
+          id={id("website")}
+          type="text"
+          name="website"
           tabIndex={-1}
-          role="alert"
-          className="border-l-4 border-error-600 bg-error-50 p-4 text-error-700 sm:col-span-2"
-        >
-          <p className="flex items-center gap-2 font-semibold">
-            <AlertCircleIcon size={18} />
-            {errorList.length === 1
-              ? "Please fix 1 field."
-              : `Please fix ${errorList.length} fields.`}
+          autoComplete="off"
+        />
+      </div>
+
+      {/* Live region: the error summary or the result. Focused after each submit. */}
+      <div
+        ref={statusRef}
+        tabIndex={-1}
+        aria-live="polite"
+        className="outline-none empty:hidden sm:col-span-2"
+      >
+        {errorList.length ? (
+          <div
+            role="alert"
+            className="border-l-4 border-error-600 bg-error-50 p-4 text-error-700"
+          >
+            <p className="flex items-center gap-2 font-semibold">
+              <AlertCircleIcon size={18} />
+              {errorList.length === 1
+                ? "Please fix 1 field."
+                : `Please fix ${errorList.length} fields.`}
+            </p>
+            <ul className="mt-2 list-disc space-y-1 pl-6 text-sm">
+              {errorList.map(([name, message]) => (
+                <li key={name}>
+                  <a
+                    href={`#${id(name)}`}
+                    className="underline underline-offset-2"
+                  >
+                    {message}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : showResult ? (
+          <p
+            className={cn(
+              "flex items-start gap-2 border-l-4 p-4",
+              state.ok
+                ? "border-success-600 bg-success-50 text-success-700"
+                : "border-warning-600 bg-warning-50 text-warning-700",
+            )}
+          >
+            {state.ok ? (
+              <CheckIcon size={18} className="mt-0.5 shrink-0" />
+            ) : (
+              <AlertCircleIcon size={18} className="mt-0.5 shrink-0" />
+            )}
+            <span>{state.message}</span>
           </p>
-          <ul className="mt-2 list-disc space-y-1 pl-6 text-sm">
-            {errorList.map(([name, message]) => (
-              <li key={name}>
-                <a
-                  href={`#quote-${name}`}
-                  className="underline underline-offset-2"
-                >
-                  {message}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
+        ) : null}
+      </div>
 
       <Field
-        id="quote-firstName"
-        label={FIELDS.firstName.label}
+        id={id("firstName")}
+        label={LABELS.firstName}
         error={errors.firstName}
         required
       >
-        {(c) => <Input name="firstName" autoComplete="given-name" {...c} />}
+        {(c) => (
+          <Input
+            name="firstName"
+            autoComplete="given-name"
+            maxLength={LIMITS.firstName}
+            defaultValue={values.firstName}
+            {...c}
+          />
+        )}
       </Field>
       <Field
-        id="quote-lastName"
-        label={FIELDS.lastName.label}
+        id={id("lastName")}
+        label={LABELS.lastName}
         error={errors.lastName}
         required
       >
-        {(c) => <Input name="lastName" autoComplete="family-name" {...c} />}
+        {(c) => (
+          <Input
+            name="lastName"
+            autoComplete="family-name"
+            maxLength={LIMITS.lastName}
+            defaultValue={values.lastName}
+            {...c}
+          />
+        )}
       </Field>
       <Field
-        id="quote-email"
-        label={FIELDS.email.label}
+        id={id("email")}
+        label={LABELS.email}
         error={errors.email}
         required
       >
@@ -195,13 +268,15 @@ export function QuoteForm({
             inputMode="email"
             autoComplete="email"
             spellCheck={false}
+            maxLength={LIMITS.email}
+            defaultValue={values.email}
             {...c}
           />
         )}
       </Field>
       <Field
-        id="quote-phone"
-        label={FIELDS.phone.label}
+        id={id("phone")}
+        label={LABELS.phone}
         error={errors.phone}
         required
       >
@@ -211,28 +286,46 @@ export function QuoteForm({
             type="tel"
             inputMode="tel"
             autoComplete="tel"
-            pattern={"^\\+?[0-9 \\(\\)\\-]{8,20}$"}
+            maxLength={LIMITS.phone}
+            defaultValue={values.phone}
             {...c}
           />
         )}
       </Field>
+      {fields.has("address") ? (
+        <Field
+          id={id("address")}
+          label={LABELS.address}
+          hint="Optional. Your suburb is enough for a first quote."
+          error={errors.address}
+          className="sm:col-span-2"
+        >
+          {(c) => (
+            <Input
+              name="address"
+              autoComplete="street-address"
+              maxLength={LIMITS.address}
+              defaultValue={values.address}
+              {...c}
+            />
+          )}
+        </Field>
+      ) : null}
       <Field
-        id="quote-address"
-        label={FIELDS.address.label}
-        hint="Optional. Your suburb is enough for a first quote."
-        className="sm:col-span-2"
-      >
-        {(c) => <Input name="address" autoComplete="street-address" {...c} />}
-      </Field>
-      <Field
-        id="quote-enquiryType"
-        label={FIELDS.enquiryType.label}
+        id={id("enquiryType")}
+        label={LABELS.enquiryType}
         error={errors.enquiryType}
         required
         className="sm:col-span-2"
       >
         {(c) => (
-          <Select name="enquiryType" defaultValue="" {...c}>
+          // Keyed by the echoed value so a server re-render restores the choice.
+          <Select
+            key={values.enquiryType ?? ""}
+            name="enquiryType"
+            defaultValue={values.enquiryType ?? ""}
+            {...c}
+          >
             <option value="" disabled>
               Choose one
             </option>
@@ -244,44 +337,45 @@ export function QuoteForm({
           </Select>
         )}
       </Field>
-      <Field
-        id="quote-message"
-        label={FIELDS.message.label}
-        hint="Optional. Tell us about your property, roof or power bills."
-        error={errors.message}
-        className="sm:col-span-2"
-      >
-        {(c) => <Textarea name="message" rows={5} maxLength={2000} {...c} />}
-      </Field>
+      {fields.has("message") ? (
+        <Field
+          id={id("message")}
+          label={LABELS.message}
+          hint="Optional. Tell us about your property, roof or power bills."
+          error={errors.message}
+          className="sm:col-span-2"
+        >
+          {(c) => (
+            <Textarea
+              name="message"
+              rows={5}
+              maxLength={LIMITS.message}
+              defaultValue={values.message}
+              {...c}
+            />
+          )}
+        </Field>
+      ) : null}
 
       <div className="flex flex-col gap-4 sm:col-span-2">
-        <Button type="submit" size="lg" className="self-start">
-          {submitLabel}
+        <p className="text-sm text-foreground-muted">
+          By sending this form you agree to our{" "}
+          <Link
+            href="/privacy-policy/"
+            className="font-semibold text-brand-700 underline underline-offset-2"
+          >
+            Privacy Policy
+          </Link>
+          . We only use your details to reply to your enquiry.
+        </p>
+        <Button
+          type="submit"
+          size="lg"
+          disabled={pending}
+          className="self-start"
+        >
+          {pending ? "Sending…" : submitLabel}
         </Button>
-        <p id="quote-form-note" className="text-sm text-foreground-muted">
-          {notSentNotice}{" "}
-          <a
-            href={phone.href}
-            className="font-semibold text-brand-700 underline underline-offset-2"
-          >
-            {phone.display}
-          </a>{" "}
-          ·{" "}
-          <a
-            href={`mailto:${email}`}
-            className="font-semibold text-brand-700 underline underline-offset-2"
-          >
-            {email}
-          </a>
-        </p>
-        <p role="status" className="empty:hidden">
-          {status ? (
-            <span className="flex items-start gap-2 border-l-4 border-brand-600 bg-brand-50 p-4 text-brand-800">
-              <CheckIcon size={18} className="mt-0.5" />
-              Your details look good. {status}
-            </span>
-          ) : null}
-        </p>
       </div>
     </form>
   );

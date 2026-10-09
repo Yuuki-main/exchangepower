@@ -40,9 +40,6 @@ export function ContactPage({ site }) {
             <QuoteForm
               enquiryTypes={form.enquiryTypes}
               submitLabel={form.submitLabel}
-              notSentNotice={form.notSentNotice}
-              phone={site.phone}
-              email={site.email}
             />
           </div>
           <aside

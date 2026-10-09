@@ -460,6 +460,13 @@ A static export also gives up other things this site needs:
   - The form works with JavaScript disabled (Option A).
   - Errors are announced to assistive technology.
 - **Out of scope:** CRM integration and auto-responders, unless requested.
+- **Step 7 notes (done 2026-10-09, after Step 8; Option A on Vercel):**
+  - **QuoteDialog dropped:** every "Get a free quote" button links to `/contact/`. That's less client JavaScript and one form instead of two flows. The homepage `#get-a-quote` section has a compact form (`<QuoteForm variant="compact">`).
+  - **Server code:** `src/app/actions/send-enquiry.js` is the only server code. It runs, in order: rate limit (5 per IP per 10 minutes, in memory, per instance), honeypot, shared validation (`src/lib/validation.js`), signed time-to-submit token (`src/lib/form-token.js`, at least 3 seconds), then Resend (`src/lib/email/resend.js`, server-only, the only place env vars are read).
+  - **Tokens:** pages are static, so the form asks the same action for a token when it loads (`intent=token`). Tokens are HMAC-signed with a key derived from `RESEND_API_KEY`. Without JavaScript the first submission gets a token and asks the visitor to press Send again.
+  - **Behaviour without configuration:** development without a key logs the email instead of sending. Production with missing config returns a generic "please call or email us" message and logs the missing variable.
+  - **Email:** `src/lib/email/templates.js` builds plain-text and HTML versions with inline styles. All user input is escaped, and line breaks are stripped from the subject.
+  - **Footer:** "Contact" added to the footer's useful links.
 
 ### Step 8 — Remaining pages
 
