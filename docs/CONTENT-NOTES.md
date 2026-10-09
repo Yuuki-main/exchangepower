@@ -118,3 +118,33 @@ The redesigned homepage (`src/content/home.js`) uses **new short copy**. Every f
 - **Not used:** the 30kW FAQ says "130 to 180 metres of roof area". It almost certainly means square metres, but showing it as m² would change the source, so it's left out until confirmed.
 - **Hub intros** still show the duplicated live copy (3.1–3.2). Set `hubIntroOverride` (Markdown) on a hub in `products.js` to replace it.
 - **Images:** every image in `images.js` is `approved: false`, so no image slots render. To show one, download it (`npm run images:fetch`) and set `approved: true`.
+
+## 11. Remaining pages (Step 8)
+
+**Fixed:**
+
+- **5.4 Vision and Mission:** the two texts now sit under the correct labels on the About page (`about.js`). The wording is unchanged, so "The mission make households…" is still uncorrected (see 5.4).
+- **Quote buttons:** every "Get a free quote" button now goes to `/contact/` (`site.cta.quoteHref`). The homepage `#get-a-quote` section is unchanged.
+
+**New copy that needs approval:**
+
+- Contact page: title "Talk to Exchange Power" and lead "Tell us about your property and how you use power. We'll recommend a system size, explain the rebates you may be eligible for and put it in a written quote."
+- Contact page SEO: title "Contact Exchange Power | Free Solar & Battery Quote in WA" and its meta description.
+- Quote form (`site.forms.quote`):
+  - labels, hints and error messages
+  - the enquiry types (Residential solar, Commercial solar, Battery, Rebates, Other)
+  - the temporary notice: "Online sending is being switched on soon, so this form doesn't send yet. Please call or email us in the meantime." Remove it in Step 7.
+- About page: the section heading "Solar and battery systems, from first consultation to activation." Its wording comes from the About intro.
+- Blog index: the lead "Guides to solar system sizes, batteries and rebates in Western Australia."
+- Small UI labels: "Read the guide", "More guides", "Contents", "Get directions", and reading times (worked out at about 200 words a minute).
+
+**Still shown, from the live site:**
+
+- About subtitle: "Trusted by Thousands. Recognised by Industry Leaders." This is the live page's verbatim H4 and can't be verified. Remove it, or support it with a source.
+- About stats: the same two figures as the homepage (50,000+ panels sold, 1,000+ satisfied customers). See 4.5.
+
+**Missing:**
+
+- **Opening hours** aren't on the live site, so the contact page doesn't show any. Please supply them.
+- **Contact link:** the header and footer menus have no "Contact" item. The quote buttons reach the contact page. Consider adding "Contact" to the footer's useful links.
+- **Last updated dates:** neither legal page has one at the source, so none is shown.

@@ -181,12 +181,20 @@
   /* Long-form Markdown content (components/sections/Prose.js). */
   .prose-content {
     max-width: 42rem;
+    /* Long URLs and emails may break, and the block may shrink inside grids,
+       so nothing in the copy can push the page wider than the screen. */
+    min-width: 0;
+    overflow-wrap: anywhere;
     font-size: var(--text-lg);
     line-height: 1.75;
     color: var(--color-neutral-800);
 
     & > * + * {
       margin-top: 1.25em;
+    }
+    & :is(h2, h3)[id] {
+      /* Keep anchored headings clear of the sticky header. */
+      scroll-margin-top: 6rem;
     }
     & h2 {
       margin-top: 2.25em;

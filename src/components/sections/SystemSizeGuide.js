@@ -72,7 +72,11 @@ export function SystemSizeGuide({ id, eyebrow, title, lead, groups, cta }) {
                 )}
               >
                 {group.items.map((system) => (
-                  <li key={system.kw} className="bg-surface">
+                  <li
+                    key={system.kw}
+                    // An odd last item spans both columns at sm, so no empty cell shows.
+                    className="bg-surface sm:last:odd:col-span-2 lg:last:odd:col-span-1"
+                  >
                     {/* Phones: compact two-column row. sm and up: a column. */}
                     <Link
                       href={system.href}

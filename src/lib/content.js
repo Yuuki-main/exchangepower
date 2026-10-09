@@ -248,7 +248,14 @@ function loadPosts() {
       );
       assertPostFrontmatter(data, `posts/${file}`);
       assertImageKey(data.image, `posts/${file} image`);
-      return { slug: file.replace(/\.md$/, ""), ...data, body };
+      const words = body.split(/\s+/).filter(Boolean).length;
+      return {
+        slug: file.replace(/\.md$/, ""),
+        ...data,
+        body,
+        // About 200 words a minute, rounded up.
+        readingMinutes: Math.max(1, Math.ceil(words / 200)),
+      };
     });
 }
 
@@ -275,6 +282,19 @@ export function getLatestPosts(count) {
  */
 export function getPost(slug) {
   return getAllPosts().find((p) => p.slug === slug) ?? null;
+}
+
+/**
+ * Other posts to read next: same category first, newest first.
+ * @param {Post} post
+ * @param {number} [limit=3]
+ * @returns {Post[]}
+ */
+export function getRelatedPosts(post, limit = 3) {
+  const others = getAllPosts().filter((p) => p.slug !== post.slug);
+  const same = others.filter((p) => p.category === post.category);
+  const rest = others.filter((p) => p.category !== post.category);
+  return [...same, ...rest].slice(0, limit);
 }
 
 /** @param {Post} post */

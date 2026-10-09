@@ -478,6 +478,20 @@ A static export also gives up other things this site needs:
   - The root `[slug]` route doesn't catch other routes; static routes take precedence and unknown slugs return 404.
   - Legal text matches the live site word-for-word, unless replaced by text the business supplies.
 - **Out of scope:** new blog posts or a CMS.
+- **Step 8 notes (done 2026-10-09, before Step 7):**
+  - Pages: About, Blog index, blog posts (root `[slug]`), Contact, Privacy and Terms. Each has a template in `src/components/templates/`, with thin route files. Data helpers are in `src/lib/post-pages.js`.
+  - Root `[slug]` uses the same `ensureStatic = "navigation"` and `instant = false` as Step 6, so made-up root URLs return a real 404 on production builds. Static folders always win over it.
+  - New pieces:
+    - `ui/Select`
+    - `forms/QuoteForm`: client component; native validation, an error summary and per-field errors, and `TODO(step-7)` where sending goes
+    - sections: `PostCardGrid`, `TableOfContents`, `ContactMethods` (shared with the homepage `ContactCta`)
+    - `renderMarkdownWithHeadings()`: Terms clause anchors such as `#clause-8-payment`
+    - `getRelatedPosts()`, post `readingMinutes`, and `articleJsonLd()`
+  - `site.cta.quoteHref` is now `/contact/`.
+  - New `npm run check:links` (after a build): every internal link and `#anchor` in the built HTML must resolve.
+  - Fixes found during QA:
+    - Long URLs in the Terms overflowed at 360px. Prose now uses `overflow-wrap: anywhere` and `min-width: 0`.
+    - Card grids drew grey empty cells for incomplete rows. They now use per-cell borders.
 
 ### Step 9 — Performance, SEO and accessibility
 

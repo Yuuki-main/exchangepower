@@ -27,8 +27,9 @@ export function ProductCardGrid({
   return (
     <ul
       className={cn(
-        // 1px gaps over a border-coloured background draw the dividers.
-        "grid gap-px border border-border bg-border sm:grid-cols-2",
+        // Each tile draws its right and bottom edge, so an incomplete last row
+        // leaves empty space rather than a grey block.
+        "grid border-t border-l border-border sm:grid-cols-2",
         products.length > 2 && "lg:grid-cols-3",
         className,
       )}
@@ -43,7 +44,10 @@ export function ProductCardGrid({
               )
           : product.highlights.slice(0, 2);
         return (
-          <li key={product.href} className={tileBg}>
+          <li
+            key={product.href}
+            className={cn("border-r border-b border-border", tileBg)}
+          >
             <Link
               href={product.href}
               className="group flex h-full flex-col hover:bg-surface-muted"

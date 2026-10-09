@@ -53,7 +53,7 @@
  */
 
 /**
- * @typedef {PostFrontmatter & { slug: string, body: string }} Post
+ * @typedef {PostFrontmatter & { slug: string, body: string, readingMinutes: number }} Post
  */
 
 /**
@@ -90,7 +90,7 @@
  * @property {{ rating: number, count: number, text: string, source: string | null, verified: boolean }} reviewSummary
  * @property {{ text: string, cta: { label: string, href: string | null } }} topBar
  * @property {{ quoteLabel: string, quoteHref: string, title: string, subtitle: string, buttonLabel: string }} cta
- * @property {{ quickQuote: { fields: string[], submitLabel: string }, specialDeal: { title: string, fields: string[], submitLabel: string } }} forms
+ * @property {{ quickQuote: { fields: string[], submitLabel: string }, quote: { title: string, enquiryTypes: string[], submitLabel: string, notSentNotice: string }, specialDeal: { title: string, fields: string[], submitLabel: string } }} forms
  * @property {{ copyright: string }} footer
  */
 
@@ -117,6 +117,7 @@ export const STATIC_ROUTES = [
   "/",
   "/about-exchange-power/",
   "/blog/",
+  "/contact/",
   "/privacy-policy/",
   "/terms-and-conditions/",
 ];

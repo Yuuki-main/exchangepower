@@ -10,9 +10,9 @@ import { SectionIntro } from "@/components/ui/SectionIntro";
  * @param {string} props.title
  * @param {string} props.lead
  * @param {{ title: string, text: string }[]} props.items
- * @param {string} props.brandsLabel
- * @param {string[]} props.brands
- * @param {string} props.address
+ * @param {string} [props.brandsLabel]
+ * @param {string[]} [props.brands] Omit to hide the brands line.
+ * @param {string} [props.address]
  */
 export function WhyChoose({
   eyebrow,
@@ -33,7 +33,11 @@ export function WhyChoose({
             title={title}
             lead={lead}
           />
-          <p className="mt-6 text-sm font-semibold text-brand-700">{address}</p>
+          {address ? (
+            <p className="mt-6 text-sm font-semibold text-brand-700">
+              {address}
+            </p>
+          ) : null}
         </div>
         <ul className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:col-span-7">
           {items.map((item) => (
@@ -50,16 +54,18 @@ export function WhyChoose({
         </ul>
       </div>
 
-      <div className="mt-16 border-t border-border pt-8 lg:mt-20">
-        <h3 className="text-xs font-semibold tracking-[0.14em] text-accent-700 uppercase">
-          {brandsLabel}
-        </h3>
-        <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 font-display text-lg font-semibold text-brand-900/80 sm:text-xl lg:gap-x-10">
-          {brands.map((brand) => (
-            <li key={brand}>{brand}</li>
-          ))}
-        </ul>
-      </div>
+      {brands?.length ? (
+        <div className="mt-16 border-t border-border pt-8 lg:mt-20">
+          <h3 className="text-xs font-semibold tracking-[0.14em] text-accent-700 uppercase">
+            {brandsLabel}
+          </h3>
+          <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 font-display text-lg font-semibold text-brand-900/80 sm:text-xl lg:gap-x-10">
+            {brands.map((brand) => (
+              <li key={brand}>{brand}</li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
     </Section>
   );
 }

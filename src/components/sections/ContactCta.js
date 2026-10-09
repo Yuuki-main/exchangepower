@@ -1,17 +1,10 @@
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import {
-  ArrowRightIcon,
-  ChatIcon,
-  MailIcon,
-  MapPinIcon,
-  PhoneIcon,
-} from "@/components/ui/Icon";
+import { ContactMethods } from "./ContactMethods";
 
 /**
- * The closing section and the target of every "Get a free quote" button
- * until the quote form exists (PLAN Step 7). Large statement, then every
- * way to reach the team as big, easy-to-tap rows.
+ * The homepage's closing section (anchor #get-a-quote): a large statement,
+ * then every way to reach the team.
  *
  * @param {object} props
  * @param {string} props.id Anchor id.
@@ -21,35 +14,6 @@ import {
  * @param {import("@/lib/content-schema.js").SiteInfo} props.site
  */
 export function ContactCta({ id, eyebrow, title, lead, site }) {
-  const methods = [
-    {
-      icon: PhoneIcon,
-      label: "Call",
-      value: site.phone.display,
-      href: site.phone.href,
-    },
-    {
-      icon: MailIcon,
-      label: "Email",
-      value: site.email,
-      href: `mailto:${site.email}`,
-    },
-    {
-      icon: ChatIcon,
-      label: "WhatsApp",
-      value: "Message us",
-      href: site.whatsapp.href,
-      external: true,
-    },
-    {
-      icon: MapPinIcon,
-      label: "Visit",
-      value: site.address.display,
-      href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${site.name}, ${site.address.display}`)}`,
-      external: true,
-    },
-  ];
-
   return (
     <section
       id={id}
@@ -85,30 +49,10 @@ export function ContactCta({ id, eyebrow, title, lead, site }) {
           </p>
         </div>
 
-        <ul className="divide-y divide-white/15 self-end border-y border-white/15 lg:col-span-5 lg:col-start-8">
-          {methods.map(({ icon: Icon, label, value, href, external }) => (
-            <li key={label}>
-              <a
-                href={href}
-                {...(external
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : {})}
-                className="group grid grid-cols-[2rem_1fr_auto] items-center gap-x-4 py-5"
-              >
-                <Icon size={22} className="text-accent-400" />
-                <span className="min-w-0">
-                  <span className="block text-sm text-foreground-inverse-muted">
-                    {label}
-                  </span>
-                  <span className="block font-display text-xl font-semibold [overflow-wrap:anywhere] text-white group-hover:text-accent-300">
-                    {value}
-                  </span>
-                </span>
-                <ArrowRightIcon className="text-foreground-inverse-muted transition-transform group-hover:translate-x-1 group-hover:text-accent-300" />
-              </a>
-            </li>
-          ))}
-        </ul>
+        <ContactMethods
+          site={site}
+          className="self-end lg:col-span-5 lg:col-start-8"
+        />
       </Container>
     </section>
   );

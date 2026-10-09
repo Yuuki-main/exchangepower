@@ -16,7 +16,8 @@
     "content:import": "node scripts/import-content.mjs",
     "check:content": "node scripts/check-content.mjs",
     "content:verify": "node scripts/verify-import.mjs",
-    "images:fetch": "node scripts/fetch-images.mjs"
+    "images:fetch": "node scripts/fetch-images.mjs",
+    "check:links": "node scripts/check-links.mjs"
   },
   "dependencies": {
     "marked": "^18.1.0",

@@ -20,7 +20,16 @@ export function Credentials({ title, items }) {
         {title}
       </h2>
       <Container>
-        <dl className="grid grid-cols-2 lg:grid-cols-4">
+        <dl
+          className={cn(
+            "grid grid-cols-2",
+            items.length >= 4
+              ? "lg:grid-cols-4"
+              : items.length === 3
+                ? "lg:grid-cols-3"
+                : "",
+          )}
+        >
           {items.map((item, i) => (
             <div
               key={item.label}

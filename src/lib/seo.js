@@ -8,6 +8,8 @@ import { SITE } from "@/content/site.js";
  * @param {string} options.title Page title.
  * @param {string} options.description Meta description.
  * @param {string} options.path Route path ending in "/", e.g. "/blog/".
+ * @param {"website" | "article"} [options.type="website"] Open Graph type.
+ * @param {string} [options.publishedTime] ISO date, for articles.
  * @param {boolean} [options.absoluteTitle=false] Use the title as-is, without the
  *   root layout's "%s | Exchange Power" template (for titles that already
  *   include the brand).
@@ -18,18 +20,21 @@ export function buildMetadata({
   description,
   path,
   absoluteTitle = false,
+  type = "website",
+  publishedTime,
 }) {
   return {
     title: absoluteTitle ? { absolute: title } : title,
     description,
     alternates: { canonical: path },
     openGraph: {
-      type: "website",
+      type,
       locale: "en_AU",
       siteName: SITE.name,
       url: path,
       title,
       description,
+      ...(type === "article" && publishedTime ? { publishedTime } : {}),
     },
     twitter: { card: "summary_large_image", title, description },
   };
@@ -103,5 +108,25 @@ export function faqPageJsonLd(faqs) {
       name: faq.question,
       acceptedAnswer: { "@type": "Answer", text: markdownToText(faq.answer) },
     })),
+  };
+}
+
+/**
+ * Article structured data for a blog post. No image until one is approved.
+ * @param {{ title: string, description: string, date: string, path: string }} post
+ */
+export function articleJsonLd({ title, description, date, path }) {
+  const url = new URL(path, SITE.url).href;
+  const org = { "@type": "Organization", name: SITE.name, url: `${SITE.url}/` };
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    datePublished: date,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    url,
+    author: org,
+    publisher: org,
   };
 }

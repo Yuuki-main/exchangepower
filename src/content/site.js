@@ -79,9 +79,9 @@ export const SITE = {
 
   cta: {
     quoteLabel: "Get a free quote",
-    // Until the quote form exists (PLAN Step 7), quote buttons go to the
-    // homepage contact section. Change this one value to switch them all.
-    quoteHref: "/#get-a-quote",
+    // Every "Get a free quote" button goes to the contact page (Step 8).
+    // Change this one value to switch them all.
+    quoteHref: "/contact/",
     title: "Your Solar Journey, Made Simple",
     subtitle: "Get Started with your Free Consultation Today!",
     buttonLabel: "Click Here",
@@ -92,6 +92,20 @@ export const SITE = {
     quickQuote: {
       fields: ["Name", "Email", "Phone"],
       submitLabel: "Submit",
+    },
+    // Contact page quote form (Step 8 markup; sending is wired up in Step 7).
+    quote: {
+      title: "Request a free quote",
+      enquiryTypes: [
+        "Residential solar",
+        "Commercial solar",
+        "Battery",
+        "Rebates",
+        "Other",
+      ],
+      submitLabel: "Send enquiry",
+      notSentNotice:
+        "Online sending is being switched on soon, so this form doesn't send yet. Please call or email us in the meantime.",
     },
     specialDeal: {
       title: "Get A Special Deal",

@@ -51,14 +51,17 @@ export const ABOUT = {
     ],
   },
   statsTitle: "Our Solar Footprint - Making a Brighter Future",
+  // The live site has these two texts under the wrong labels: the "Vision"
+  // text describes the mission and vice versa. Labels swapped here; wording
+  // unchanged (CONTENT-NOTES 5.4, fixed in Step 8).
   visionMission: [
     {
       title: "Our Vision",
-      text: "Exchange Power is focused on helping to shift the transition to clean and renewable energy across Australia. The mission make households and businesses powerful with solar power by using innovative, dependable and cost effective solutions. By providing high quality solar and battery systems, Exchange Power helps to reduce carbon footprint and create a more sustainable future for generations to come.",
+      text: "Exchange Power’s vision is a future in which clean, renewable energy is available to everyone. The aim is to guide the renewable energy movement by the way energy is generated and used. Through ongoing innovation, advanced technology and uncompromising dedication to customer satisfaction, Exchange Power aims to build a brighter and more sustainable world – one solar installation at a time.",
     },
     {
       title: "Our Mission",
-      text: "Exchange Power’s vision is a future in which clean, renewable energy is available to everyone. The aim is to guide the renewable energy movement by the way energy is generated and used. Through ongoing innovation, advanced technology and uncompromising dedication to customer satisfaction, Exchange Power aims to build a brighter and more sustainable world – one solar installation at a time.",
+      text: "Exchange Power is focused on helping to shift the transition to clean and renewable energy across Australia. The mission make households and businesses powerful with solar power by using innovative, dependable and cost effective solutions. By providing high quality solar and battery systems, Exchange Power helps to reduce carbon footprint and create a more sustainable future for generations to come.",
     },
   ],
 };
