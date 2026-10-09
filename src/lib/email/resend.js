@@ -33,8 +33,8 @@ function readConfig() {
 }
 
 /**
- * Key used to sign form tokens, derived from the Resend key so no extra
- * secret is needed. Null when no key is configured.
+ * Fallback for signing form tokens when FORM_TOKEN_SECRET is not set
+ * (see src/lib/form-token.js). Null when no key is configured.
  */
 export function getSigningSecret() {
   return readConfig().apiKey || null;

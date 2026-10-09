@@ -9,9 +9,11 @@ import { getSigningSecret } from "./email/resend";
  * the token is genuine and old enough. A client can't fake an older token
  * without the secret.
  *
- * The secret is derived from RESEND_API_KEY (shared by every serverless
- * instance). Without a key (local development) a random per-process secret
- * is used.
+ * Signing secret, in order of preference:
+ * 1. FORM_TOKEN_SECRET (at least 32 random bytes, e.g. `openssl rand -base64 32`),
+ *    shared by every serverless instance and independent of the email key.
+ * 2. A secret derived from RESEND_API_KEY (backwards compatible).
+ * 3. A random per-process secret (local development without either).
  */
 
 /** Minimum time between loading the form and submitting it. */
@@ -21,7 +23,25 @@ export const MAX_TOKEN_AGE_MS = 2 * 60 * 60 * 1000;
 
 const fallbackSecret = randomBytes(32);
 
+/** Base64 secrets shorter than this many bytes are rejected (with a warning). */
+const MIN_SECRET_BYTES = 32;
+let warned = false;
+
 function secret() {
+  const dedicated = process.env.FORM_TOKEN_SECRET?.trim();
+  if (dedicated) {
+    if (Buffer.byteLength(dedicated) >= MIN_SECRET_BYTES) {
+      return createHmac("sha256", "exchange-power-form-token")
+        .update(dedicated)
+        .digest();
+    }
+    if (!warned) {
+      warned = true;
+      console.error(
+        "[enquiry] FORM_TOKEN_SECRET is shorter than 32 bytes and is ignored. Generate one with: openssl rand -base64 32",
+      );
+    }
+  }
   const key = getSigningSecret();
   return key
     ? createHmac("sha256", "exchange-power-form-token").update(key).digest()

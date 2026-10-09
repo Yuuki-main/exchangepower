@@ -33,11 +33,12 @@ The quote forms (`/contact/` and the homepage) call the `sendEnquiry` Server Act
 
 In Vercel: **Project → Settings → Environment Variables**. Add these for **Production** (and **Preview** if previews should send email), then redeploy:
 
-| Name                 | Example                                           | Notes                                       |
-| -------------------- | ------------------------------------------------- | ------------------------------------------- |
-| `RESEND_API_KEY`     | `re_…`                                            | Secret. Never prefix with `NEXT_PUBLIC_`.   |
-| `CONTACT_TO_EMAIL`   | `info@exchangepower.com.au`                       | Where enquiries go. Comma-separate several. |
-| `CONTACT_FROM_EMAIL` | `Exchange Power <enquiries@exchangepower.com.au>` | Must use the verified domain.               |
+| Name                 | Example                                           | Notes                                                                                                                  |
+| -------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `RESEND_API_KEY`     | `re_…`                                            | Secret. Never prefix with `NEXT_PUBLIC_`.                                                                              |
+| `CONTACT_TO_EMAIL`   | `info@exchangepower.com.au`                       | Where enquiries go. Comma-separate several.                                                                            |
+| `CONTACT_FROM_EMAIL` | `Exchange Power <enquiries@exchangepower.com.au>` | Must use the verified domain.                                                                                          |
+| `FORM_TOKEN_SECRET`  | output of `openssl rand -base64 32`               | Signs the form's anti-spam token (at least 32 random bytes). If unset, a secret derived from `RESEND_API_KEY` is used. |
 
 For local testing, put the same values in `.env.local` (git-ignored).
 
@@ -51,5 +52,5 @@ Before the domain is verified you can set `CONTACT_FROM_EMAIL="Exchange Power <o
 - **Production with a missing variable:** the form asks the visitor to call or email instead, and the server logs which variable is missing. Visitors never see configuration details.
 - **Spam protection:**
   - **Hidden honeypot field:** submissions that fill it get a fake success and nothing is sent.
-  - **Signed time-to-submit token:** submissions made too soon after the form loads are rejected. Without JavaScript, the first submission asks the visitor to press Send again.
+  - **Signed time-to-submit token** (signed with `FORM_TOKEN_SECRET`): submissions made too soon after the form loads are rejected. Without JavaScript, the first submission asks the visitor to press Send again.
   - **Rate limit:** 5 submissions per IP per 10 minutes, kept in memory. On Vercel that limit applies per serverless instance, so it is best-effort. Add a shared store (for example Upstash Redis) or Vercel Firewall rules if spam becomes a problem.
