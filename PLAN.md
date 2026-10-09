@@ -527,6 +527,55 @@ A static export also gives up other things this site needs:
   - The sitemap lists every route.
   - The Rich Results Test passes for FAQ, Article and LocalBusiness.
 - **Out of scope:** analytics (see Part C).
+- **Step 9 notes (done 2026-10-09):**
+  - **Metadata:** every public route has a unique title and description, a canonical URL ending in "/", and Open Graph and Twitter tags. `npm run check:seo` (run against `npm run start`) verifies this for every sitemap URL, plus exactly one H1 per page.
+  - **OG images:** static PNG cards (1200×630) generated at build time by `scripts/generate-og.mjs`. It runs as `prebuild`, so it also runs on Vercel, and writes one card per public route to the git-ignored `public/og/`. `buildMetadata()` sets `og:image` and `twitter:image` to `/og/<page>.png`.
+    - **Why not `opengraph-image.js`:** with `trailingSlash: true`, the image URLs Next.js generates (for example `/contact/opengraph-image?…`) get a 308 redirect, which social crawlers handle poorly. Overriding them would need `skipTrailingSlashRedirect` plus a `proxy.js` (request-time server code), so it was rejected. A `.png` path is never redirected.
+    - Cards use the brand tokens and the typeset wordmark, in `next/og`'s bundled Geist Regular (no bold weight available).
+    - The route list is in `src/lib/og-routes.js`. `check:seo` fails if a card is missing or doesn't load with 200.
+  - **Sitemap and robots:** `sitemap.js` lists 29 public routes. `lastModified` is set only where real dates exist (posts, and the blog index). `robots.js` disallows `/styleguide/` and points to the sitemap.
+  - **JSON-LD:**
+    - WebSite and LocalBusiness on the homepage.
+    - LocalBusiness and BreadcrumbList on Contact.
+    - BreadcrumbList on every inner page, FAQPage on products, Article on posts.
+    - All URLs absolute. `geo` and `sameAs` appear only once they're confirmed in `site.js` (currently `null` and empty).
+  - **Icons are PLACEHOLDERS** (an "EP" monogram in the brand colours) until the real logo is supplied (Part C item 7): `src/app/icon.svg`, `favicon.ico`, `apple-icon.png`, `public/icons/*`, and `manifest.js`. Regenerate with `npm run icons:generate`.
+  - **Performance:**
+    - Inter (body text) is no longer preloaded, so the Sora heading font, the LCP text, gets the early bandwidth.
+    - `experimental.inlineCss` was measured twice (alone, and with the font change) and rejected: LCP got worse.
+    - `MediaSlot` now uses `next/image`'s `getImageProps()` and renders a plain `<img>`, which removed `next/image`'s client chunk (about 6 KB gzip) from product pages, blog pages and posts.
+    - Contact page copy moved to `src/content/contact.js` (shared by the page and its card).
+    - Client JS: only `DesktopNav`, `Dialog` and `QuoteForm` are client components. About 165 KB gzip per page is the Next.js and React runtime, and our own client code is about 10–17 KB gzip.
+  - **Accessibility:** every template passes a keyboard walk (a visible ring on every tab stop), the skip link, landmark and heading-order checks, reduced-motion emulation, and axe (0 violations).
+  - **Known limitation: simulated LCP is borderline (accepted 2026-10-09).** Lighthouse mobile on the production build (`next start`, local machine), median of 5 runs:
+
+    | Page                                        | Performance | Accessibility | Best Practices | SEO | LCP, simulated (Lighthouse default) | LCP, devtools (applied) throttling | CLS | TBT  |
+    | ------------------------------------------- | ----------- | ------------- | -------------- | --- | ----------------------------------- | ---------------------------------- | --- | ---- |
+    | `/`                                         | 97          | 100           | 100            | 100 | 2.56s (runs 2.11–2.67)              | 1.56s                              | 0   | 16ms |
+    | `/residential-solar/6-6kw-solar-system-wa/` | 97          | 100           | 100            | 100 | 2.64s (2.11–2.64)                   | 1.57s                              | 0   | 16ms |
+    | blog post (`/why-the-6-6kw-…/`)             | 99          | 100           | 100            | 100 | 2.11s                               | 1.56s                              | 0   | 15ms |
+    | `/contact/`                                 | 98          | 100           | 100            | 100 | 2.41s                               | 1.53s                              | 0   | 15ms |
+
+    (With devtools throttling, Performance is 99 to 100 on all four pages.)
+
+    - **Why:** the real LCP (the hero H1) paints at about 80ms. Lighthouse's simulation (Lantern) charges the page for the framework JavaScript that starts downloading before that paint, so simulated LCP mostly tracks early JS bytes. It falls into discrete values (about 2.1, 2.4, 2.56 and 2.64s) that move between runs on unchanged pages.
+    - **JS per page** (first load, gzip):
+
+      | Pages                                  | Total    | Next.js and React runtime | Our client code                                                                                                                        |
+      | -------------------------------------- | -------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+      | `/` and `/contact/`                    | 179.7 KB | about 166 KB              | about 13.5 KB: nav and Dialog (about 8.7 KB, including shared Link code), QuoteForm and validation (about 3.6 KB), small shared chunks |
+      | hub, product, blog, post, about, legal | 176.1 KB | about 166 KB              | about 10 KB (nav and Dialog)                                                                                                           |
+
+    - **Not a regression:** the Step 5 commit (8a1988e) was rebuilt and measured on the same machine. It scores Performance 97 with a simulated LCP of 2.63s (3 runs). The current homepage scores 97 and 2.56s. The only homepage difference is the compact QuoteForm chunk (+3.6 KB gzip), which is within run-to-run noise.
+    - **Considered and rejected:**
+      - **Lazy-loading Dialog and QuoteForm:** this would trim only about 4–9 KB of the 180 KB, it adds complexity, it risks the menu or form responding late on first tap, and it doesn't guarantee passing the model. Declined by the owner.
+      - **`experimental.inlineCss`:** measured twice (alone, and with the font change). LCP got worse both times (for example 2.77–2.80s), because the HTML grows and the CSS is also duplicated in the RSC payload.
+      - **`display: "optional"` on the heading font:** no consistent effect.
+    - **Kept:** Inter (body) is not preloaded, and `MediaSlot` uses `getImageProps()` (no `next/image` client chunk).
+    - **Follow-up for Step 10:**
+      1. Measure real-world LCP on the deployed Vercel URL with PageSpeed Insights (both lab and field data) for these four pages.
+      2. If approved (Part C item 10), enable Vercel Speed Insights to collect real-user Core Web Vitals.
+      3. Only revisit the JS split if field LCP at the 75th percentile is over 2.5s.
 
 ### Step 10 — QA, build check, deployment and handoff
 

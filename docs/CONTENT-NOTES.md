@@ -171,3 +171,10 @@ The redesigned homepage (`src/content/home.js`) uses **new short copy**. Every f
 - **Subject:** `New enquiry: <Enquiry type>: <First name> <Last name>`, for example "New enquiry: Battery: Jane Smith".
 - **Body:** name, email, phone (normalised, for example "+61 8 6370 4963"), enquiry type, address or suburb, message, the page it was sent from and the time received (Perth time).
 - **Reply-To:** the customer's address.
+
+## 13. SEO details (Step 9)
+
+- **6.2 resolved without new copy:** `/blog/` now uses its existing on-page lead ("Guides to solar system sizes, batteries and rebates in Western Australia.", Step 8 copy, pending approval) as its meta description.
+- **Hub titles and descriptions:** still the WordPress defaults (6.1), but each one is unique, so the SEO check passes. Replacing them is still recommended.
+- **Social sharing images:** each page's card shows its title in the brand colours with the typeset "Exchange Power" wordmark. No logo is used until it's approved.
+- **Structured data:** opening hours, map coordinates, the ABN and social profiles are left out until the business confirms them.

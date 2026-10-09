@@ -9,10 +9,11 @@ import { Section } from "@/components/ui/Section";
  *
  * @param {object} props
  * @param {string} props.title
+ * @param {string} props.lead
  * @param {import("@/components/sections/PostCardGrid.js").PostSummary[]} props.posts
  * @param {import("@/lib/content-schema.js").SiteInfo} props.site
  */
-export function BlogIndex({ title, posts, site }) {
+export function BlogIndex({ title, lead, posts, site }) {
   const breadcrumbs = [
     { label: "Home", href: "/" },
     { label: "Blog", href: "/blog/" },
@@ -23,7 +24,7 @@ export function BlogIndex({ title, posts, site }) {
         breadcrumbs={breadcrumbs}
         eyebrow="Guides"
         title={title}
-        lead="Guides to solar system sizes, batteries and rebates in Western Australia."
+        lead={lead}
       />
       <Section labelledBy="posts-title">
         <h2 id="posts-title" className="sr-only">

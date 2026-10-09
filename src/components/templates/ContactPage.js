@@ -1,7 +1,10 @@
+import { JsonLd } from "@/components/seo/JsonLd";
 import { ContactMethods } from "@/components/sections/ContactMethods";
 import { PageHeader } from "@/components/sections/PageHeader";
 import { QuoteForm } from "@/components/forms/QuoteForm";
 import { Section } from "@/components/ui/Section";
+import { CONTACT } from "@/content/contact.js";
+import { breadcrumbJsonLd, localBusinessJsonLd } from "@/lib/seo";
 
 /**
  * Contact page: the quote form (the only client component) beside every
@@ -18,11 +21,13 @@ export function ContactPage({ site }) {
   ];
   return (
     <>
+      <JsonLd data={localBusinessJsonLd()} />
+      <JsonLd data={breadcrumbJsonLd(breadcrumbs)} />
       <PageHeader
         breadcrumbs={breadcrumbs}
-        eyebrow="Free quote"
-        title="Talk to Exchange Power"
-        lead="Tell us about your property and how you use power. We'll recommend a system size, explain the rebates you may be eligible for and put it in a written quote."
+        eyebrow={CONTACT.eyebrow}
+        title={CONTACT.title}
+        lead={CONTACT.lead}
       />
       <Section labelledBy="quote-form-title">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-8">

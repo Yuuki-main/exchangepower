@@ -18,7 +18,7 @@ import {
   getProductPath,
   getSite,
 } from "@/lib/content";
-import { buildMetadata, localBusinessJsonLd } from "@/lib/seo";
+import { buildMetadata, localBusinessJsonLd, webSiteJsonLd } from "@/lib/seo";
 
 const home = getHome();
 
@@ -54,6 +54,7 @@ export default function HomePage() {
 
   return (
     <>
+      <JsonLd data={webSiteJsonLd()} />
       <JsonLd data={localBusinessJsonLd()} />
       <HomeHero content={home.hero} phone={site.phone} />
       <Credentials {...home.credentials} />

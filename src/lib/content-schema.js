@@ -79,6 +79,8 @@
  * @property {string} abn
  * @property {string} url Canonical origin, no trailing slash.
  * @property {string} tagline
+ * @property {{ latitude: number, longitude: number } | null} [geo] Only if confirmed; never estimated.
+ * @property {string[]} [socials] Profile URLs for sameAs (none yet).
  * @property {string} description Short site description (footer, metadata).
  * @property {{ display: string, href: string, international: string }} phone
  * @property {string} email
@@ -285,4 +287,15 @@ export function assertPostFrontmatter(data, fileName) {
     );
   }
   assertSeo(data.seo, fileName);
+}
+
+/**
+ * Public path of a route's generated social card (scripts/generate-og.mjs).
+ * A file URL (with an extension), so trailingSlash never redirects it.
+ * @example ogImagePath("/contact/") // "/og/contact.png"
+ * @param {string} routePath
+ */
+export function ogImagePath(routePath) {
+  const key = routePath.replace(/^\/|\/$/g, "").replaceAll("/", "--") || "home";
+  return `/og/${key}.png`;
 }

@@ -1,7 +1,13 @@
 import { SITE } from "@/content/site.js";
+import { ogImagePath } from "@/lib/content-schema.js";
+
+/** Size of every generated social card. */
+export const OG_SIZE = { width: 1200, height: 630 };
 
 /**
- * Builds a route's metadata from content, with canonical URL and Open Graph.
+ * Builds a route's metadata from content, with canonical URL, Open Graph and
+ * Twitter tags, and the route's social card (generated at build time by
+ * scripts/generate-og.mjs into public/og/).
  * See node_modules/next/dist/docs/01-app/03-api-reference/04-functions/generate-metadata.md.
  *
  * @param {object} options
@@ -23,11 +29,13 @@ export function buildMetadata({
   type = "website",
   publishedTime,
 }) {
+  const image = { url: ogImagePath(path), ...OG_SIZE, alt: title };
   return {
     title: absoluteTitle ? { absolute: title } : title,
     description,
     alternates: { canonical: path },
     openGraph: {
+      images: [image],
       type,
       locale: "en_AU",
       siteName: SITE.name,
@@ -36,14 +44,20 @@ export function buildMetadata({
       description,
       ...(type === "article" && publishedTime ? { publishedTime } : {}),
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image.url],
+    },
   };
 }
 
 /**
  * Structured data for the business, from src/content/site.js only.
  * Fields the business hasn't confirmed (ABN, opening hours, reviews) are
- * deliberately left out.
+ * deliberately left out. `geo` is added only if coordinates are recorded in
+ * site.js, and `sameAs` only if social accounts exist (none yet).
  */
 export function localBusinessJsonLd() {
   const { address } = SITE;
@@ -65,6 +79,16 @@ export function localBusinessJsonLd() {
       addressCountry: address.countryCode,
     },
     areaServed: { "@type": "State", name: "Western Australia" },
+    ...(SITE.geo
+      ? {
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: SITE.geo.latitude,
+            longitude: SITE.geo.longitude,
+          },
+        }
+      : {}),
+    ...(SITE.socials?.length ? { sameAs: SITE.socials } : {}),
   };
 }
 
@@ -128,5 +152,18 @@ export function articleJsonLd({ title, description, date, path }) {
     url,
     author: org,
     publisher: org,
+  };
+}
+
+/** WebSite structured data (homepage). No SearchAction: the site has no search. */
+export function webSiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE.url}/#website`,
+    name: SITE.name,
+    url: `${SITE.url}/`,
+    inLanguage: "en-AU",
+    publisher: { "@id": `${SITE.url}/#business` },
   };
 }

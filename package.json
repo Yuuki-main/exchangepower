@@ -17,7 +17,11 @@
     "check:content": "node scripts/check-content.mjs",
     "content:verify": "node scripts/verify-import.mjs",
     "images:fetch": "node scripts/fetch-images.mjs",
-    "check:links": "node scripts/check-links.mjs"
+    "check:links": "node scripts/check-links.mjs",
+    "icons:generate": "node scripts/generate-icons.mjs",
+    "check:seo": "node scripts/check-seo.mjs",
+    "og:generate": "node scripts/generate-og.mjs",
+    "prebuild": "node scripts/generate-og.mjs"
   },
   "dependencies": {
     "marked": "^18.1.0",

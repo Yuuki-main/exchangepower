@@ -48,3 +48,6 @@ next-env.d.ts
 
 # local caches (downloaded source HTML, etc.)
 /.cache/
+
+# Generated at build time by scripts/generate-og.mjs (prebuild)
+/public/og/

@@ -67,3 +67,14 @@ npm run typecheck     # tsc --noEmit over JS via JSDoc
 npm run build         # production build (Turbopack)
 npm run check:contrast  # WCAG AA check of colour tokens (after palette changes)
 ```
+
+## Images
+
+- Every content image goes through `MediaSlot` (`src/components/sections/MediaSlot.js`). It renders only images marked `approved: true` in `src/content/images.js`.
+- `MediaSlot` uses `next/image`'s `getImageProps()` on the server, which gives an optimised `srcset`, `sizes`, lazy loading and explicit `width`/`height`, and renders a plain `<img>`. That keeps `next/image`'s client component out of every page bundle. If you need a feature that only the `<Image>` component has (for example `placeholder="blur"`), use `next/image` directly in that one place.
+- Never write a bare `<img>` with a hand-made `src`. ESLint's `@next/next/no-img-element` flags it. The single exception in `MediaSlot` is commented.
+- Always give the size: `width` and `height` from `images.js`, or a sized wrapper (for example `aspect-video` with `object-cover`). This prevents layout shift.
+- Always set `sizes` to match the layout, for example `sizes="(min-width: 1024px) 33vw, 100vw"`, so phones don't download desktop-sized files.
+- **Above-the-fold image:** only the one image that is the largest thing in the first screen gets `preload` on `MediaSlot`, which sets `loading="eager"` and `fetchPriority="high"`. Everything else lazy-loads by default. (`priority` is deprecated in Next.js 16.)
+- **Alt text:** comes from `images.js`. Decorative images use `alt=""`.
+- **Quality:** the default is 75. Next.js 16 allows only `[75]` unless `images.qualities` is configured.

@@ -15,6 +15,7 @@ export default function Page() {
   return (
     <BlogIndex
       title={blog.title}
+      lead={blog.lead}
       posts={getAllPosts().map(toPostSummary)}
       site={getSite()}
     />

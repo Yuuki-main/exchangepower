@@ -33,6 +33,10 @@ export const SITE = {
     countryCode: "AU",
   },
 
+  // Not on the live site. Add confirmed values to include them in structured data.
+  geo: null,
+  socials: [],
+
   badges: {
     netcc: {
       image: "netcc-badge",

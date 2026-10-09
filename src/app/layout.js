@@ -4,11 +4,15 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SITE } from "@/content/site.js";
 import "./globals.css";
 
-// Body text. Variable font, self-hosted by next/font.
+// Body text. Variable font, self-hosted by next/font. Not preloaded: the
+// largest text in the first screen is a Sora heading, so Sora gets the early
+// bandwidth; body text shows in the size-matched fallback and swaps when
+// Inter arrives (Step 9, LCP).
 const inter = Inter({
   variable: "--font-body",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
 });
 
 // Headings and display text. Variable font, self-hosted by next/font.
@@ -27,7 +31,13 @@ export const metadata = {
   },
   description: SITE.description,
   applicationName: SITE.name,
-  openGraph: { type: "website", locale: "en_AU", siteName: SITE.name },
+  // Fallback card for pages without their own (for example the 404 page).
+  openGraph: {
+    type: "website",
+    locale: "en_AU",
+    siteName: SITE.name,
+    images: [{ url: "/og/home.png", width: 1200, height: 630, alt: SITE.name }],
+  },
   formatDetection: { telephone: false },
 };
 
