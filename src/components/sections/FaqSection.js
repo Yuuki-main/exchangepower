@@ -74,7 +74,7 @@ export function FaqSection({
           </ul>
           <Link
             href={guidesLink.href}
-            className="mt-5 inline-flex items-center gap-1.5 font-semibold text-brand-700 hover:text-brand-900"
+            className="mt-3 inline-flex min-h-11 items-center gap-1.5 font-semibold text-brand-700 hover:text-brand-900"
           >
             {guidesLink.label}
             <ArrowRightIcon size={16} />

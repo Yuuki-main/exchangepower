@@ -56,11 +56,35 @@ const ids = new Map([...pages].map(([route, html]) => [route, idsIn(html)]));
 /** @type {string[]} */
 const errors = [];
 let checked = 0;
+/** @type {Set<string>} */
+const contactLinks = new Set();
 
 for (const [page, html] of pages) {
   // Only links in the visible document, not the RSC payload in <script> tags.
   const visible = html.replace(/<script[\s\S]*?<\/script>/g, "");
-  for (const [, href] of visible.matchAll(/<a\s[^>]*href="([^"]+)"/g)) {
+  for (const [, rawHref] of visible.matchAll(/<a\s[^>]*href="([^"]+)"/g)) {
+    const href = rawHref.replace(/&amp;/g, "&");
+    // Contact links must be well formed: E.164 phone numbers, valid emails,
+    // WhatsApp numbers in international format, and no spaces anywhere.
+    if (/^(tel:|mailto:|https:\/\/wa\.me\/)/.test(href)) {
+      contactLinks.add(href);
+      if (/\s/.test(href)) errors.push(`${page} → "${href}": contains a space`);
+      else if (href.startsWith("tel:") && !/^tel:\+[1-9]\d{7,14}$/.test(href))
+        errors.push(`${page} → ${href}: not E.164 (e.g. tel:+61863704963)`);
+      else if (
+        href.startsWith("mailto:") &&
+        !/^mailto:[^@\s?]+@[^@\s?.]+(\.[^@\s?.]+)+(\?.*)?$/.test(href)
+      )
+        errors.push(`${page} → ${href}: invalid email`);
+      else if (
+        href.startsWith("https://wa.me/") &&
+        !/^https:\/\/wa\.me\/[1-9]\d{7,14}$/.test(href)
+      )
+        errors.push(
+          `${page} → ${href}: WhatsApp link must be https://wa.me/<international number>`,
+        );
+      continue;
+    }
     if (
       /^(https?:|mailto:|tel:|sms:|javascript:)/.test(href) ||
       href.startsWith("/_next/")
@@ -89,6 +113,9 @@ for (const [page, html] of pages) {
 }
 
 console.log(`Checked ${checked} internal links on ${pages.size} pages.`);
+console.log(
+  `Contact links (validated): ${[...contactLinks].sort().join("  ")}`,
+);
 for (const e of errors) console.log(`ERROR  ${e}`);
 if (errors.length) {
   console.log(`\n${errors.length} broken link(s).`);

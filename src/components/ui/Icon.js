@@ -8,7 +8,7 @@ import { cn } from "@/lib/cn";
  * strokes, `currentColor`.
  *
  * @example <PhoneIcon size={18} />            decorative, hidden from screen readers
- * @example <StarIcon title="Rated 4.8" />     meaningful, announced as an image
+ * @example <MapPinIcon title="Location" />   meaningful, announced as an image
  */
 
 /**
@@ -104,14 +104,6 @@ export const ChatIcon = /* @__PURE__ */ createIcon(
   <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />,
 );
 
-export const SunIcon = /* @__PURE__ */ createIcon(
-  "SunIcon",
-  <>
-    <circle cx="12" cy="12" r="4" />
-    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-  </>,
-);
-
 export const BatteryIcon = /* @__PURE__ */ createIcon(
   "BatteryIcon",
   <>
@@ -120,43 +112,9 @@ export const BatteryIcon = /* @__PURE__ */ createIcon(
   </>,
 );
 
-export const BoltIcon = /* @__PURE__ */ createIcon(
-  "BoltIcon",
-  <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z" />,
-);
-
-export const ShieldCheckIcon = /* @__PURE__ */ createIcon(
-  "ShieldCheckIcon",
-  <>
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" />
-    <path d="m9 12 2 2 4-4" />
-  </>,
-);
-
 export const CheckIcon = /* @__PURE__ */ createIcon(
   "CheckIcon",
   <path d="M20 6 9 17l-5-5" />,
-);
-
-export const StarIcon = /* @__PURE__ */ createIcon(
-  "StarIcon",
-  <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z" />,
-);
-
-export const ClockIcon = /* @__PURE__ */ createIcon(
-  "ClockIcon",
-  <>
-    <circle cx="12" cy="12" r="10" />
-    <path d="M12 6v6l4 2" />
-  </>,
-);
-
-export const InfoIcon = /* @__PURE__ */ createIcon(
-  "InfoIcon",
-  <>
-    <circle cx="12" cy="12" r="10" />
-    <path d="M12 16v-4M12 8h.01" />
-  </>,
 );
 
 export const AlertCircleIcon = /* @__PURE__ */ createIcon(

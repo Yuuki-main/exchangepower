@@ -9,6 +9,18 @@ Rebuild and redesign of https://exchangepower.com.au/ (currently WordPress with 
 
 > **Rule for every step:** before writing code that uses a Next.js API, read the matching guide in `node_modules/next/dist/docs/` (paths are listed in each step). This version differs from older Next.js. For example, `params` and `searchParams` are async, `next lint` no longer exists, `middleware` is now `proxy`, `next/image` has new defaults (`qualities: [75]`, no 16px size), and Cache Components and Partial Prerendering (PPR) are on.
 
+## Status (2026-10-09)
+
+**Steps 1–10 are complete.** The site is built, checked and ready to deploy. Nothing has been pushed or deployed yet.
+
+- **To launch:** follow `docs/LAUNCH-CHECKLIST.md`. Part 1 is the content sign-off, and 4 items there block launch. Part 2 covers GitHub, Vercel, DNS, Resend, form tests, Search Console and rollback.
+- **For developers:** `README.md` covers setup, scripts, the folder map, editing content, forms and email, deploying and known limitations.
+- **Deferred** (see the Step 10 notes):
+  - live form test with the real Resend domain
+  - real-device checks
+  - PageSpeed on the live URL
+  - every Part C decision still open
+
 ---
 
 ## Part A — Audit of the live site
@@ -602,6 +614,46 @@ A static export also gives up other things this site needs:
   - A live form test is received.
   - The production build is clean.
   - A new developer can follow the README to run, edit content and deploy.
+- **Step 10 notes (done 2026-10-09):**
+  - **Removed:** `/styleguide/` (it now returns 404 and `check:seo` asserts that) and the code only it used: the `Badge` and `Card` components and 6 unused icons (12 remain).
+  - **URL parity:** new `scripts/check-url-parity.mjs` (`npm run check:parity`).
+    - It reads the live sitemap index and its 8 child sitemaps, using read-only GETs.
+    - It checks every old URL on the new build, both as listed and without the trailing slash.
+    - All 30 pass: 28 return 200 directly, and `/category/solar/` and `/residential-solar-system/` redirect (308) to a 200 page. Every variant without a slash redirects (308) to the slash version.
+  - **Contact links:**
+    - The phone `href` is now E.164 with no spaces (`tel:+61863704963`).
+    - `check:content` enforces it in `site.js`, and `check:links` validates every `tel:`, `mailto:` and `wa.me` link in the built HTML.
+  - **Responsive QA** (`docs/QA.md`): 10 templates × 6 widths (360–1440px) in Chromium on the production build. No open blocker or major issues. Fixes:
+    - 44px tap targets on mobile for the wordmark, footer links, breadcrumbs, the Terms contents and clause links, and the homepage's standalone text links
+    - full-width email and phone fields in the homepage form from 1024px
+    - spacing for two-line footer links
+
+    Real-device checks are a checklist for the owner, marked not yet tested.
+
+  - **Previews are never indexed:**
+    - New `isIndexable()` (`src/lib/content-schema.js`) is true only when `VERCEL_ENV` is `production` or unset (local builds).
+    - Otherwise `robots.txt` serves `Disallow: /` with no sitemap, and every page gets `noindex, nofollow`.
+    - Canonicals always use `SITE.url`.
+    - Verified with a `VERCEL_ENV=preview` build. Vercel also sends `X-Robots-Tag: noindex` on preview URLs.
+  - **Deploy config:**
+    - No `vercel.json`: redirects and `trailingSlash` are in `next.config.mjs`, and the env vars are dashboard settings.
+    - `"engines": { "node": "20.x || 22.x" }`: local is 20.20.2, Node 20 reached end of life in April 2026, and Vercel picks 22.x. The fresh-clone build passed on both.
+    - The build command is the default `npm run build`, whose `prebuild` generates the OG cards with `next/og` (no native dependencies).
+  - **Images:** `images.js` accepts `src: null` for images added by hand, and `images:fetch` skips them.
+  - **Docs:**
+    - `README.md` rewritten as the handoff guide
+    - `docs/LAUNCH-CHECKLIST.md`: the content sign-off table, then 12 launch steps including DNS, Resend SPF/DKIM/DMARC, cut-over and rollback
+    - `docs/QA.md`
+  - **Deferred, for the owner** (these need accounts, DNS access or business decisions):
+    1. GitHub repo, Vercel project, env vars and domain (LAUNCH-CHECKLIST steps 1–4, 10).
+    2. Resend domain verification and switching `CONTACT_FROM_EMAIL` to the real sender. The **live form test** acceptance criterion is met only after LAUNCH-CHECKLIST step 8.
+    3. The manual device checks in `docs/QA.md` (Safari iOS, Chrome Android, desktop Safari, Firefox and Edge).
+    4. PageSpeed Insights on the live URL, plus optional Vercel Speed Insights (Step 9 follow-up).
+    5. The Part C decisions and the CONTENT-NOTES items in the LAUNCH-CHECKLIST sign-off table. Four block launch:
+       - new copy
+       - unverified claims
+       - rebate figures
+       - the Privacy Policy review (or the owner's explicit acceptance)
 
 ---
 

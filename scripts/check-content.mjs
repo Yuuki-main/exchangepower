@@ -143,8 +143,10 @@ for (const slug of ["privacy-policy", "terms-and-conditions"]) {
 check(() => {
   assertString(SITE.name, "site.name");
   assertString(SITE.email, "site.email");
-  if (!/^tel:\+?\d+$/.test(SITE.phone.href))
-    throw new Error(`site.phone.href "${SITE.phone.href}" is not a tel: link`);
+  if (!/^tel:\+[1-9]\d{7,14}$/.test(SITE.phone.href))
+    throw new Error(
+      `site.phone.href "${SITE.phone.href}" is not an E.164 tel: link (e.g. tel:+61863704963)`,
+    );
   if (!SITE.whatsapp.href.startsWith("https://wa.me/"))
     throw new Error("site.whatsapp.href must be a wa.me link");
   for (const b of SITE.brands)
@@ -287,8 +289,9 @@ for (const [key, img] of Object.entries(IMAGES)) {
       `images.${key}: approved but public${img.localPath} is missing (npm run images:fetch)`,
     );
   }
-  if (!img.src.startsWith("https://"))
-    errors.push(`images.${key}: src must be an https URL`);
+  // src is null for images supplied directly (not downloaded from the old site).
+  if (img.src !== null && !img.src.startsWith("https://"))
+    errors.push(`images.${key}: src must be an https URL or null`);
   if (!img.localPath.startsWith("/images/"))
     errors.push(`images.${key}: localPath must start with /images/`);
   if (!(img.width > 0 && img.height > 0))

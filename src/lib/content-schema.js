@@ -99,7 +99,7 @@
 /**
  * @typedef {object} ImageAsset
  * @property {boolean} approved Shown on the site only when true (PLAN Part C item 7).
- * @property {string} src Source URL on the live site.
+ * @property {string | null} src Source URL on the live site, or null for an image added directly to public/.
  * @property {string} localPath Planned public path (file under public/).
  * @property {string} alt Alt text ("" for decorative images).
  * @property {number} width Intrinsic width in px.
@@ -138,7 +138,6 @@ export const RESERVED_TOP_LEVEL = [
   "contact",
   "privacy-policy",
   "terms-and-conditions",
-  "styleguide",
   "api",
   "faq",
   ...Object.values(CATEGORIES).map((c) => c.base),
@@ -298,4 +297,15 @@ export function assertPostFrontmatter(data, fileName) {
 export function ogImagePath(routePath) {
   const key = routePath.replace(/^\/|\/$/g, "").replaceAll("/", "--") || "home";
   return `/og/${key}.png`;
+}
+
+/**
+ * Whether this build may be indexed by search engines. Vercel sets VERCEL_ENV
+ * at build time: "production" for the live site, "preview" for branch and PR
+ * deployments. Previews must never be indexed. Local builds (no VERCEL_ENV)
+ * behave like production so `npm run check:seo` tests the real output.
+ */
+export function isIndexable() {
+  const env = process.env.VERCEL_ENV;
+  return env === undefined || env === "production";
 }

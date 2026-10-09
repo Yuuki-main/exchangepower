@@ -14,7 +14,7 @@ export const SITE = {
 
   phone: {
     display: "08 6370 4963", // Live site shows "0863704963"; spaced for readability (CONTENT-NOTES 4.4).
-    href: "tel:0863704963",
+    href: "tel:+61863704963", // E.164 (international format) for tel: links
     international: "+61863704963",
   },
   email: "info@exchangepower.com.au",

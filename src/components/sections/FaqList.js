@@ -35,7 +35,7 @@ export function FaqList({
           {faq.href ? (
             <Link
               href={faq.href}
-              className="mt-3 inline-block text-sm font-semibold text-brand-700 underline underline-offset-4"
+              className="mt-1 inline-flex min-h-11 items-center text-sm font-semibold text-brand-700 underline underline-offset-4"
             >
               {sourceLabel}
             </Link>

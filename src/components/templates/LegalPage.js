@@ -30,7 +30,7 @@ export function LegalPage({ title, path, html, toc }) {
             <div className="lg:col-span-4 xl:col-span-3">
               {/* Phones: collapsible. Desktop: sticky sidebar. */}
               <details className="group border-y border-border py-3 lg:hidden">
-                <summary className="flex cursor-pointer list-none items-center justify-between font-semibold text-brand-900 [&::-webkit-details-marker]:hidden">
+                <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between font-semibold text-brand-900 [&::-webkit-details-marker]:hidden">
                   Contents
                   <span
                     aria-hidden="true"

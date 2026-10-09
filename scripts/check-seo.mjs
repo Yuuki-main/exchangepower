@@ -7,8 +7,8 @@
 // shares with another page: <title>, meta description, canonical, og:title,
 // og:image (which must load with 200, no redirect). Also fails on more than one <h1>, a canonical that isn't absolute
 // or doesn't end in "/", a missing twitter:card, or a page marked noindex.
-// Checks that /styleguide/ is noindex and absent from the sitemap and that
-// robots.txt disallows it.
+// Checks that /styleguide/ (removed in Step 10) returns 404 and that
+// robots.txt allows the site and points to the sitemap.
 
 const BASE = (
   process.env.BASE_URL ??
@@ -143,15 +143,14 @@ for (const [field, byValue] of seen) {
   }
 }
 
-// /styleguide/ must stay out of search.
-if (urls.some((u) => u.includes("/styleguide")))
-  errors.push("sitemap lists /styleguide/");
+// The styleguide was removed in Step 10 and must not exist.
 const guide = await get("/styleguide/");
-if (!/noindex/.test(meta(guide.text, "name", "robots") ?? ""))
-  errors.push("/styleguide/ is not noindex");
+if (guide.status !== 404)
+  errors.push(`/styleguide/ returned ${guide.status}, expected 404`);
+// Production robots.txt must allow the site (previews disallow everything).
 const robotsTxt = await get("/robots.txt");
-if (!/Disallow: \/styleguide\//.test(robotsTxt.text))
-  errors.push("robots.txt does not disallow /styleguide/");
+if (/^Disallow: \/\s*$/m.test(robotsTxt.text))
+  errors.push("robots.txt disallows the whole site (built as a preview?)");
 if (!robotsTxt.text.includes(`Sitemap: ${SITE}/sitemap.xml`))
   errors.push("robots.txt does not point to the sitemap");
 

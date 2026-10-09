@@ -16,7 +16,7 @@ export function Wordmark({ name, tone = "light", className }) {
     <Link
       href="/"
       className={cn(
-        "inline-flex items-baseline gap-1.5 font-display text-xl font-semibold tracking-tight whitespace-nowrap",
+        "inline-flex min-h-11 items-center gap-1.5 font-display text-xl font-semibold tracking-tight whitespace-nowrap",
         tone === "dark" ? "text-white" : "text-brand-900",
         className,
       )}

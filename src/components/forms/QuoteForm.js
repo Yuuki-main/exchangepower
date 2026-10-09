@@ -260,6 +260,8 @@ export function QuoteForm({
         label={LABELS.email}
         error={errors.email}
         required
+        // The homepage panel is narrow beside the copy on desktop.
+        className={compact ? "lg:col-span-2" : undefined}
       >
         {(c) => (
           <Input
@@ -279,6 +281,8 @@ export function QuoteForm({
         label={LABELS.phone}
         error={errors.phone}
         required
+        // The homepage panel is narrow beside the copy on desktop.
+        className={compact ? "lg:col-span-2" : undefined}
       >
         {(c) => (
           <Input

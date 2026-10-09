@@ -65,7 +65,7 @@ export function HomeHero({ content, phone }) {
             Prefer to talk?{" "}
             <a
               href={phone.href}
-              className="inline-flex items-center gap-1.5 font-semibold text-white underline decoration-accent-400 decoration-2 underline-offset-4 hover:text-accent-300"
+              className="inline-flex min-h-11 items-center gap-1.5 font-semibold text-white underline decoration-accent-400 decoration-2 underline-offset-4 hover:text-accent-300"
             >
               <PhoneIcon size={16} />
               {phone.display}
@@ -95,7 +95,7 @@ export function HomeHero({ content, phone }) {
           <p className="text-foreground-inverse-muted">{rebate.text}</p>
           <Link
             href={rebate.link.href}
-            className="inline-flex shrink-0 items-center gap-1.5 font-semibold text-white hover:text-accent-300 sm:ml-auto"
+            className="inline-flex min-h-11 shrink-0 items-center gap-1.5 font-semibold text-white hover:text-accent-300 sm:ml-auto"
           >
             {rebate.link.label}
             <ArrowRightIcon size={16} />

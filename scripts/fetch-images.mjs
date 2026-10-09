@@ -27,7 +27,8 @@ let failed = 0;
 
 for (const [key, img] of Object.entries(IMAGES)) {
   const target = path.join(PUBLIC, img.localPath);
-  if (existsSync(target) && !FORCE) {
+  // null src: the image was added to public/ by hand, nothing to download.
+  if (img.src === null || (existsSync(target) && !FORCE)) {
     skipped++;
     continue;
   }

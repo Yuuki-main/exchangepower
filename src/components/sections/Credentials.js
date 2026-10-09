@@ -44,7 +44,7 @@ export function Credentials({ title, items }) {
                 {item.href ? (
                   <Link
                     href={item.href}
-                    className="underline decoration-border underline-offset-4 hover:text-brand-700 hover:decoration-current"
+                    className="inline-flex min-h-11 items-center underline decoration-border underline-offset-4 hover:text-brand-700 hover:decoration-current"
                   >
                     {item.label}
                   </Link>

@@ -27,7 +27,7 @@ export function TableOfContents({
           <li key={item.id}>
             <a
               href={`#${item.id}`}
-              className="-ml-px block border-l-2 border-transparent py-1 pl-4 text-sm text-foreground-muted hover:border-brand-700 hover:text-brand-900"
+              className="-ml-px block border-l-2 border-transparent py-3 pl-4 text-sm text-foreground-muted hover:border-brand-700 hover:text-brand-900 lg:py-1"
             >
               {item.text}
             </a>

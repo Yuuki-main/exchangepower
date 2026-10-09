@@ -2,6 +2,7 @@ import { Inter, Sora } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SITE } from "@/content/site.js";
+import { isIndexable } from "@/lib/content-schema.js";
 import "./globals.css";
 
 // Body text. Variable font, self-hosted by next/font. Not preloaded: the
@@ -39,6 +40,8 @@ export const metadata = {
     images: [{ url: "/og/home.png", width: 1200, height: 630, alt: SITE.name }],
   },
   formatDetection: { telephone: false },
+  // Vercel preview deployments must never be indexed (see robots.js).
+  ...(isIndexable() ? {} : { robots: { index: false, follow: false } }),
 };
 
 /** @type {import("next").Viewport} */

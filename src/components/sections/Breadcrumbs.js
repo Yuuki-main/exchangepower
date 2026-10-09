@@ -44,7 +44,7 @@ export function Breadcrumbs({ items, tone = "light", className }) {
                 <Link
                   href={item.href}
                   className={cn(
-                    "underline-offset-4 hover:underline",
+                    "inline-flex min-h-11 min-w-11 items-center justify-center underline-offset-4 hover:underline lg:min-h-0",
                     dark
                       ? "text-foreground-inverse-muted hover:text-white"
                       : "text-foreground-muted hover:text-brand-700",

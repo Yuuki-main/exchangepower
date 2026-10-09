@@ -7,7 +7,7 @@ import {
 } from "@/lib/content";
 import { STATIC_ROUTES } from "@/lib/content-schema";
 
-// Every public route. /styleguide/ is internal and deliberately left out.
+// Every public route.
 // lastModified is only given where the content has a real date (posts, and
 // the blog index = newest post); other pages have no reliable date to report.
 

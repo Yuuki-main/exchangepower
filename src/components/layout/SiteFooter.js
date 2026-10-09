@@ -30,15 +30,15 @@ export function SiteFooter() {
       <Container className="grid gap-12 py-16 lg:grid-cols-12 lg:gap-8 lg:py-20">
         <div className="lg:col-span-4">
           <Wordmark name={site.name} tone="dark" />
-          <p className="mt-4 max-w-sm text-foreground-inverse-muted">
+          <p className="mt-2 max-w-sm text-foreground-inverse-muted">
             {site.description}
           </p>
-          <ul className="mt-8 space-y-3">
+          <ul className="mt-6">
             {contact.map(({ icon: Icon, label, href }) => (
               <li key={label}>
                 <a
                   href={href}
-                  className="inline-flex items-start gap-3 text-white hover:text-accent-300"
+                  className="inline-flex items-start gap-3 py-2.5 text-white hover:text-accent-300"
                   {...(href.startsWith("http")
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
@@ -63,12 +63,12 @@ export function SiteFooter() {
               <h2 className="text-xs font-semibold tracking-[0.14em] text-accent-300 uppercase">
                 {column.title}
               </h2>
-              <ul className="mt-4 space-y-2.5">
+              <ul className="mt-2 lg:mt-4 lg:space-y-2.5">
                 {column.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href ?? "/"}
-                      className="text-foreground-inverse-muted hover:text-white"
+                      className="inline-flex min-h-11 min-w-11 items-center py-1.5 text-foreground-inverse-muted hover:text-white lg:min-h-0 lg:py-0"
                     >
                       {link.label}
                     </Link>
