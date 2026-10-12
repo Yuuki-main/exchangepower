@@ -130,6 +130,8 @@
   /* Entrance animations (used sparingly: hero only). */
   --animate-rise: rise 700ms var(--ease-out) both;
   --animate-draw: draw 1600ms var(--ease-in-out) 200ms both;
+  /* Brand marquee (WhyChoose). Stops for reduced-motion users. */
+  --animate-marquee: marquee 40s linear infinite;
 
   @keyframes rise {
     from {
@@ -142,6 +144,26 @@
       stroke-dashoffset: 1;
     }
   }
+  @keyframes marquee {
+    to {
+      translate: -50% 0;
+    }
+  }
+}
+
+/* Faint square grid for dark feature sections, fading out at the edges. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+/* Large outlined numerals (decorative step numbers). */
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-brand-200);
 }
 
 @layer base {

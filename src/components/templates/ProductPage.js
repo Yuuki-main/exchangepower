@@ -11,6 +11,7 @@ import { ArrowRightIcon, PhoneIcon } from "@/components/ui/Icon";
 import { Section } from "@/components/ui/Section";
 import { SectionIntro } from "@/components/ui/SectionIntro";
 import { breadcrumbJsonLd, faqPageJsonLd } from "@/lib/seo";
+import { getBackground } from "@/lib/content";
 
 /**
  * Template for every product and service detail page.
@@ -32,6 +33,7 @@ export function ProductPage({ data, site }) {
 
       <PageHeader
         breadcrumbs={breadcrumbs}
+        background={getBackground(`products/${product.slug}`)}
         eyebrow={hubTitle}
         title={product.title}
         actions={
@@ -57,6 +59,12 @@ export function ProductPage({ data, site }) {
             <h2 id="overview-title" className="sr-only">
               About the {product.title}
             </h2>
+            {/* The product's own image, once approved (PLAN Part C item 7). */}
+            <MediaSlot
+              imageKey={product.image}
+              sizes="(min-width: 1280px) 760px, (min-width: 1024px) 66vw, 100vw"
+              className="mb-10 rounded-3xl ring-1 ring-border"
+            />
             {product.bodyImages.map((key) => (
               <MediaSlot
                 key={key}
@@ -110,6 +118,7 @@ export function ProductPage({ data, site }) {
 
       <RelatedProducts products={related} />
       <CtaBand
+        background={getBackground("ctaBand")}
         title={site.cta.title}
         text={site.cta.subtitle}
         quote={quote}

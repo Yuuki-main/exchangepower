@@ -3,6 +3,7 @@ import "server-only";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { ABOUT } from "@/content/about.js";
+import { BACKGROUNDS } from "@/content/backgrounds.js";
 import { BLOG } from "@/content/blog.js";
 import { HOME } from "@/content/home.js";
 import { IMAGES } from "@/content/images.js";
@@ -142,6 +143,51 @@ export function getApprovedImage(key) {
     );
   }
   return image;
+}
+
+/**
+ * Image key of a page's background photo (src/content/backgrounds.js), or
+ * null when the page has none.
+ * @example getBackground("home.hero")
+ * @example getBackground("products/6-6kw-solar-system-wa")
+ * @example getBackground(`posts/${post.slug}`)
+ * @param {string} name A dotted path, or "products/<slug>" or "posts/<slug>".
+ * @returns {string | null}
+ */
+export function getBackground(name) {
+  /** @type {unknown} */
+  let value = BACKGROUNDS;
+  for (const part of name.includes("/") ? name.split("/") : name.split(".")) {
+    value =
+      value && typeof value === "object"
+        ? /** @type {Record<string, unknown>} */ (value)[part]
+        : undefined;
+  }
+  if (value === undefined) return null;
+  if (typeof value !== "string")
+    throw new Error(`Content error: background "${name}" is not an image key`);
+  getImage(value); // Throws if the key is not in images.js.
+  return value;
+}
+
+/**
+ * Whether an item's own image is approved and downloaded. Cards show such
+ * images (often with text baked in) without a tint or overlaid labels.
+ * @param {string | null} image
+ */
+export function isOwnPhoto(image) {
+  return Boolean(getApprovedImage(image));
+}
+
+/**
+ * The photo for a card linking to a product or post: its own image once
+ * approved, otherwise the background photo of the page it links to.
+ * @param {string | null} image The item's own image key.
+ * @param {string} background A getBackground() name, e.g. "posts/<slug>".
+ * @returns {string | null}
+ */
+export function getCardPhoto(image, background) {
+  return getApprovedImage(image) ? image : getBackground(background);
 }
 
 // ---------------------------------------------------------------- products

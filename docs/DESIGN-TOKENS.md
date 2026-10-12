@@ -168,6 +168,6 @@ Target range: **360px to 1440px**. Above 1440px, content is capped at `max-w-con
 | `Field`                        | `label`, `hint`, `error`, `required`. Passes `id`, `aria-describedby`, `aria-invalid` and `required` to its child control.                                                       | No                    |
 | `Accordion` / `AccordionItem`  | Native `<details>`. `defaultOpen`, `name` (exclusive group), `headingLevel`                                                                                                      | No                    |
 | `Dialog`                       | Native `<dialog>` + `showModal()`. `size`: sm, md, lg · trigger variant and size                                                                                                 | **Yes, the only one** |
-| `Icon`                         | 12 named exports (`PhoneIcon`, `MailIcon`…), each tree-shaken. `size`, `title` (accessible) or decorative by default                                                             | No                    |
+| `Icon`                         | 26 named exports (`PhoneIcon`, `MailIcon`…), each tree-shaken. `size`, `title` (accessible) or decorative by default                                                             | No                    |
 
 The `/styleguide/` gallery was removed in Step 10. `Badge`, `Card` and six icons were used only there and were removed with it. Their tokens remain above.

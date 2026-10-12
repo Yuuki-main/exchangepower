@@ -9,6 +9,7 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { ABOUT } from "../src/content/about.js";
+import { BACKGROUNDS } from "../src/content/backgrounds.js";
 import { HOME } from "../src/content/home.js";
 import { IMAGES } from "../src/content/images.js";
 import { FOOTER_NAV, HEADER_NAV } from "../src/content/navigation.js";
@@ -297,6 +298,28 @@ for (const [key, img] of Object.entries(IMAGES)) {
   if (!(img.width > 0 && img.height > 0))
     errors.push(`images.${key}: width and height are required`);
 }
+
+// ------------------------------------------------------------ backgrounds
+// Every background points at an approved image, and every slug is a real page.
+/** @param {unknown} value @param {string} where */
+function checkBackgrounds(value, where) {
+  if (typeof value === "string") {
+    if (!(value in IMAGES))
+      errors.push(`backgrounds.${where}: "${value}" is not in images.js`);
+    else if (!IMAGES[value].approved)
+      errors.push(`backgrounds.${where}: "${value}" is not approved`);
+    return;
+  }
+  for (const [k, v] of Object.entries(/** @type {object} */ (value)))
+    checkBackgrounds(v, where ? `${where}.${k}` : k);
+}
+checkBackgrounds(BACKGROUNDS, "");
+for (const slug of Object.keys(BACKGROUNDS.products))
+  if (!PRODUCTS.some((p) => p.slug === slug))
+    errors.push(`backgrounds.products: "${slug}" is not a product`);
+for (const slug of Object.keys(BACKGROUNDS.posts))
+  if (!posts.some((p) => p.slug === slug))
+    errors.push(`backgrounds.posts: "${slug}" is not a post`);
 
 // ------------------------------------------------------------ report
 const faqCount = PRODUCTS.reduce((n, p) => n + p.faqs.length, 0);

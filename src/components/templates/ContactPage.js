@@ -5,6 +5,7 @@ import { QuoteForm } from "@/components/forms/QuoteForm";
 import { Section } from "@/components/ui/Section";
 import { CONTACT } from "@/content/contact.js";
 import { breadcrumbJsonLd, localBusinessJsonLd } from "@/lib/seo";
+import { getBackground } from "@/lib/content";
 
 /**
  * Contact page: the quote form (the only client component) beside every
@@ -25,6 +26,7 @@ export function ContactPage({ site }) {
       <JsonLd data={breadcrumbJsonLd(breadcrumbs)} />
       <PageHeader
         breadcrumbs={breadcrumbs}
+        background={getBackground("contact")}
         eyebrow={CONTACT.eyebrow}
         title={CONTACT.title}
         lead={CONTACT.lead}

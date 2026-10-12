@@ -104,6 +104,7 @@
  * @property {string} alt Alt text ("" for decorative images).
  * @property {number} width Intrinsic width in px.
  * @property {number} height Intrinsic height in px.
+ * @property {{ name: string, url: string }} [credit] Photographer and photo page, for stock photos.
  */
 
 /** URL base path and label for each product category. */

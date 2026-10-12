@@ -1,4 +1,5 @@
-// ARCHIVE: the live homepage copy, imported verbatim (not used by the app).
+// ARCHIVE: the live homepage copy, imported verbatim. home.js reuses parts of it
+// (hero title and banner, the Promise section, the packages heading, reviews).
 // Kept as the source reference for the new homepage (src/content/home.js).
 // Imported from the live site by scripts/import-content.mjs, then edited by hand.
 // Copy is verbatim; see docs/CONTENT-NOTES.md for suggested fixes.

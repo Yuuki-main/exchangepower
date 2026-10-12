@@ -2,6 +2,7 @@ import { PageHeader } from "@/components/sections/PageHeader";
 import { Prose } from "@/components/sections/Prose";
 import { TableOfContents } from "@/components/sections/TableOfContents";
 import { Section } from "@/components/ui/Section";
+import { getBackground } from "@/lib/content";
 
 /**
  * Legal document (Terms, Privacy): verbatim Markdown, with an optional table
@@ -20,7 +21,12 @@ export function LegalPage({ title, path, html, toc }) {
   ];
   return (
     <>
-      <PageHeader breadcrumbs={breadcrumbs} eyebrow="Legal" title={title} />
+      <PageHeader
+        breadcrumbs={breadcrumbs}
+        background={getBackground("legal")}
+        eyebrow="Legal"
+        title={title}
+      />
       <Section labelledBy="legal-body-title">
         <h2 id="legal-body-title" className="sr-only">
           {title}

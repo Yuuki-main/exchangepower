@@ -1,6 +1,8 @@
 import "server-only";
 
 import {
+  getCardPhoto,
+  isOwnPhoto,
   getCategoryHub,
   getProduct,
   getProductBody,
@@ -8,6 +10,7 @@ import {
   getProductsByCategory,
   getRelatedProducts,
 } from "./content";
+import { CATEGORIES } from "./content-schema.js";
 import { renderMarkdown } from "./markdown";
 import { buildMetadata } from "./seo";
 
@@ -28,9 +31,12 @@ export function toProductSummary(product) {
   return {
     title: product.title,
     href: getProductPath(product),
+    category: CATEGORIES[product.category].label,
     keyFacts: product.keyFacts,
     highlights: product.highlights,
     image: product.image,
+    photo: getCardPhoto(product.image, `products/${product.slug}`),
+    photoIsOwn: isOwnPhoto(product.image),
   };
 }
 

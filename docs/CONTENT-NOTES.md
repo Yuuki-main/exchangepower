@@ -178,3 +178,77 @@ The redesigned homepage (`src/content/home.js`) uses **new short copy**. Every f
 - **Hub titles and descriptions:** still the WordPress defaults (6.1), but each one is unique, so the SEO check passes. Replacing them is still recommended.
 - **Social sharing images:** each page's card shows its title in the brand colours with the typeset "Exchange Power" wordmark. No logo is used until it's approved.
 - **Structured data:** opening hours, map coordinates, the ABN and social profiles are left out until the business confirms them.
+
+## 14. Background photos (stock, added after Step 10)
+
+Every dark page header, the homepage hero, the homepage quote section, the "Get a free quote" band and the 404 page now have a background photo. All are **free stock photos from Unsplash**, used under the [Unsplash License](https://unsplash.com/license), which allows commercial use without attribution. They were downloaded through Unsplash's own download links, which only work for free photos (no Unsplash+ images). Credits are recorded anyway.
+
+- **Where they're set:** `src/content/backgrounds.js` maps each page to a key, and `src/content/images.js` (the `bg-…` entries) holds each file, its size and the credit. To change a page's photo, point it at another key.
+- **Readability:**
+  - A brand-coloured overlay (`BackgroundImage.js`) sits over every photo: at least 60% across the image, darker behind the text column, and at least 68% at the far right.
+  - Text contrast was measured against the rendered pixels behind every line of text, across all 30 pages and 6 widths: 2,375 samples, all WCAG AA or better.
+- **Cards reuse them.** Product, post, solution and system-size cards, and the homepage guide thumbnails, show the photo of the page they link to (`getCardPhoto()` in `src/lib/content.js`). Once a product or post has its own approved image (`images.js` `approved: true`), the card uses that instead.
+- **Decorative only:** the photos have empty alt text and are hidden from screen readers.
+- **They're not the business's own work.** Several show non-Australian homes and buildings. Nothing on the page claims they're Exchange Power installations, but replacing them with real project photos is recommended once they're available (PLAN Part C item 7).
+- The old-site images in `images.js` are unchanged: still `approved: false`, not downloaded.
+
+| Key                           | Used on                                                                       | Photo                                                                        |
+| ----------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `bg-home-hero`                | `home.hero`                                                                   | [Soren H](https://unsplash.com/photos/omfN1pW-n2Y)                           |
+| `bg-quote-cta`                | `home.quote`                                                                  | [VD Photography](https://unsplash.com/photos/9KCRGQySNiw)                    |
+| `bg-cta-band`                 | `ctaBand`                                                                     | [American Public Power Association](https://unsplash.com/photos/XGAZzyLzn18) |
+| `bg-residential`              | `products/residential-solar`                                                  | [Wiseman Mabasa](https://unsplash.com/photos/f93lJ_3wOmM)                    |
+| `bg-6-6kw`                    | `products/6-6kw-solar-system-wa`                                              | [Vivint Solar](https://unsplash.com/photos/9CalgkSRZb8)                      |
+| `bg-7-7kw`                    | `products/7-7kw-solar-system-wa`                                              | [Watt A Lot](https://unsplash.com/photos/gqpuuF3a2tY)                        |
+| `bg-10kw`                     | `products/10kw-solar-system-wa`                                               | [Watt A Lot](https://unsplash.com/photos/Ja8t8nJN2I4)                        |
+| `bg-13-2kw`                   | `products/13-2kw-solar-system`                                                | [Rafael Moreno](https://unsplash.com/photos/73JOOymZQTQ)                     |
+| `bg-commercial`               | `products/commercial-solar`                                                   | [Bernd Dittrich](https://unsplash.com/photos/g-SFUAYL0MY)                    |
+| `bg-30kw`                     | `products/30kw-solar-system`                                                  | [Jolame Chirwa](https://unsplash.com/photos/Oer1kxEHzc4)                     |
+| `bg-50kw`                     | `products/50kw-solar-system`                                                  | [Remco Guijs](https://unsplash.com/photos/IbgOtXHG8XQ)                       |
+| `bg-100kw`                    | `products/100kw-solar-system`                                                 | [Ben Issac](https://unsplash.com/photos/NEIfsHMjHSQ)                         |
+| `bg-battery`                  | `products/solar-battery`                                                      | [Kartik Gada](https://unsplash.com/photos/eXEQyNNAvs8)                       |
+| `bg-battery-rebates`          | `products/wa-residential-battery-rebates`                                     | [Iain](https://unsplash.com/photos/ZdmoT5orMzM)                              |
+| `bg-packages`                 | `products/solar-packages`                                                     | [Priamo Mendez](https://unsplash.com/photos/E4XEBPEkgUs)                     |
+| `bg-installation-wa`          | `products/solar-panel-installation-in-wa`                                     | [Vlad Burac](https://unsplash.com/photos/e5kpS6Xpg04)                        |
+| `bg-installation-wangara`     | `products/solar-panel-installation-wangara`                                   | [Vlad Burac](https://unsplash.com/photos/rIVlxt5ROrM)                        |
+| `bg-rebates-incentives`       | `products/solar-rebates-and-incentives-in-wa`                                 | [Darmau](https://unsplash.com/photos/hYfOeNvDXWg)                            |
+| `bg-about`                    | `about`                                                                       | [Amanda Kevin](https://unsplash.com/photos/OO2L92v213c)                      |
+| `bg-contact`                  | `contact`                                                                     | [Pawel Czerwinski](https://unsplash.com/photos/Ih3-ww0fBHM)                  |
+| `bg-blog`                     | `blog`                                                                        | [Michael Pointner](https://unsplash.com/photos/ZGzMr04QdmU)                  |
+| `bg-post-6-6-vs-7-7`          | `posts/6-6kw-solar-system-vs-7-7kw-solar-system-which-is-better`              | [CHUTTERSNAP](https://unsplash.com/photos/XEXg5U0pxak)                       |
+| `bg-post-rebate-guide`        | `posts/complete-guide-to-solar-power-rebate-western-australia-in-2026`        | [Darmau](https://unsplash.com/photos/Y5j57HvzuZg)                            |
+| `bg-post-7-7-air-con`         | `posts/is-a-7-7kw-solar-system-suitable-for-homes-with-air-conditioning`      | [Lara John](https://unsplash.com/photos/VNIjztzKF_U)                         |
+| `bg-post-first-time-buyers`   | `posts/solar-panel-rebate-western-australia-for-first-time-solar-buyers`      | [CHUTTERSNAP](https://unsplash.com/photos/qziEfi5lyXM)                       |
+| `bg-post-battery-rebate-2026` | `posts/wa-government-solar-battery-rebate-2026-complete-guide-for-homeowners` | [Iain](https://unsplash.com/photos/oNHHUl18teM)                              |
+| `bg-post-battery-scheme`      | `posts/wa-residential-battery-scheme-for-solar-homes-in-western-australia`    | [Vivint Solar](https://unsplash.com/photos/_ciUqT1HEuY)                      |
+| `bg-post-7-7-families`        | `posts/why-a-7-7kw-solar-system-is-ideal-for-growing-families`                | [Angie Warren](https://unsplash.com/photos/ZO7UsokVH98)                      |
+| `bg-post-6-6-popular`         | `posts/why-the-6-6kw-solar-system-is-australias-most-popular-choice`          | [Nuno Marques](https://unsplash.com/photos/0GbrjL3vZF4)                      |
+| `bg-legal`                    | `legal` (Terms and Privacy)                                                   | [CHUTTERSNAP](https://unsplash.com/photos/Q3r3Ws-o54s)                       |
+| `bg-not-found`                | `notFound`                                                                    | [Cristina Glebova](https://unsplash.com/photos/-RwCPtgy6lA)                  |
+
+## 15. Live claims and images restored (2026-10-12, owner's request)
+
+**Claims now shown on the homepage, all still unverified (see 3.3, 4.5 and 9):**
+
+- "Trusted by Over 5,000 Australians — The Exchange Power Promise", with the live Residential and Commercial paragraphs (`home.promise`).
+- "4.8 from 1,194 reviews" and "Trusted by Australian Families and Businesses", in the hero and the Promise section. This was hidden on the live site and has no source.
+- "15,000kWh+ solar batteries sold", in the stats card. It replaces the NETCC tile; the NETCC badge stays in the footer.
+- "Premium Solar Packages — Smart Solar Solutions That Reduce Your Power Bills by Up to 80%" (`home.solutions`).
+- "Cheaper Home Batteries Program", as the battery section's eyebrow.
+
+**Old-site images:** every place the live site shows one is now wired up. Each image appears automatically once it's downloaded and `approved: true` in `images.js`:
+
+| Image                                 | Where it appears                                                                                      |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Logo                                  | Header (the footer keeps the typeset wordmark, because the logo's blue text needs a light background) |
+| `home-hero` banner                    | Battery section                                                                                       |
+| `home-residential`, `home-commercial` | Promise cards                                                                                         |
+| `home-why` collage                    | Why section                                                                                           |
+| Brand logos                           | Marquee tiles                                                                                         |
+| NETCC badge                           | Footer                                                                                                |
+| Product images                        | Hub cards, related-product cards and the top of each product page                                     |
+| Post images                           | Blog cards, the featured card (image beside the text), guide thumbnails and post pages                |
+
+Cards show these images whole, with no tint or overlaid labels, because the images have text baked in. The homepage system-size cards keep their stock photos, because the kW figure is set over them.
+
+**Not done yet:** the images haven't been downloaded. This session's permission rules blocked `npm run images:fetch`. Until they're downloaded, the stock photos and the typeset wordmark show.

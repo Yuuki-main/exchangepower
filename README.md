@@ -75,14 +75,14 @@ BASE_URL=http://localhost:3010 npm run check:parity
 
 ### Occasional
 
-| Script             | What it does                                                                                                                                                                                            |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `og:generate`      | Regenerates the social sharing images (`public/og/`, git-ignored). It runs automatically before every build.                                                                                            |
-| `icons:generate`   | Regenerates the **placeholder** "EP" favicon and app icons. Edit `scripts/generate-icons.mjs` when the real logo is approved. Uses `sharp`, which is installed with Next.js.                            |
-| `images:fetch`     | Downloads every old-site image listed in `src/content/images.js` into `public/images/`. Then set `approved: true` on each image the business approves. **Not run yet:** image use hasn't been approved. |
-| `content:download` | One-off migration tool: saves the live site's HTML into a local cache.                                                                                                                                  |
-| `content:import`   | One-off migration tool: converts the cached HTML into `src/content/`. **Don't re-run it:** it would overwrite hand edits.                                                                               |
-| `content:verify`   | Confirms the imported Markdown still matches the live site word for word.                                                                                                                               |
+| Script             | What it does                                                                                                                                                                                                                                                          |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `og:generate`      | Regenerates the social sharing images (`public/og/`, git-ignored). It runs automatically before every build.                                                                                                                                                          |
+| `icons:generate`   | Regenerates the **placeholder** "EP" favicon and app icons. Edit `scripts/generate-icons.mjs` when the real logo is approved. Uses `sharp`, which is installed with Next.js.                                                                                          |
+| `images:fetch`     | Downloads every image in `src/content/images.js` that isn't already in `public/images/`. The background photos are already committed, and `-- --only=bg-` re-downloads only those. The old-site images haven't been downloaded, because their use isn't approved yet. |
+| `content:download` | One-off migration tool: saves the live site's HTML into a local cache.                                                                                                                                                                                                |
+| `content:import`   | One-off migration tool: converts the cached HTML into `src/content/`. **Don't re-run it:** it would overwrite hand edits.                                                                                                                                             |
+| `content:verify`   | Confirms the imported Markdown still matches the live site word for word.                                                                                                                                                                                             |
 
 ## Folder map
 
@@ -128,6 +128,7 @@ docs/                     Project documentation (see "Where the docs live")
 | `legal/*.md`                        | Privacy Policy and Terms                                                                                        |
 | `about.js`, `blog.js`, `contact.js` | Those pages' copy and SEO                                                                                       |
 | `images.js`                         | The image registry (nothing shows until `approved: true` and the file exists)                                   |
+| `backgrounds.js`                    | Which background photo each page header and quote band uses (keys into `images.js`)                             |
 
 ### Example: change the phone number
 
@@ -218,6 +219,15 @@ Email and WhatsApp work the same way: `email` and `whatsapp` in `site.js`. The W
 4. **Menus are manual.** To list the product in the header dropdown or footer, add `{ label, href }` to `src/content/navigation.js`.
 5. Run `npm run check:content`, then open the URL in `npm run dev`.
 
+### Example: change a page's background photo
+
+1. Add the photo to `public/images/backgrounds/`. A landscape JPEG about 1920px wide works well, and `next/image` serves smaller WebP versions automatically.
+2. Register it in `src/content/images.js`, for example `"bg-my-photo": { approved: true, src: null, localPath: "/images/backgrounds/my-photo.jpg", alt: "", width: 1920, height: 1280, credit: { name: "…", url: "…" } }`.
+3. In `src/content/backgrounds.js`, point the page at it, for example `"6-6kw-solar-system-wa": "bg-my-photo"`. Remove a page's entry to show the plain dark header instead.
+4. Run `npm run check:content`. It fails on a key that doesn't exist or isn't approved, and on a product or post slug that doesn't exist.
+
+The dark overlay keeps the text readable on any photo. Very bright, busy photos are the hardest, so check the page at phone width after a change.
+
 ### Example: edit an FAQ
 
 - **Product page FAQs:** in `src/content/products.js`, find the product's `faqs` array and edit `question` or `answer`. Answers can use Markdown links: `[battery rebates](/solar-battery/wa-residential-battery-rebates/)`. The page's FAQ structured data updates with it.
@@ -275,14 +285,15 @@ The site is set up for **Vercel**, with no `vercel.json`: redirects and trailing
 
 ## Known limitations
 
-- **Simulated Lighthouse LCP is about 2.1–2.6s** on mobile, just above the 2.5s "good" line on the homepage and product pages.
-  - The real paint is fast: about 1.6s with applied throttling, and the H1 renders at about 80ms.
-  - Lighthouse's simulation charges for the about 166 KB (gzip) of Next.js and React runtime that loads first.
-  - The Performance score is 97–99, and Accessibility, Best Practices and SEO are all 100.
+- **Simulated Lighthouse LCP is about 2.6–3.2s** on mobile (homepage 3.2s, inner pages 2.6–2.8s), above the 2.5s "good" line.
+  - The LCP element is the header background photo.
+  - The real paint is fast: about 1.6–1.7s with applied throttling (homepage Performance 99).
+  - Lighthouse's simulation charges for the about 166 KB (gzip) of Next.js and React runtime, and for the richer homepage HTML.
+  - Simulated Performance is 93 on the homepage and 96–97 elsewhere. Accessibility, Best Practices and SEO are all 100.
   - Measure real-world data after launch with PageSpeed Insights or Vercel Speed Insights. Only revisit the JavaScript split if the 75th percentile field LCP is over 2.5s.
   - Details are in `PLAN.md` Step 9 under "Known limitation".
 - **The rate limit is per server instance** (in memory). On Vercel it's best-effort. If spam becomes a problem, add Vercel Firewall rules or a shared store such as Upstash Redis.
-- **No images yet.** Every image in `src/content/images.js` is `approved: false` until the business confirms it owns them, so the design works without photos.
+- **Background photos are stock.** Page headers, the homepage hero and the quote bands use free Unsplash photos (credits in `docs/CONTENT-NOTES.md` §14), not the business's own work. Swap in real project photos when available. The old site's product and blog images are still not used (`approved: false`) until the business confirms it owns them.
 - **Placeholder brand assets.** There's a typeset wordmark instead of the logo, and an "EP" monogram for the favicon and app icons.
 - **No CMS.** Content changes are code changes: edit, commit and push, and Vercel deploys in about a minute. Adding a headless CMS later is possible, because all copy already sits in `src/content/`.
 - **No analytics** until a choice is made (PLAN Part C item 10).

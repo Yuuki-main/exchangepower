@@ -1,3 +1,4 @@
+import { getImageProps } from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import {
@@ -7,6 +8,7 @@ import {
   PhoneIcon,
 } from "@/components/ui/Icon";
 import { getNavigation, getSite } from "@/lib/content";
+import { getApprovedImage } from "@/lib/content";
 import { CopyrightYear } from "./CopyrightYear";
 import { Wordmark } from "./Wordmark";
 
@@ -14,6 +16,8 @@ import { Wordmark } from "./Wordmark";
 export function SiteFooter() {
   const site = getSite();
   const { footer } = getNavigation();
+  // The NETCC badge image, once approved (PLAN Part C item 7).
+  const badge = getApprovedImage(site.badges.netcc.image);
   const contact = [
     { icon: PhoneIcon, label: site.phone.display, href: site.phone.href },
     { icon: MailIcon, label: site.email, href: `mailto:${site.email}` },
@@ -85,7 +89,22 @@ export function SiteFooter() {
           <p>
             © <CopyrightYear /> {site.name}. All rights reserved.
           </p>
-          <p>{site.badges.netcc.label}</p>
+          <p className="flex items-center gap-3">
+            {badge ? (
+              // eslint-disable-next-line @next/next/no-img-element -- props come from next/image getImageProps()
+              <img
+                {...getImageProps({
+                  src: badge.localPath,
+                  alt: "",
+                  width: 48,
+                  height: 48,
+                }).props}
+                alt=""
+                className="size-12"
+              />
+            ) : null}
+            {site.badges.netcc.label}
+          </p>
         </Container>
       </div>
     </footer>

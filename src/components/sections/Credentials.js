@@ -1,20 +1,37 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
+import {
+  AwardIcon,
+  BatteryIcon,
+  ShieldCheckIcon,
+  SunIcon,
+  UsersIcon,
+} from "@/components/ui/Icon";
 import { cn } from "@/lib/cn";
 
+const ICONS = {
+  sun: SunIcon,
+  users: UsersIcon,
+  shield: ShieldCheckIcon,
+  award: AwardIcon,
+  battery: BatteryIcon,
+};
+
 /**
- * A quiet row of facts that build trust: no cards, just figures and labels
- * divided by hairlines.
+ * The facts that build trust as a raised card: an icon, a large figure and
+ * a label for each. On the homepage it overlaps the bottom of the hero.
  *
  * @param {object} props
  * @param {string} props.title Section name (read by screen readers only).
- * @param {{ value: string, label: string, href?: string }[]} props.items
+ * @param {{ value: string, label: string, href?: string, icon?: string }[]} props.items
+ * @param {boolean} [props.overlap=false] Pull the card up over the section above
+ *   (the homepage hero leaves room for it).
  */
-export function Credentials({ title, items }) {
+export function Credentials({ title, items, overlap = false }) {
   return (
     <section
       aria-labelledby="credentials-title"
-      className="border-b border-border bg-background"
+      className={cn("relative z-10 bg-background", overlap ? "pb-4" : "py-10")}
     >
       <h2 id="credentials-title" className="sr-only">
         {title}
@@ -22,7 +39,8 @@ export function Credentials({ title, items }) {
       <Container>
         <dl
           className={cn(
-            "grid grid-cols-2",
+            "grid grid-cols-2 gap-px overflow-hidden rounded-3xl bg-border ring-1 ring-border",
+            overlap ? "-mt-12 shadow-xl sm:-mt-16" : "shadow-sm",
             items.length >= 4
               ? "lg:grid-cols-4"
               : items.length === 3
@@ -30,33 +48,45 @@ export function Credentials({ title, items }) {
                 : "",
           )}
         >
-          {items.map((item, i) => (
-            <div
-              key={item.label}
-              className={cn(
-                "flex flex-col-reverse gap-1 py-7 pr-4 sm:py-9",
-                i % 2 === 1 && "border-l border-border pl-5 sm:pl-8",
-                i >= 2 && "border-t border-border lg:border-t-0",
-                i === 2 && "lg:border-l lg:pl-8",
-              )}
-            >
-              <dt className="text-sm text-foreground-muted sm:text-base">
-                {item.href ? (
-                  <Link
-                    href={item.href}
-                    className="inline-flex min-h-11 items-center underline decoration-border underline-offset-4 hover:text-brand-700 hover:decoration-current"
-                  >
-                    {item.label}
-                  </Link>
-                ) : (
-                  item.label
+          {items.map((item) => {
+            const Icon = item.icon
+              ? ICONS[/** @type {keyof typeof ICONS} */ (item.icon)]
+              : null;
+            return (
+              <div
+                key={item.label}
+                className={cn(
+                  "relative flex min-w-0 flex-col-reverse justify-end gap-1 bg-background p-5 sm:p-7 lg:p-8",
+                  Icon && "pt-20 sm:pt-24",
                 )}
-              </dt>
-              <dd className="font-display text-3xl font-semibold tracking-tight text-brand-900">
-                {item.value}
-              </dd>
-            </div>
-          ))}
+              >
+                <dt className="text-sm text-foreground-muted">
+                  {item.href ? (
+                    <Link
+                      href={item.href}
+                      className="inline-flex min-h-11 items-center underline decoration-border underline-offset-4 hover:text-brand-700 hover:decoration-current"
+                    >
+                      {item.label}
+                    </Link>
+                  ) : (
+                    item.label
+                  )}
+                </dt>
+                <dd className="font-display text-2xl font-bold tracking-tight text-brand-900 sm:text-3xl lg:text-2xl xl:text-3xl">
+                  {/* The icon sits in the dd so the dl keeps only dt/dd pairs. */}
+                  {Icon ? (
+                    <span
+                      aria-hidden="true"
+                      className="absolute top-5 left-5 grid size-11 place-items-center rounded-2xl bg-accent-50 text-accent-700 ring-1 ring-accent-200 sm:top-7 sm:left-7 lg:top-8 lg:left-8"
+                    >
+                      <Icon size={22} />
+                    </span>
+                  ) : null}
+                  {item.value}
+                </dd>
+              </div>
+            );
+          })}
         </dl>
       </Container>
     </section>

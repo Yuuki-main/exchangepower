@@ -657,6 +657,49 @@ A static export also gives up other things this site needs:
 
 ---
 
+### After Step 10 — Background photos (2026-10-10)
+
+Requested by the owner: every dark header and quote band gets its own background photo.
+
+- **Coverage:** 31 free Unsplash photos (Unsplash License, commercial use allowed) in `public/images/backgrounds/`, 7.8 MB of source JPEGs. `next/image` serves resized WebP.
+- **Where they appear:** the homepage hero and quote section, every page header (4 hubs, 11 products, 8 posts, About, Contact, Blog, Terms, Privacy), the "Get a free quote" band and the 404 page.
+- **Code:**
+  - `BackgroundImage` component (decorative, aria-hidden, with a brand overlay)
+  - `src/content/backgrounds.js`: which page uses which photo
+  - `getBackground()` accessor
+  - `check:content` validates the map
+  - `images:fetch -- --only=bg-`
+- **Credits and caveats:** CONTENT-NOTES §14.
+- **Contrast:** measured against the real rendered pixels under every line of text, at 6 widths on all 30 pages. 2,375 samples, 0 below AA.
+- **Performance cost:** the header photo is now the LCP element on most pages.
+  - **Simulated mobile LCP** (5-run medians): 2.80s home, 2.80s 6.6kW, 2.78s post, 2.64s contact. Before: 2.56, 2.64, 2.11 and 2.41s.
+  - **Performance score:** 96–97, down from 97–99. Accessibility, Best Practices and SEO stay at 100.
+  - **With devtools throttling:** LCP about 1.55–1.7s.
+  - **404 photo:** not preloaded. Its boundary is serialised into every page, and a preload hint downloaded it everywhere.
+  - **If field LCP after launch is over 2.5s:** drop the photo from the homepage hero first, or show header photos only from `md` up.
+
+### After Step 10 — Photo cards and homepage redesign (2026-10-10)
+
+- **Cards:** product, post, solution and system-size cards, plus the homepage guide list, are photo cards (`CardPhoto`, `CardCta`). Each shows the photo of the page it links to (`getCardPhoto()`). The blog index opens with a wide featured card.
+- **Homepage sections redesigned (CSS only, no new client JS):**
+  - **Hero:** chart in a glass panel with a glow; the rebate strip is a glass bar.
+  - **Stats:** a raised card overlapping the hero, with icons.
+  - **Battery:** grid and glow backdrop; the figures are glass cards.
+  - **How it works:** six step cards with outlined numerals and icons.
+  - **Why us:** icon cards, an address card, and a brand marquee that stops for reduced motion.
+  - **FAQ:** cards. This also applies to the product-page FAQs.
+  - **Guides and quote form:** rounded panels.
+- **New icons:** 12. Icon keys are in `home.js` (no copy changes).
+- **Card photos:** served at `quality: 50` (`images.qualities: [50, 75]` in `next.config.mjs`).
+- **Checks:**
+  - Text over photos: 0 below AA.
+  - QA matrix clean. The only "clipped" items are the intentional brand marquee and a decorative icon.
+  - Lighthouse homepage, accessibility: 100.
+  - Lighthouse homepage, simulated mobile: Performance 93, LCP 3.18s (was 2.80s). HTML grew from 27 to 36 KB and CSS from 11 to 13 KB.
+  - Devtools throttling: Performance 99, LCP 1.69s.
+
+---
+
 ## Part C — Decisions needed from the user
 
 1. **Hosting platform.** Vercel is recommended: it's built for Next.js, supports Cache Components, Server Actions and image optimisation, has preview deployments, and its free tier fits this site. Alternatives are Netlify, Cloudflare, or a Node server/VPS.

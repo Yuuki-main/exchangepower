@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { ArrowRightIcon, PhoneIcon } from "@/components/ui/Icon";
+import { BackgroundImage } from "./BackgroundImage";
 
 /**
  * Closing call to action for inner pages: a short statement, the quote
@@ -11,13 +12,15 @@ import { ArrowRightIcon, PhoneIcon } from "@/components/ui/Icon";
  * @param {string} [props.text]
  * @param {{ label: string, href: string }} props.quote
  * @param {{ display: string, href: string }} props.phone
+ * @param {string | null} [props.background] Background photo key.
  */
-export function CtaBand({ title, text, quote, phone }) {
+export function CtaBand({ title, text, quote, phone, background }) {
   return (
     <section
       aria-labelledby="cta-band-title"
-      className="border-t-4 border-accent-400 bg-surface-inverse text-foreground-inverse [--ring:var(--color-accent-300)]"
+      className="relative isolate overflow-hidden border-t-4 border-accent-400 bg-surface-inverse text-foreground-inverse [--ring:var(--color-accent-300)]"
     >
+      <BackgroundImage imageKey={background} />
       <Container className="grid gap-8 py-section-sm lg:grid-cols-12 lg:items-center lg:gap-8">
         <div className="lg:col-span-7">
           <h2

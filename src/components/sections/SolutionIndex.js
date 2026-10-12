@@ -1,50 +1,65 @@
 import Link from "next/link";
-import { ArrowRightIcon } from "@/components/ui/Icon";
 import { Section } from "@/components/ui/Section";
 import { SectionIntro } from "@/components/ui/SectionIntro";
+import { CardCta, CardPhoto } from "./CardPhoto";
 
 /**
- * Editorial index of the main solutions: large numbered rows instead of a
- * grid of cards. Each row is one link to its section of the site.
+ * The main solutions as tall photo cards: number and size range over the
+ * photo, then the title, a line of text and an action, on a dark scrim.
+ * Each card is one link to its category hub.
  *
  * @param {object} props
  * @param {string} props.eyebrow
  * @param {string} props.title
- * @param {{ title: string, range: string, text: string, href: string }[]} props.items
+ * @param {string} [props.lead]
+ * @param {{ title: string, range: string, text: string, href: string, photo?: string | null }[]} props.items
  */
-export function SolutionIndex({ eyebrow, title, items }) {
+export function SolutionIndex({ eyebrow, title, lead, items }) {
   return (
     <Section labelledBy="solutions-title">
-      <SectionIntro id="solutions-title" eyebrow={eyebrow} title={title} />
-      <ol className="mt-12 border-b border-border lg:mt-16">
+      <SectionIntro
+        id="solutions-title"
+        eyebrow={eyebrow}
+        title={title}
+        lead={lead}
+      />
+      <ul className="reveal mt-12 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-6">
         {items.map((item, i) => (
-          <li key={item.href} className="reveal border-t border-border">
+          <li key={item.href}>
             <Link
               href={item.href}
-              className="group grid grid-cols-[2.5rem_minmax(0,1fr)_auto] items-start gap-x-3 py-7 sm:grid-cols-[3.5rem_minmax(0,1fr)_auto] lg:grid-cols-[4rem_minmax(0,1fr)_3rem] lg:gap-x-8 lg:py-10"
+              className="group block h-full overflow-hidden rounded-2xl shadow-sm transition duration-300 [--ring:var(--color-accent-300)] hover:-translate-y-1 hover:shadow-xl motion-reduce:hover:translate-y-0"
             >
-              <span className="pt-2 font-display text-sm font-semibold text-accent-700 tabular-nums lg:pt-4">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span className="grid gap-2 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)_minmax(0,0.5fr)] lg:items-baseline lg:gap-8">
-                <span className="font-display text-4xl font-semibold tracking-tight text-brand-900 transition-colors group-hover:text-brand-600">
-                  {item.title}
-                </span>
-                <span className="max-w-xl text-foreground-muted lg:text-lg">
-                  {item.text}
-                </span>
-                <span className="text-sm font-semibold tracking-wide text-brand-700 lg:text-right">
-                  {item.range}
-                </span>
-              </span>
-              <ArrowRightIcon
-                size={28}
-                className="mt-2 justify-self-end text-brand-700 transition-transform group-hover:translate-x-1 lg:mt-4"
-              />
+              <CardPhoto
+                imageKey={item.photo}
+                sizes="(min-width: 1280px) 300px, (min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                scrim="full"
+                className="flex h-full min-h-96 flex-col p-6 lg:min-h-120 lg:p-7"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <span className="rounded-full bg-brand-950/95 px-2.5 py-1 font-display text-sm font-semibold text-accent-300 tabular-nums">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="rounded-full bg-white/95 px-3 py-1 text-xs font-semibold text-brand-900 shadow-sm">
+                    {item.range}
+                  </span>
+                </div>
+                <div className="mt-auto pt-24">
+                  <span className="block font-display text-3xl font-bold tracking-tight text-white">
+                    {item.title}
+                  </span>
+                  <span className="mt-3 block text-foreground-inverse-muted">
+                    {item.text}
+                  </span>
+                  <CardCta tone="dark" className="mt-6">
+                    Explore {item.title.toLowerCase()}
+                  </CardCta>
+                </div>
+              </CardPhoto>
             </Link>
           </li>
         ))}
-      </ol>
+      </ul>
     </Section>
   );
 }

@@ -10,6 +10,7 @@ import { Prose } from "@/components/sections/Prose";
 import { Section } from "@/components/ui/Section";
 import { SectionIntro } from "@/components/ui/SectionIntro";
 import { articleJsonLd, breadcrumbJsonLd } from "@/lib/seo";
+import { getBackground } from "@/lib/content";
 
 /**
  * Blog post: header with date and reading time, the article, related posts
@@ -42,6 +43,7 @@ export function BlogPost({ post, path, bodyHtml, related, site }) {
 
       <PageHeader
         breadcrumbs={breadcrumbs}
+        background={getBackground(`posts/${post.slug}`)}
         eyebrow={post.category}
         title={post.title}
         lead={
@@ -65,7 +67,7 @@ export function BlogPost({ post, path, bodyHtml, related, site }) {
             imageKey={post.image}
             sizes="(min-width: 768px) 42rem, 100vw"
             preload
-            className="mb-10 aspect-video"
+            className="mb-10 rounded-3xl ring-1 ring-border"
           />
           <Prose html={bodyHtml} />
         </article>
@@ -89,6 +91,7 @@ export function BlogPost({ post, path, bodyHtml, related, site }) {
       ) : null}
 
       <CtaBand
+        background={getBackground("ctaBand")}
         title={site.cta.title}
         text={site.cta.subtitle}
         quote={{ label: site.cta.quoteLabel, href: site.cta.quoteHref }}

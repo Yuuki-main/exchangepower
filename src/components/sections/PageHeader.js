@@ -1,6 +1,7 @@
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { cn } from "@/lib/cn";
+import { BackgroundImage } from "./BackgroundImage";
 import { Breadcrumbs } from "./Breadcrumbs";
 
 /**
@@ -15,6 +16,7 @@ import { Breadcrumbs } from "./Breadcrumbs";
  * @param {React.ReactNode} [props.lead]
  * @param {React.ReactNode} [props.actions] Buttons under the lead.
  * @param {React.ReactNode} [props.aside] Right column on large screens.
+ * @param {string | null} [props.background] Background photo key (src/content/backgrounds.js).
  */
 export function PageHeader({
   breadcrumbs,
@@ -23,9 +25,11 @@ export function PageHeader({
   lead,
   actions,
   aside,
+  background,
 }) {
   return (
-    <header className="bg-surface-inverse text-foreground-inverse [--ring:var(--color-accent-300)]">
+    <header className="relative isolate overflow-hidden bg-surface-inverse text-foreground-inverse [--ring:var(--color-accent-300)]">
+      <BackgroundImage imageKey={background} preload />
       <Container className="pt-6 pb-12 sm:pt-8 lg:pb-16">
         <Breadcrumbs items={breadcrumbs} tone="dark" />
         <div

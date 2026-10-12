@@ -58,6 +58,12 @@ These links sit inside a sentence, where WCAG 2.5.5 allows a smaller target. The
 - Terms: the email address in clause 19
 - Privacy: the site URL in the body copy
 
+## Background photos (2026-10-10)
+
+The matrix above was re-run after background photos were added to the headers and quote bands. It passes on every template and width.
+
+Text over photos was also measured against the actual pixels behind each line, on all 30 pages at all 6 widths: 2,375 samples, all at WCAG AA or better. The lowest was 4.67:1, for a 12px eyebrow on the 30kW page at 360px.
+
 ## Also verified in Step 10
 
 - `npm run check:links`: every internal link resolves, and the `tel:` (E.164, `tel:+61863704963`), `mailto:` and WhatsApp (`https://wa.me/61480595132`) links are well formed.

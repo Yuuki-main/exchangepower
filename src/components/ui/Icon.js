@@ -124,3 +124,99 @@ export const AlertCircleIcon = /* @__PURE__ */ createIcon(
     <path d="M12 8v4M12 16h.01" />
   </>,
 );
+
+export const ClockIcon = /* @__PURE__ */ createIcon(
+  "ClockIcon",
+  <>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 7v5l3 2" />
+  </>,
+);
+
+export const SunIcon = /* @__PURE__ */ createIcon(
+  "SunIcon",
+  <>
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+  </>,
+);
+
+export const UsersIcon = /* @__PURE__ */ createIcon(
+  "UsersIcon",
+  <>
+    <circle cx="9" cy="8" r="4" />
+    <path d="M2 21a7 7 0 0 1 14 0M16 3.13a4 4 0 0 1 0 7.75M22 21a7 7 0 0 0-5-6.7" />
+  </>,
+);
+
+export const ShieldCheckIcon = /* @__PURE__ */ createIcon(
+  "ShieldCheckIcon",
+  <>
+    <path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10z" />
+    <path d="m9 12 2 2 4-4" />
+  </>,
+);
+
+export const AwardIcon = /* @__PURE__ */ createIcon(
+  "AwardIcon",
+  <>
+    <circle cx="12" cy="9" r="6" />
+    <path d="m8.2 13.8-1.2 8.2 5-3 5 3-1.2-8.2" />
+  </>,
+);
+
+export const TagIcon = /* @__PURE__ */ createIcon(
+  "TagIcon",
+  <>
+    <path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z" />
+    <circle cx="7.5" cy="7.5" r="1.5" />
+  </>,
+);
+
+export const FileCheckIcon = /* @__PURE__ */ createIcon(
+  "FileCheckIcon",
+  <>
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+    <path d="M14 2v6h6M9 15l2 2 4-4" />
+  </>,
+);
+
+export const WrenchIcon = /* @__PURE__ */ createIcon(
+  "WrenchIcon",
+  <path d="M14.7 6.3a4 4 0 0 0 5.4 5.4l-9.6 9.6a2.1 2.1 0 0 1-3-3l9.6-9.6a4 4 0 0 0-5.4-5.4l2.6 2.6-.6 2.4-2.4.6z" />,
+);
+
+export const ZapIcon = /* @__PURE__ */ createIcon(
+  "ZapIcon",
+  <path d="M13 2 3 14h9l-1 8 10-12h-9z" />,
+);
+
+export const PenToolIcon = /* @__PURE__ */ createIcon(
+  "PenToolIcon",
+  <>
+    <path d="m12 19 7-7 3 3-7 7zM18 13l-1.5-7.5L2 2l3.5 14.5L13 18z" />
+    <path d="m2 2 7.6 7.6" />
+    <circle cx="11" cy="11" r="2" />
+  </>,
+);
+
+export const HeadsetIcon = /* @__PURE__ */ createIcon(
+  "HeadsetIcon",
+  <>
+    <path d="M3 14v-2a9 9 0 0 1 18 0v2" />
+    <path d="M21 16a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2zM3 16a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2z" />
+  </>,
+);
+
+export const PlusIcon = /* @__PURE__ */ createIcon(
+  "PlusIcon",
+  <path d="M12 5v14M5 12h14" />,
+);
+
+export const StarIcon = /* @__PURE__ */ createIcon(
+  "StarIcon",
+  <path
+    fill="currentColor"
+    d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"
+  />,
+);

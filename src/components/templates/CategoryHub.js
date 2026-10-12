@@ -6,6 +6,7 @@ import { Prose } from "@/components/sections/Prose";
 import { Section } from "@/components/ui/Section";
 import { SectionIntro } from "@/components/ui/SectionIntro";
 import { breadcrumbJsonLd } from "@/lib/seo";
+import { getBackground } from "@/lib/content";
 
 /**
  * Template for the four category hubs: the category's products first, then
@@ -25,6 +26,7 @@ export function CategoryHub({ data, site }) {
       <JsonLd data={breadcrumbJsonLd(breadcrumbs)} />
       <PageHeader
         breadcrumbs={breadcrumbs}
+        background={getBackground(`products/${hub.slug}`)}
         eyebrow="Exchange Power"
         title={hub.title}
         lead={`${count} ${count === 1 ? "option" : "options"} below. Choose one for details, figures and common questions.`}
@@ -54,6 +56,7 @@ export function CategoryHub({ data, site }) {
       </Section>
 
       <CtaBand
+        background={getBackground("ctaBand")}
         title={site.cta.title}
         text={site.cta.subtitle}
         quote={quote}

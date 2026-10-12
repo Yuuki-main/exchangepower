@@ -2,7 +2,7 @@ import { cn } from "@/lib/cn";
 import { ChevronDownIcon } from "./Icon";
 
 /**
- * A list of collapsible items. Built on native `<details>`/`<summary>`, so it
+ * A list of collapsible items, each a rounded card. Built on native `<details>`/`<summary>`, so it
  * works with no JavaScript, is keyboard operable, and its content is
  * findable with the browser's find-in-page.
  *
@@ -11,13 +11,7 @@ import { ChevronDownIcon } from "./Icon";
  * @param {React.ReactNode} props.children `AccordionItem` elements.
  */
 export function Accordion({ className, children }) {
-  return (
-    <div
-      className={cn("divide-y divide-border border-y border-border", className)}
-    >
-      {children}
-    </div>
-  );
+  return <div className={cn("space-y-3", className)}>{children}</div>;
 }
 
 /**
@@ -43,10 +37,25 @@ export function AccordionItem({
 }) {
   const HeadingTag = /** @type {"h3"} */ (`h${headingLevel}`);
   return (
-    <details name={name} open={defaultOpen} className={cn("group", className)}>
-      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 text-left marker:hidden hover:text-brand-700 [&::-webkit-details-marker]:hidden">
+    <details
+      name={name}
+      open={defaultOpen}
+      className={cn(
+        "group rounded-2xl bg-background px-5 ring-1 ring-border transition-shadow open:shadow-md open:ring-brand-600/30 sm:px-6",
+        className,
+      )}
+    >
+      <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 py-4 text-left marker:hidden hover:text-brand-700 [&::-webkit-details-marker]:hidden">
         <HeadingTag className="text-lg font-semibold">{title}</HeadingTag>
-        <ChevronDownIcon className="text-brand-700 transition-transform group-open:rotate-180" />
+        <span
+          aria-hidden="true"
+          className="grid size-9 shrink-0 place-items-center rounded-full bg-surface-muted text-brand-700 transition-colors group-open:bg-brand-900 group-open:text-white"
+        >
+          <ChevronDownIcon
+            size={18}
+            className="transition-transform group-open:rotate-180"
+          />
+        </span>
       </summary>
       <div className="pb-5 text-foreground-muted">{children}</div>
     </details>

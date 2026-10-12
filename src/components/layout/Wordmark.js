@@ -1,9 +1,12 @@
 import Link from "next/link";
+import { getApprovedImage } from "@/lib/content";
 import { cn } from "@/lib/cn";
 
 /**
- * Typeset "Exchange Power" wordmark linking home. Stands in for the logo
- * until its use is approved (PLAN Part C item 7); swap in the SVG here.
+ * The logo linking home. On light surfaces it shows the business's logo once
+ * that image is approved and downloaded (images.js `logo`); otherwise, and on
+ * dark surfaces (the logo's blue text needs a light background), it shows
+ * the typeset "Exchange Power" wordmark.
  *
  * @param {object} props
  * @param {string} props.name Business name.
@@ -11,6 +14,25 @@ import { cn } from "@/lib/cn";
  * @param {string} [props.className]
  */
 export function Wordmark({ name, tone = "light", className }) {
+  const logo = tone === "light" ? getApprovedImage("logo") : null;
+  if (logo) {
+    return (
+      <Link
+        href="/"
+        className={cn("inline-flex min-h-11 items-center", className)}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element -- static SVG, no optimisation needed */}
+        <img
+          src={logo.localPath}
+          alt=""
+          width={logo.width}
+          height={logo.height}
+          className="h-12 w-auto lg:h-14"
+        />
+        <span className="sr-only">{name}, home</span>
+      </Link>
+    );
+  }
   const [first, ...rest] = name.split(" ");
   return (
     <Link

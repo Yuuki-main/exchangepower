@@ -2,6 +2,7 @@ import { CtaBand } from "@/components/sections/CtaBand";
 import { PageHeader } from "@/components/sections/PageHeader";
 import { PostCardGrid } from "@/components/sections/PostCardGrid";
 import { Section } from "@/components/ui/Section";
+import { getBackground } from "@/lib/content";
 
 /**
  * Blog index: every post, newest first. A category filter would go above the
@@ -22,6 +23,7 @@ export function BlogIndex({ title, lead, posts, site }) {
     <>
       <PageHeader
         breadcrumbs={breadcrumbs}
+        background={getBackground("blog")}
         eyebrow="Guides"
         title={title}
         lead={lead}
@@ -30,9 +32,10 @@ export function BlogIndex({ title, lead, posts, site }) {
         <h2 id="posts-title" className="sr-only">
           All posts
         </h2>
-        <PostCardGrid posts={posts} headingLevel={3} />
+        <PostCardGrid posts={posts} headingLevel={3} featured />
       </Section>
       <CtaBand
+        background={getBackground("ctaBand")}
         title={site.cta.title}
         text={site.cta.subtitle}
         quote={{ label: site.cta.quoteLabel, href: site.cta.quoteHref }}

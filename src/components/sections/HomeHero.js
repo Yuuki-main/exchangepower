@@ -2,7 +2,13 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { ArrowRightIcon, BatteryIcon, PhoneIcon } from "@/components/ui/Icon";
+import {
+  ArrowRightIcon,
+  BatteryIcon,
+  PhoneIcon,
+  StarIcon,
+} from "@/components/ui/Icon";
+import { BackgroundImage } from "./BackgroundImage";
 import { DayCurve } from "./DayCurve";
 
 /**
@@ -15,8 +21,10 @@ import { DayCurve } from "./DayCurve";
  * @param {object} props
  * @param {typeof import("@/content/home.js").HOME.hero} props.content
  * @param {{ display: string, href: string }} props.phone
+ * @param {string | null} [props.background] Background photo key.
+ * @param {{ value: number, text: string }} [props.rating] Review summary.
  */
-export function HomeHero({ content, phone }) {
+export function HomeHero({ content, phone, background, rating }) {
   const {
     eyebrow,
     title,
@@ -29,9 +37,10 @@ export function HomeHero({ content, phone }) {
   return (
     <section
       aria-labelledby="hero-title"
-      className="overflow-hidden bg-surface-inverse text-foreground-inverse [--ring:var(--color-accent-300)]"
+      className="relative isolate overflow-hidden bg-surface-inverse text-foreground-inverse [--ring:var(--color-accent-300)]"
     >
-      <Container className="grid gap-12 pt-12 pb-12 sm:pt-16 lg:grid-cols-12 lg:items-center lg:gap-10 lg:pt-20 lg:pb-20 xl:gap-16">
+      <BackgroundImage imageKey={background} preload />
+      <Container className="grid gap-12 pt-12 pb-12 sm:pt-16 lg:grid-cols-12 lg:items-center lg:gap-10 lg:pt-24 lg:pb-16 xl:gap-16">
         <div className="lg:col-span-6">
           <Eyebrow tone="dark">{eyebrow}</Eyebrow>
           <h1
@@ -61,6 +70,22 @@ export function HomeHero({ content, phone }) {
               {secondaryCta.label}
             </Button>
           </div>
+          {rating ? (
+            <p className="mt-8 inline-flex animate-rise items-center gap-3 rounded-full bg-brand-950/60 py-1.5 pr-4 pl-2 ring-1 ring-white/15 backdrop-blur-md [animation-delay:180ms]">
+              <span
+                className="flex text-accent-400"
+                role="img"
+                aria-label={`Rated ${rating.value} out of 5`}
+              >
+                {[0, 1, 2, 3, 4].map((i) => (
+                  <StarIcon key={i} size={16} />
+                ))}
+              </span>
+              <span className="text-sm font-semibold text-white">
+                {rating.text}
+              </span>
+            </p>
+          ) : null}
           <p className="mt-6 animate-rise text-foreground-inverse-muted [animation-delay:200ms]">
             Prefer to talk?{" "}
             <a
@@ -73,22 +98,28 @@ export function HomeHero({ content, phone }) {
           </p>
         </div>
 
-        <figure className="animate-rise [animation-delay:120ms] lg:col-span-6">
-          <div className="border-l border-white/15 pl-4 sm:pl-6">
-            <DayCurve />
+        <figure className="relative animate-rise [animation-delay:120ms] lg:col-span-6">
+          {/* Warm glow behind the panel */}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -inset-6 -z-10 rounded-full bg-accent-400/25 blur-3xl"
+          />
+          <div className="rounded-3xl bg-brand-950/55 p-5 shadow-2xl ring-1 ring-white/15 backdrop-blur-md sm:p-7">
+            <figcaption className="flex items-baseline justify-between gap-4 border-b border-white/10 pb-4 text-sm text-foreground-inverse-muted">
+              <span>{visualCaption}</span>
+              <span className="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-xs tracking-[0.14em] uppercase">
+                Illustrative
+              </span>
+            </figcaption>
+            <DayCurve className="mt-4" />
           </div>
-          <figcaption className="mt-4 flex items-baseline justify-between gap-4 text-sm text-foreground-inverse-muted">
-            <span>{visualCaption}</span>
-            <span className="shrink-0 text-xs tracking-[0.14em] uppercase">
-              Illustrative
-            </span>
-          </figcaption>
         </figure>
       </Container>
 
-      <div className="border-t border-white/15">
-        <Container className="flex flex-col gap-3 py-5 sm:flex-row sm:items-center sm:gap-6">
-          <p className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-accent-300">
+      {/* Bottom padding leaves room for the Credentials card, which overlaps it. */}
+      <Container className="pb-20 sm:pb-24">
+        <div className="flex flex-col gap-3 rounded-2xl bg-brand-950/60 p-4 ring-1 ring-white/15 backdrop-blur-md sm:flex-row sm:items-center sm:gap-6 sm:px-6">
+          <p className="inline-flex shrink-0 items-center gap-2 self-start rounded-full bg-accent-400 px-3 py-1 text-sm font-semibold text-brand-950 sm:self-auto">
             <BatteryIcon size={18} />
             {rebate.label}
           </p>
@@ -100,8 +131,8 @@ export function HomeHero({ content, phone }) {
             {rebate.link.label}
             <ArrowRightIcon size={16} />
           </Link>
-        </Container>
-      </div>
+        </div>
+      </Container>
     </section>
   );
 }

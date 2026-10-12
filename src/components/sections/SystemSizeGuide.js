@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
-import { ArrowRightIcon } from "@/components/ui/Icon";
 import { Section } from "@/components/ui/Section";
 import { SectionIntro } from "@/components/ui/SectionIntro";
 import { cn } from "@/lib/cn";
+import { CardCta, CardPhoto } from "./CardPhoto";
 
 /**
  * @typedef {object} SystemSize
@@ -11,12 +11,13 @@ import { cn } from "@/lib/cn";
  * @property {string} href
  * @property {string} bestFor
  * @property {string[]} facts
+ * @property {string | null} [photo] Card photo key.
  */
 
 /**
  * "Which system fits?": each audience's system sizes side by side, with a
  * bar showing relative capacity, who it suits and real figures from the
- * product FAQs. Columns on desktop, compact rows on phones. No client JS.
+ * product FAQs. Photo cards: columns on desktop, photo beside the details on phones. No client JS.
  *
  * @param {object} props
  * @param {string} props.id Anchor id (the hero links here).
@@ -66,59 +67,64 @@ export function SystemSizeGuide({ id, eyebrow, title, lead, groups, cta }) {
               </h3>
               <ul
                 className={cn(
-                  // 1px gaps over a border-coloured background draw the dividers.
-                  "grid gap-px bg-border sm:grid-cols-2",
+                  "mt-6 grid gap-4 sm:grid-cols-2 sm:gap-5",
                   group.items.length > 3 ? "lg:grid-cols-4" : "lg:grid-cols-3",
                 )}
               >
                 {group.items.map((system) => (
-                  <li
-                    key={system.kw}
-                    // An odd last item spans both columns at sm, so no empty cell shows.
-                    className="bg-surface sm:last:odd:col-span-2 lg:last:odd:col-span-1"
-                  >
-                    {/* Phones: compact two-column row. sm and up: a column. */}
+                  <li key={system.kw}>
+                    {/* Phones: photo beside the details. sm and up: photo on top. */}
                     <Link
                       href={system.href}
-                      className="group relative grid h-full grid-cols-[5.5rem_minmax(0,1fr)] gap-x-5 gap-y-2 py-5 pr-8 hover:bg-background sm:flex sm:flex-col sm:gap-4 sm:px-6 sm:py-6 lg:py-8"
+                      className="group flex h-full overflow-hidden rounded-2xl bg-background shadow-sm ring-1 ring-border transition duration-300 hover:-translate-y-1 hover:shadow-lg hover:ring-brand-600/30 motion-reduce:hover:translate-y-0 sm:flex-col"
                     >
-                      <span className="row-span-2 flex flex-col gap-3 sm:contents">
-                        <span className="font-display text-3xl font-semibold tracking-tight text-brand-900 tabular-nums sm:text-4xl">
+                      <CardPhoto
+                        imageKey={system.photo}
+                        sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 8rem"
+                        scrim="bottom"
+                        className="flex w-32 shrink-0 items-end p-3 sm:aspect-16/10 sm:w-auto sm:p-5"
+                      >
+                        <span className="font-display text-3xl font-bold tracking-tight text-white tabular-nums sm:text-4xl">
                           {system.kw}
-                          <span className="ml-0.5 text-lg text-brand-700 sm:text-xl">
+                          <span className="ml-0.5 text-base text-white sm:text-lg">
                             kW
                           </span>
                         </span>
+                      </CardPhoto>
+                      <span className="flex min-w-0 flex-1 flex-col gap-3 p-4 sm:gap-4 sm:p-6">
                         {/* Relative capacity within the group */}
                         <span
                           aria-hidden="true"
-                          className="block h-1.5 w-full bg-neutral-200"
+                          className="block h-1.5 w-full overflow-hidden rounded-full bg-neutral-200"
                         >
                           <span
-                            className="block h-full bg-accent-500"
+                            className="block h-full rounded-full bg-accent-500"
                             style={{
                               width: `${Math.max(8, (system.kw / max) * 100)}%`,
                             }}
                           />
                         </span>
-                      </span>
-                      <span className="font-semibold text-foreground">
-                        {system.bestFor}
-                      </span>
-                      <ul className="space-y-1.5 text-sm text-foreground-muted">
-                        {system.facts.map((fact) => (
-                          <li key={fact} className="flex gap-2">
-                            <span
-                              aria-hidden="true"
-                              className="mt-2 size-1 shrink-0 bg-accent-700"
-                            />
-                            {fact}
-                          </li>
-                        ))}
-                      </ul>
-                      <ArrowRightIcon className="absolute top-6 right-0 text-brand-700 transition-transform group-hover:translate-x-1 sm:top-8 sm:right-6 lg:top-10" />
-                      <span className="sr-only">
-                        View the {system.kw}kW solar system
+                        <span className="font-semibold text-foreground">
+                          {system.bestFor}
+                        </span>
+                        <ul className="space-y-1.5 text-sm text-foreground-muted">
+                          {system.facts.map((fact) => (
+                            <li key={fact} className="flex gap-2">
+                              <span
+                                aria-hidden="true"
+                                className="mt-2 size-1.5 shrink-0 rounded-full bg-accent-500"
+                              />
+                              {fact}
+                            </li>
+                          ))}
+                        </ul>
+                        <CardCta className="mt-auto pt-1">
+                          <span>
+                            View <span className="sr-only">the</span>{" "}
+                            {system.kw}kW
+                            <span className="sr-only"> solar system</span>
+                          </span>
+                        </CardCta>
                       </span>
                     </Link>
                   </li>

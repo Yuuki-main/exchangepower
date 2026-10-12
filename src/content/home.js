@@ -7,6 +7,7 @@
 //
 // Links are relative and end in "/". `QUOTE_HREF` comes from site.js.
 
+import { HOME_LIVE } from "./archive/home-live.js";
 import { SITE } from "./site.js";
 
 const QUOTE_HREF = SITE.cta.quoteHref;
@@ -45,25 +46,48 @@ export const HOME = {
     title: "Exchange Power at a glance",
     items: [
       // Live homepage and About stats (unverified, CONTENT-NOTES 4.5).
-      { value: "50,000+", label: "solar panels sold" },
-      { value: "1,000+", label: "satisfied customers" },
+      { value: "50,000+", label: "solar panels sold", icon: "sun" },
+      { value: "1,000+", label: "satisfied customers", icon: "users" },
       // Terms 11.3 and 11.4.
       {
         value: "5 years",
         label: "whole-system and workmanship warranty",
+        icon: "shield",
         href: "/terms-and-conditions/",
       },
-      // Footer badge.
-      {
-        value: "NETCC",
-        label: "New Energy Tech Consumer Code Approved Seller",
-      },
+      // Live homepage stat (unverified, CONTENT-NOTES 4.5; shown at the owner's request).
+      { value: "15,000kWh+", label: "solar batteries sold", icon: "battery" },
     ],
   },
 
+  // Live homepage "Exchange Power Promise" section, verbatim, with the review
+  // summary that is hidden on the live site. "Over 5,000 Australians" and the
+  // 4.8 rating are unverified (CONTENT-NOTES 3.3, 4.5); shown at the owner's request.
+  promise: {
+    title: HOME_LIVE.services.title,
+    subtitle: HOME_LIVE.services.subtitle.replace(/^—\s*/, ""),
+    rating: {
+      value: SITE.reviewSummary.rating,
+      text: SITE.reviewSummary.text,
+      title: HOME_LIVE.reviews.title,
+      body: HOME_LIVE.reviews.text,
+    },
+    tabs: HOME_LIVE.services.tabs.map((tab) => ({
+      ...tab,
+      // Stock photo until the live image is approved (CONTENT-NOTES 14).
+      fallback:
+        tab.cta.href === "/residential-solar/"
+          ? "products/residential-solar"
+          : "products/commercial-solar",
+    })),
+  },
+
+  // Live homepage "packages" heading and subtitle, verbatim. The "up to 80%"
+  // claim is unverified (CONTENT-NOTES 9); shown at the owner's request.
   solutions: {
     eyebrow: "What we install",
-    title: "One team for solar, storage and rebates.",
+    title: HOME_LIVE.packages.title,
+    lead: HOME_LIVE.packages.subtitle,
     items: [
       {
         title: "Homes",
@@ -173,7 +197,10 @@ export const HOME = {
 
   // Battery hub and rebate page copy, and battery rebate FAQs. Time-sensitive.
   battery: {
-    eyebrow: "Battery storage",
+    // Live homepage hero title, verbatim.
+    eyebrow: HOME_LIVE.hero.title,
+    // Live homepage hero banner (shown once approved and downloaded).
+    image: HOME_LIVE.hero.image,
     title: "Keep your daytime solar for the evening.",
     lead: "Panels produce the most around midday, but most homes use the most power after dark. A battery stores the surplus, so you draw less from the grid at night and keep power during outages.",
     figures: [
@@ -213,26 +240,32 @@ export const HOME = {
     steps: [
       {
         title: "Free quote",
+        icon: "quote",
         text: "Tell us about your property and how you use power. Your written quote is valid for 14 days.", // 4.3
       },
       {
         title: "Site-specific design",
+        icon: "design",
         text: "Before anything is installed, you get a full system design and an estimate of its output. If you don't accept it, you get a full refund.", // 2.6
       },
       {
         title: "Approvals and rebates",
+        icon: "approvals",
         text: "We lodge the grid-connection paperwork with your electricity distributor and handle the rebate applications.", // 2.5, Why
       },
       {
         title: "Installation",
+        icon: "install",
         text: "Installed to Clean Energy Council guidelines at a time agreed with you. A 13.2kW home system typically takes one to two days.", // 3.2, 4.3, 13.2kW FAQ
       },
       {
         title: "Switch-on and handover",
+        icon: "switch",
         text: "We activate the system and hand over a system manual for your installation.", // 6.1, About
       },
       {
         title: "Support",
+        icon: "support",
         text: "Your whole system and our workmanship are covered for 5 years, and we're on call if something goes wrong.", // 11.3, 11.4, Why
       },
     ],
@@ -240,24 +273,30 @@ export const HOME = {
 
   // The four "Why Choose Exchange Power" points from the live homepage, rewritten concisely.
   why: {
+    // Live homepage collage (shown once approved and downloaded).
+    image: HOME_LIVE.why.image,
     eyebrow: "Why Exchange Power",
     title: "Local, accountable, and still here after the install.",
     lead: "A Western Australian team based in Wangara, working with manufacturers we trust.",
     items: [
       {
         title: "Best price guarantee",
+        icon: "price",
         text: "Competitive pricing without cutting quality, and no hidden charges or surprises.",
       },
       {
         title: "Rebates made easy",
+        icon: "rebates",
         text: "We handle the solar and battery rebate applications and paperwork, so you get the savings you're eligible for.",
       },
       {
         title: "Worry-free warranty",
+        icon: "warranty",
         text: "5 years on the whole system and our workmanship, on top of the manufacturers' product warranties.", // Terms 11.1, 11.3, 11.4
       },
       {
         title: "Support after installation",
+        icon: "support",
         text: "If a problem comes up, we troubleshoot quickly and come on site, so your system keeps running.",
       },
     ],

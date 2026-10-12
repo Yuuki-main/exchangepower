@@ -3,9 +3,11 @@
 //   npm run images:fetch               -> download missing images
 //   npm run images:fetch -- --dry-run  -> list what would be downloaded
 //   npm run images:fetch -- --force    -> download again, overwriting
+//   npm run images:fetch -- --only=bg- -> only keys starting with "bg-"
 //
-// DO NOT RUN until the business confirms it owns these images
-// (PLAN.md Part C item 7).
+// The old-site images (every key not starting with "bg-") must NOT be
+// downloaded until the business confirms it owns them (PLAN.md Part C item 7).
+// The "bg-" backgrounds are Unsplash stock photos and are already in public/.
 //
 // Each file keeps its format and pixel size, so images.js stays correct.
 // JPEG/PNG/WebP files are re-encoded with sharp (metadata stripped, sensible
@@ -20,12 +22,14 @@ import { IMAGES } from "../src/content/images.js";
 const PUBLIC = path.resolve(import.meta.dirname, "../public");
 const DRY = process.argv.includes("--dry-run");
 const FORCE = process.argv.includes("--force");
+const ONLY = process.argv.find((a) => a.startsWith("--only="))?.slice(7);
 
 let downloaded = 0;
 let skipped = 0;
 let failed = 0;
 
 for (const [key, img] of Object.entries(IMAGES)) {
+  if (ONLY && !key.startsWith(ONLY)) continue;
   const target = path.join(PUBLIC, img.localPath);
   // null src: the image was added to public/ by hand, nothing to download.
   if (img.src === null || (existsSync(target) && !FORCE)) {

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRightIcon } from "@/components/ui/Icon";
 import { Section } from "@/components/ui/Section";
 import { SectionIntro } from "@/components/ui/SectionIntro";
+import { CardPhoto } from "./CardPhoto";
 import { FaqList } from "./FaqList";
 
 /**
@@ -12,7 +13,7 @@ import { FaqList } from "./FaqList";
  * @param {string} props.title
  * @param {{ question: string, answer: string, href?: string }[]} props.faqs
  * @param {string} props.guidesTitle
- * @param {{ title: string, date: string, href: string }[]} props.guides
+ * @param {{ title: string, date: string, href: string, photo?: string | null }[]} props.guides
  * @param {{ label: string, href: string }} props.guidesLink
  */
 export function FaqSection({
@@ -47,7 +48,7 @@ export function FaqSection({
         </div>
         <aside
           aria-labelledby="guides-title"
-          className="lg:col-span-4 lg:col-start-9"
+          className="self-start rounded-3xl bg-surface-muted p-6 ring-1 ring-border sm:p-7 lg:sticky lg:top-28 lg:col-span-4 lg:col-start-9"
         >
           <h2
             id="guides-title"
@@ -55,19 +56,29 @@ export function FaqSection({
           >
             {guidesTitle}
           </h2>
-          <ul className="mt-6 divide-y divide-border border-y border-border">
+          <ul className="mt-4 divide-y divide-border">
             {guides.map((guide) => (
               <li key={guide.href}>
-                <Link href={guide.href} className="group block py-5">
-                  <span className="block font-display text-lg font-semibold text-brand-900 group-hover:text-brand-600">
-                    {guide.title}
+                <Link
+                  href={guide.href}
+                  className="group flex items-center gap-4 py-5"
+                >
+                  <CardPhoto
+                    imageKey={guide.photo}
+                    sizes="5rem"
+                    className="size-20 shrink-0 rounded-xl"
+                  />
+                  <span className="min-w-0">
+                    <span className="block font-display text-lg leading-snug font-semibold text-brand-900 group-hover:text-brand-600">
+                      {guide.title}
+                    </span>
+                    <time
+                      dateTime={guide.date}
+                      className="mt-1 block text-sm text-foreground-muted"
+                    >
+                      {dateFormat.format(new Date(`${guide.date}T00:00:00Z`))}
+                    </time>
                   </span>
-                  <time
-                    dateTime={guide.date}
-                    className="mt-1 block text-sm text-foreground-muted"
-                  >
-                    {dateFormat.format(new Date(`${guide.date}T00:00:00Z`))}
-                  </time>
                 </Link>
               </li>
             ))}

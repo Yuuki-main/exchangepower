@@ -1,6 +1,13 @@
 import "server-only";
 
-import { getAllPosts, getPost, getPostPath, getRelatedPosts } from "./content";
+import {
+  getAllPosts,
+  getCardPhoto,
+  getPost,
+  getPostPath,
+  getRelatedPosts,
+  isOwnPhoto,
+} from "./content";
 import { renderMarkdown } from "./markdown";
 import { buildMetadata } from "./seo";
 
@@ -20,6 +27,8 @@ export function toPostSummary(post) {
     excerpt: post.excerpt,
     readingMinutes: post.readingMinutes,
     image: post.image,
+    photo: getCardPhoto(post.image, `posts/${post.slug}`),
+    photoIsOwn: isOwnPhoto(post.image),
   };
 }
 

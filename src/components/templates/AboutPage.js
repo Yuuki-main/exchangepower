@@ -6,6 +6,7 @@ import { WhyChoose } from "@/components/sections/WhyChoose";
 import { Section } from "@/components/ui/Section";
 import { SectionIntro } from "@/components/ui/SectionIntro";
 import { renderMarkdown } from "@/lib/markdown";
+import { getBackground } from "@/lib/content";
 
 /**
  * About page: intro, the stats band, "Why choose" points, and Vision and
@@ -25,6 +26,7 @@ export function AboutPage({ about, stats, site }) {
     <>
       <PageHeader
         breadcrumbs={breadcrumbs}
+        background={getBackground("about")}
         eyebrow="About us"
         title={about.title}
         lead={about.subtitle}
@@ -75,6 +77,7 @@ export function AboutPage({ about, stats, site }) {
       </Section>
 
       <CtaBand
+        background={getBackground("ctaBand")}
         title={site.cta.title}
         text={site.cta.subtitle}
         quote={{ label: site.cta.quoteLabel, href: site.cta.quoteHref }}
