@@ -90,7 +90,9 @@ export async function sendEnquiry(_previous, formData) {
     return result({ status: "token", token: issueFormToken() });
   }
 
-  const variant = formData.get("variant") === "compact" ? "compact" : "full";
+  const rawVariant = formData.get("variant");
+  const variant =
+    rawVariant === "compact" || rawVariant === "deal" ? rawVariant : "full";
   const raw = Object.fromEntries(
     [...formData.entries()]
       .filter(([, v]) => typeof v === "string")
@@ -153,7 +155,8 @@ export async function sendEnquiry(_previous, formData) {
   }
 
   const email = enquiryEmail({
-    data,
+    // The deal popup has no enquiry type field.
+    data: variant === "deal" ? { ...data, enquiryType: "Special deal" } : data,
     variant,
     sourceUrl: sourceUrl(formData.get("source")),
     receivedAt: new Intl.DateTimeFormat("en-AU", {

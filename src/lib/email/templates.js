@@ -25,7 +25,7 @@ const oneLine = (/** @type {string} */ value) =>
  * @param {import("../validation.js").EnquiryData} enquiry.data Validated and normalised.
  * @param {string} enquiry.sourceUrl Page the form was sent from.
  * @param {string} enquiry.receivedAt Human-readable time (Perth).
- * @param {"full" | "compact"} enquiry.variant Which form was used.
+ * @param {"full" | "compact" | "deal"} enquiry.variant Which form was used.
  */
 export function enquiryEmail({ data, sourceUrl, receivedAt, variant }) {
   const name = oneLine(`${data.firstName} ${data.lastName}`);

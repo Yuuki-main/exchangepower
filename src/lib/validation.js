@@ -55,10 +55,13 @@ export const MESSAGES = /** @type {const} */ ({
 
 /**
  * @typedef {"firstName" | "lastName" | "email" | "phone" | "address" | "enquiryType" | "message"} EnquiryField
- * @typedef {"full" | "compact"} FormVariant
+ * @typedef {"full" | "compact" | "deal"} FormVariant
  */
 
-/** Fields per form variant. The compact (homepage) form has no address or message. */
+/**
+ * Fields per form variant. The compact (homepage) form has no address or
+ * message; the deal form (first-visit popup) has no enquiry type.
+ */
 export const VARIANT_FIELDS = /** @type {const} */ ({
   full: [
     "firstName",
@@ -70,6 +73,7 @@ export const VARIANT_FIELDS = /** @type {const} */ ({
     "message",
   ],
   compact: ["firstName", "lastName", "email", "phone", "enquiryType"],
+  deal: ["firstName", "lastName", "email", "phone", "address", "message"],
 });
 
 const REQUIRED = new Set([

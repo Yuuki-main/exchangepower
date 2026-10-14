@@ -46,15 +46,16 @@ const INITIAL_STATE = {
  * - Results are announced in a live region that receives focus.
  *
  * @param {object} props
- * @param {"full" | "compact"} [props.variant="full"] `compact` (homepage) asks
- *   only for name, email, phone and enquiry type.
- * @param {readonly string[]} props.enquiryTypes
+ * @param {"full" | "compact" | "deal"} [props.variant="full"] `compact`
+ *   (homepage) asks only for name, email, phone and enquiry type; `deal`
+ *   (first-visit popup) has no enquiry type.
+ * @param {readonly string[]} [props.enquiryTypes]
  * @param {string} props.submitLabel
  * @param {string} [props.className]
  */
 export function QuoteForm({
   variant = "full",
-  enquiryTypes,
+  enquiryTypes = [],
   submitLabel,
   className,
 }) {
@@ -70,7 +71,7 @@ export function QuoteForm({
   const pathname = usePathname();
   const compact = variant === "compact";
   const id = (/** @type {string} */ name) =>
-    `${compact ? "home-quote" : "quote"}-${name}`;
+    `${compact ? "home-quote" : variant === "deal" ? "deal" : "quote"}-${name}`;
   const fields = new Set(
     /** @type {readonly string[]} */ (VARIANT_FIELDS[variant]),
   );
@@ -315,32 +316,34 @@ export function QuoteForm({
           )}
         </Field>
       ) : null}
-      <Field
-        id={id("enquiryType")}
-        label={LABELS.enquiryType}
-        error={errors.enquiryType}
-        required
-        className="sm:col-span-2"
-      >
-        {(c) => (
-          // Keyed by the echoed value so a server re-render restores the choice.
-          <Select
-            key={values.enquiryType ?? ""}
-            name="enquiryType"
-            defaultValue={values.enquiryType ?? ""}
-            {...c}
-          >
-            <option value="" disabled>
-              Choose one
-            </option>
-            {enquiryTypes.map((type) => (
-              <option key={type} value={type}>
-                {type}
+      {fields.has("enquiryType") ? (
+        <Field
+          id={id("enquiryType")}
+          label={LABELS.enquiryType}
+          error={errors.enquiryType}
+          required
+          className="sm:col-span-2"
+        >
+          {(c) => (
+            // Keyed by the echoed value so a server re-render restores the choice.
+            <Select
+              key={values.enquiryType ?? ""}
+              name="enquiryType"
+              defaultValue={values.enquiryType ?? ""}
+              {...c}
+            >
+              <option value="" disabled>
+                Choose one
               </option>
-            ))}
-          </Select>
-        )}
-      </Field>
+              {enquiryTypes.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
+            </Select>
+          )}
+        </Field>
+      ) : null}
       {fields.has("message") ? (
         <Field
           id={id("message")}

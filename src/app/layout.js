@@ -1,4 +1,5 @@
 import { Inter, Sora } from "next/font/google";
+import { SpecialDealDialog } from "@/components/forms/SpecialDealDialog";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SITE } from "@/content/site.js";
@@ -68,6 +69,7 @@ export default function RootLayout({ children }) {
           {children}
         </main>
         <SiteFooter />
+        <SpecialDealDialog />
       </body>
     </html>
   );
