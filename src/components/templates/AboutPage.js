@@ -3,6 +3,7 @@ import { Credentials } from "@/components/sections/Credentials";
 import { FaqList } from "@/components/sections/FaqList";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageHeader } from "@/components/sections/PageHeader";
+import { RatingBadge } from "@/components/sections/RatingBadge";
 import { Prose } from "@/components/sections/Prose";
 import { WhyChoose } from "@/components/sections/WhyChoose";
 import { Section } from "@/components/ui/Section";
@@ -35,6 +36,7 @@ export function AboutPage({ about, stats, site, faqs }) {
         eyebrow="About us"
         title={about.title}
         lead={about.subtitle}
+        actions={<RatingBadge summary={site.reviewSummary} tone="dark" />}
       />
 
       <Section labelledBy="about-intro-title">

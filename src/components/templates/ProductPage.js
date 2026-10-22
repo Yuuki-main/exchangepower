@@ -6,6 +6,7 @@ import { MediaSlot } from "@/components/sections/MediaSlot";
 import { PageHeader } from "@/components/sections/PageHeader";
 import { PostCardGrid } from "@/components/sections/PostCardGrid";
 import { ProductSpecs } from "@/components/sections/ProductSpecs";
+import { RatingBadge } from "@/components/sections/RatingBadge";
 import { Prose } from "@/components/sections/Prose";
 import { RelatedProducts } from "@/components/sections/RelatedProducts";
 import { WarrantyCards } from "@/components/sections/WarrantyCards";
@@ -129,6 +130,7 @@ export function ProductPage({ data, site }) {
                   {site.phone.display}
                 </Button>
               </div>
+              <RatingBadge summary={site.reviewSummary} className="mt-5" />
             </div>
           </aside>
         </div>

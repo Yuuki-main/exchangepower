@@ -2,14 +2,10 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import {
-  ArrowRightIcon,
-  BatteryIcon,
-  PhoneIcon,
-  StarIcon,
-} from "@/components/ui/Icon";
+import { ArrowRightIcon, BatteryIcon, PhoneIcon } from "@/components/ui/Icon";
 import { BackgroundImage } from "./BackgroundImage";
 import { DayCurve } from "./DayCurve";
+import { RatingBadge } from "./RatingBadge";
 
 /**
  * Homepage hero: positioning, primary and secondary actions, an illustrative
@@ -71,20 +67,11 @@ export function HomeHero({ content, phone, background, rating }) {
             </Button>
           </div>
           {rating ? (
-            <p className="mt-8 inline-flex animate-rise items-center gap-3 rounded-full bg-brand-950/60 py-1.5 pr-4 pl-2 ring-1 ring-white/15 backdrop-blur-md [animation-delay:180ms]">
-              <span
-                className="flex text-accent-400"
-                role="img"
-                aria-label={`Rated ${rating.value} out of 5`}
-              >
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <StarIcon key={i} size={16} />
-                ))}
-              </span>
-              <span className="text-sm font-semibold text-white">
-                {rating.text}
-              </span>
-            </p>
+            <RatingBadge
+              summary={{ rating: rating.value, text: rating.text }}
+              tone="dark"
+              className="mt-8 animate-rise [animation-delay:180ms]"
+            />
           ) : null}
           <p className="mt-6 animate-rise text-foreground-inverse-muted [animation-delay:200ms]">
             Prefer to talk?{" "}
@@ -118,15 +105,15 @@ export function HomeHero({ content, phone, background, rating }) {
 
       {/* Bottom padding leaves room for the Credentials card, which overlaps it. */}
       <Container className="pb-20 sm:pb-24">
-        <div className="flex flex-col gap-3 rounded-2xl bg-brand-950/60 p-4 ring-1 ring-white/15 backdrop-blur-md sm:flex-row sm:items-center sm:gap-6 sm:px-6">
-          <p className="inline-flex shrink-0 items-center gap-2 self-start rounded-full bg-accent-400 px-3 py-1 text-sm font-semibold text-brand-950 sm:self-auto">
+        <div className="flex flex-col gap-3 rounded-2xl bg-brand-950/60 p-4 ring-1 ring-white/15 backdrop-blur-md sm:px-6 lg:flex-row lg:items-center lg:gap-6">
+          <p className="inline-flex shrink-0 items-center gap-2 self-start rounded-full bg-accent-400 px-3 py-1 text-sm font-semibold text-brand-950 lg:self-auto">
             <BatteryIcon size={18} />
             {rebate.label}
           </p>
           <p className="text-foreground-inverse-muted">{rebate.text}</p>
           <Link
             href={rebate.link.href}
-            className="inline-flex min-h-11 shrink-0 items-center gap-1.5 font-semibold text-white hover:text-accent-300 sm:ml-auto"
+            className="inline-flex min-h-11 shrink-0 items-center gap-1.5 font-semibold text-white hover:text-accent-300 lg:ml-auto"
           >
             {rebate.link.label}
             <ArrowRightIcon size={16} />

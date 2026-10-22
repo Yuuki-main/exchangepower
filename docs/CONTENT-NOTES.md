@@ -298,3 +298,7 @@ The client's handover document (_Exchange Power — Website Content & Developer 
 | Blog reviewer | post frontmatter `reviewedBy: {"name":"…","role":"…"}` | Author box on the post |
 
 **Still needs the business:** package prices, service suburbs, lead times, whether site assessments are free, commercial maintenance plans, founding year and owners, in-house or subcontracted installers, Plenti vendor accreditation, review platform, reviewer names, local case studies.
+
+## 18. Review summary shown more widely (2026-10-22, owner's request)
+
+"4.8 from 1,194 reviews" (`site.reviewSummary`) now shows as a star badge on the homepage hero and Promise section, the About page header, the quote and contact pages, and the quote panel on every product page. It still has no published source, so it has no link and the site does not output `aggregateRating` structured data: Google requires ratings in markup to come from reviews visible on the page. Add the source to `reviewSummary.source` once known.

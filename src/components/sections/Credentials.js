@@ -55,10 +55,7 @@ export function Credentials({ title, items, overlap = false }) {
             return (
               <div
                 key={item.label}
-                className={cn(
-                  "relative flex min-w-0 flex-col-reverse justify-end gap-1 bg-background p-5 sm:p-7 lg:p-8",
-                  Icon && "pt-20 sm:pt-24",
-                )}
+                className="flex min-w-0 flex-col-reverse justify-end gap-1 bg-background p-5 sm:p-7 lg:p-8"
               >
                 <dt className="text-sm text-foreground-muted">
                   {item.href ? (
@@ -73,16 +70,17 @@ export function Credentials({ title, items, overlap = false }) {
                   )}
                 </dt>
                 <dd className="font-display text-2xl font-bold tracking-tight text-brand-900 sm:text-3xl lg:text-2xl xl:text-3xl">
-                  {/* The icon sits in the dd so the dl keeps only dt/dd pairs. */}
+                  {/* The icon sits in the dd (above the figure, in normal flow)
+                      so the dl keeps only dt/dd pairs and the two never overlap. */}
                   {Icon ? (
                     <span
                       aria-hidden="true"
-                      className="absolute top-5 left-5 grid size-11 place-items-center rounded-2xl bg-accent-50 text-accent-700 ring-1 ring-accent-200 sm:top-7 sm:left-7 lg:top-8 lg:left-8"
+                      className="mb-4 grid size-11 place-items-center rounded-2xl bg-accent-50 text-accent-700 ring-1 ring-accent-200"
                     >
                       <Icon size={22} />
                     </span>
                   ) : null}
-                  {item.value}
+                  <span className="block">{item.value}</span>
                 </dd>
               </div>
             );

@@ -75,7 +75,9 @@ export const SITE = {
     { value: 15000, suffix: "kWh+", label: "Solar Batteries Sold" },
   ],
 
-  /** Hidden on the live homepage (d-none). Do not show until verified (CONTENT-NOTES). */
+  /** Shown at the owner's request (CONTENT-NOTES 15, 18): homepage hero and
+   * Promise section, About header, quote and contact pages, product pages.
+   * No source is published, so no link and no aggregateRating markup. */
   reviewSummary: {
     rating: 4.8,
     count: 1194,

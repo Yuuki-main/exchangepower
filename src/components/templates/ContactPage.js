@@ -2,6 +2,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { ContactMethods } from "@/components/sections/ContactMethods";
 import { PageHeader } from "@/components/sections/PageHeader";
 import { QuoteForm } from "@/components/forms/QuoteForm";
+import { RatingBadge } from "@/components/sections/RatingBadge";
 import { Section } from "@/components/ui/Section";
 import { CONTACT } from "@/content/contact.js";
 import { CheckIcon } from "@/components/ui/Icon";
@@ -69,6 +70,7 @@ export function ContactPage({
             <p className="mt-2 text-foreground-muted">
               Based in Wangara, installing across Western Australia.
             </p>
+            <RatingBadge summary={site.reviewSummary} className="mt-4" />
             <ContactMethods site={site} tone="light" className="mt-6" />
             {copy.tips ? (
               <div className="mt-10 rounded-2xl bg-surface-muted p-6 ring-1 ring-border">
