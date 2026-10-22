@@ -89,16 +89,18 @@ export function HomeHero({ content, phone, background, rating }) {
           {/* Warm glow behind the panel */}
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute -inset-6 -z-10 rounded-full bg-accent-400/25 blur-3xl"
+            className="pointer-events-none absolute -inset-6 -z-10 rounded-full bg-accent-400/10 blur-3xl"
           />
-          <div className="rounded-3xl bg-brand-950/55 p-5 shadow-2xl ring-1 ring-white/15 backdrop-blur-md sm:p-7">
-            <figcaption className="flex items-baseline justify-between gap-4 border-b border-white/10 pb-4 text-sm text-foreground-inverse-muted">
-              <span>{visualCaption}</span>
-              <span className="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-xs tracking-[0.14em] uppercase">
+          <div className="rounded-3xl bg-brand-950/80 p-5 shadow-2xl ring-1 ring-white/10 backdrop-blur-xl sm:p-7">
+            <figcaption className="flex items-start justify-between gap-4 border-b border-white/10 pb-4">
+              <span className="font-display text-lg leading-snug font-semibold text-white">
+                {visualCaption}
+              </span>
+              <span className="mt-1 shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-[0.6875rem] font-semibold tracking-[0.12em] text-foreground-inverse-muted uppercase">
                 Illustrative
               </span>
             </figcaption>
-            <DayCurve className="mt-4" />
+            <DayCurve className="mt-6" />
           </div>
         </figure>
       </Container>
