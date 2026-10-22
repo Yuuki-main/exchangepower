@@ -1,5 +1,7 @@
 import { CtaBand } from "@/components/sections/CtaBand";
 import { Credentials } from "@/components/sections/Credentials";
+import { FaqList } from "@/components/sections/FaqList";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { PageHeader } from "@/components/sections/PageHeader";
 import { Prose } from "@/components/sections/Prose";
 import { WhyChoose } from "@/components/sections/WhyChoose";
@@ -7,23 +9,26 @@ import { Section } from "@/components/ui/Section";
 import { SectionIntro } from "@/components/ui/SectionIntro";
 import { renderMarkdown } from "@/lib/markdown";
 import { getBackground } from "@/lib/content";
+import { faqPageJsonLd } from "@/lib/seo";
 
 /**
- * About page: intro, the stats band, "Why choose" points, and Vision and
- * Mission.
+ * About page: intro, the stats band, "Why choose" points, Vision and
+ * Mission, and FAQs built from confirmed business details.
  *
  * @param {object} props
  * @param {typeof import("@/content/about.js").ABOUT} props.about
  * @param {{ value: string, label: string, href?: string }[]} props.stats
  * @param {import("@/lib/content-schema.js").SiteInfo} props.site
+ * @param {import("@/lib/content-schema.js").Faq[]} props.faqs
  */
-export function AboutPage({ about, stats, site }) {
+export function AboutPage({ about, stats, site, faqs }) {
   const breadcrumbs = [
     { label: "Home", href: "/" },
     { label: about.title, href: "/about-exchange-power/" },
   ];
   return (
     <>
+      <JsonLd data={faqPageJsonLd(faqs)} />
       <PageHeader
         breadcrumbs={breadcrumbs}
         background={getBackground("about")}
@@ -73,6 +78,19 @@ export function AboutPage({ about, stats, site }) {
               <p className="mt-4 text-lg text-foreground-muted">{item.text}</p>
             </div>
           ))}
+        </div>
+      </Section>
+
+      <Section background="muted" labelledBy="faq-title">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
+          <SectionIntro
+            id="faq-title"
+            eyebrow="Questions"
+            title="About us, answered"
+            size="lg"
+            className="lg:col-span-4"
+          />
+          <FaqList faqs={faqs} className="lg:col-span-8" />
         </div>
       </Section>
 

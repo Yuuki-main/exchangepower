@@ -1,19 +1,53 @@
-The WA Residential Battery Scheme is changing the way households in the entire Western Australia are storing and utilizing solar energy. Rebates and no interest loans are now available and it gives an opportunity to get a Solar battery rebate WA and save money on electricity and become more energy independent. This initiative is a state and Federal combination of battery rebates to increase the affordability of battery storage to eligible households as a part of a larger clean energy transition.
+> **Updated October 2026.** The WA state rebate is up to $1,300 for Synergy customers or $3,800 for Horizon Power customers. Earlier figures of "up to $5,000 / $7,500" combined the state and federal amounts at the scheme's July 2025 launch; the federal discount has since changed (1 May 2026). Rebate settings checked October 2026.
 
-A residential battery is a novel form of energy storage which enables houses to keep a surplus amount of solar energy that is produced during the day to be utilized at night or during peak periods. Battery systems ensure maximum returns on solar investment by having the rooftop solar systems charged when the system generates excess electricity and discharged when electricity is pricier. The WA Residential Battery Scheme enables households to enjoy incentives that would have a major impact on lowering initial expenses in addition to having a better command of using energy.
+WA households can combine the WA Residential Battery Scheme rebate (up to $1,300 for Synergy customers or $3,800 for Horizon Power customers) with the federal Cheaper Home Batteries discount. The federal amount depends on your battery size and install date. Ask us for your exact figure.
 
-State and federal initiatives back the Solar battery rebate WA. With the WA Government solar battery rebate 2026, financial assistance of up to large proportions will be granted to households that install a 10kWh battery. There is a Synergy battery rebate up to $5,000 and Horizon Power rebate up to $7,500 to its clients who can qualify as a synergy customer or a Horizon power customer respectively. They comprise some of the incentives in the western australia battery rebate structure aimed at hastening the uptake of renewables.
+## The WA rebate
 
-The Federal solar battery rebate is in operation with the WA Residential Battery Scheme in addition to that of the states. The Federal battery rebate enhances the general Battery rebate Australia scheme whereby households are able to mix the benefits in the Solar battery rebate Australia model. This integrated strategy will lower the expenses used in installations as well as increase the accessibility of families who want to save on energy in the long-term.
+| | Synergy customers | Horizon Power customers |
+| --- | --- | --- |
+| Rebate per usable kWh | $130 | $380 |
+| Maximum rebate | $1,300 | $3,800 |
+| Cap applies at | 10 kWh | 10 kWh |
 
-There is also the WA battery rebate 2026 with access to no-interest loans of up to 10,000 to eligible households with an annual combined income of less than 210, 000 dollars. The duration of repayment can go to ten years and hence it is more realistic to participate in the WA government battery rebate. Both the rebates and the financing come together with the wa residential rebate scheme that facilitates the barriers of finances to ensure the healthy development of energy in a sustainable manner.
+A 13.5 kWh battery receives the same state rebate as a 10 kWh one. Horizon Power customers receive more because regional energy and installation costs are higher.
 
-The WA battery rebate VPP structure has participation in a Virtual Power Plant as a major requirement. In a VPP, a number of residential batteries are linked to a network where coordinated power is provided on the grid at peak times when energy is in demand. This system enhances reliability of the grid, as well as may generate financial benefits to participating families. Through the rebates on solar batteries by wa government, VPP participation helps in the balancing of the supply and demand in the Western part of Australia.
+## The federal discount
 
-Battery rebate western australia initiative is more that a benefit to households on an individual basis. Stored energy can also assist in peak demand pressure reduction, grid stability, and emission reduction targets. Under the wa solar battery rebate communities are heading in the right direction towards long-term sustainability with homeowners benefiting due to better energy security and stability of electricity costs.
+The federal Cheaper Home Batteries program takes around 30% off through STCs for batteries of at least 5 kWh. Since 1 May 2026, support is tiered by size, with less per kWh above 14 kWh, and the first 50 kWh is supported on systems up to 100 kWh. The STC factor is 6.8 for May–December 2026 and steps down every six months, so the discount depends on when your battery is installed. It needs a VPP-capable battery, but you don't have to join a VPP.
 
-The solar battery rebate application process in the state of WA requires analysis of eligibility requirements, choice of approved battery products and use of accredited installer. After picking the appropriate system, the approved vendor sends the WA solar battery rebate application to the homeowner. In the case of applicants to be funded in support of loan under the WA battery rebate 2026, the approval and processing of the loans falls within the third party administrator.
+## The no-interest loan
 
-The solar battery rebate Perth scheme can be used by house owners in Perth and the regional areas as part of the Wa Residential Battery Scheme. Using the Solar battery rebate WA in conjunction with the Federal solar battery rebate helps to make the cost of installation more amenable whilst also offering energy savings in the long-run. The overall scenario of Battery rebate Australia is enhanced by other categories of incentives including the WA Government solar battery rebate 2026.
+- $2,001 to $10,000, interest-free, over terms up to 10 years
+- Household gross income under $210,000
+- Credit-assessed; administered by Plenti
+- The rebate itself is not income-tested, so you can claim it without the loan
 
-As the demand of electricity is on the rise and the price of energy is in a state of fluctuation, battery storage has become a wise move to be made on the part of the Western Australian houses. The WA Residential Battery Scheme is a structured financial assistance in the form of rebates, loans and the requirement of VPP participation. There is access to more reliable cleaner and easier energy solutions through the wa government solar battery rebate and the related Federal battery rebate programs.
+Read the [no-interest loan guide](/wa-battery-scheme-no-interest-loan/) for documents and steps.
+
+## Eligibility checklist
+
+- You are a Synergy or Horizon Power residential customer at the property
+- The battery is new, VPP-capable and on the Synergy or Horizon Power supported list
+- The vendor is accredited with Plenti, and the installer holds SAA Grid Connected Battery System accreditation
+- The vendor is a New Energy Tech Consumer Code (NETCC) Approved Seller
+- The battery is enrolled in an approved Virtual Power Plant
+
+## How to apply, step by step
+
+1. **Get a quote** from an accredited vendor, with an approved battery.
+2. **Rebate application** is created by the vendor in the Plenti portal.
+3. **Apply for the loan** online with Plenti, if you want one.
+4. **Approval** follows Plenti's credit and income checks.
+5. **Installation** of the battery and VPP enrolment.
+6. **Sign the loan** and confirm installation.
+7. **Payment** of the rebate (and any loan funds) goes to the vendor.
+
+## VPP options
+
+| Your retailer | VPP options |
+| --- | --- |
+| Synergy (Perth and the south-west) | Synergy Battery Rewards, and other approved VPPs such as Plico |
+| Horizon Power (regional WA) | Community Wave |
+
+Approved options can change, so we confirm which VPPs your battery supports. Read [Virtual Power Plants in WA](/virtual-power-plant-wa/) for how they work, or go back to the [solar battery overview](/solar-battery/).

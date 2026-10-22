@@ -3,10 +3,11 @@
 // Copy is verbatim; see docs/CONTENT-NOTES.md for suggested fixes.
 
 export const ABOUT = {
+  // Title and description from the content handover (Page updates & SEO).
   seo: {
-    title: "About Exchange Power | Trusted Solar Energy Experts in Australia",
+    title: "About Exchange Power | Wangara Solar Installers",
     description:
-      "Learn about Exchange Power, delivering trusted solar and battery solutions with expert installation and long-term support across Australia.",
+      "Meet the Exchange Power team in Wangara: our accreditations, licences, warranties and how we design and install solar in WA.",
   },
   title: "About Exchange Power",
   subtitle: "Trusted by Thousands. Recognised by Industry Leaders.",
@@ -65,3 +66,71 @@ export const ABOUT = {
     },
   ],
 };
+
+/**
+ * About page FAQs (content handover, About set), built from confirmed details
+ * in site.js only. Licence numbers and opening hours are added automatically
+ * once they are set there; questions that need unconfirmed details (founding
+ * year, review platform) are left out until then.
+ *
+ * @param {import("../lib/content-schema.js").SiteInfo} site
+ * @param {string} abn Formatted ABN.
+ * @returns {import("../lib/content-schema.js").Faq[]}
+ */
+export function aboutFaqs(site, abn) {
+  const licences = [
+    site.licences.saa
+      ? `Solar Accreditation Australia (SAA) accreditation ${site.licences.saa}`
+      : null,
+    site.licences.electrical
+      ? `WA electrical contractor licence ${site.licences.electrical}`
+      : null,
+  ].filter(Boolean);
+  const brands = site.brands.map((b) => b.name);
+  return [
+    {
+      layer: "beginner",
+      question: "Who is Exchange Power?",
+      answer:
+        "A WA solar and battery installer based in Wangara, designing, installing and connecting systems for homes and businesses across Western Australia.",
+    },
+    {
+      layer: "technical",
+      question: "Which brands do you install?",
+      answer: `Brands we install include ${brands.slice(0, -1).join(", ")} and ${brands.at(-1)}. Your quote names the exact panel, inverter and battery models.`,
+    },
+    {
+      layer: "support",
+      question: "What accreditations do you hold?",
+      answer: [
+        "We are a New Energy Tech Consumer Code (NETCC) Approved Seller.",
+        licences.length ? `We also hold ${licences.join(" and ")}.` : null,
+        `Our ABN is ${abn}.`,
+      ]
+        .filter(Boolean)
+        .join(" "),
+    },
+    {
+      layer: "support",
+      question: "What is your workmanship warranty?",
+      answer:
+        "5 years on the whole system and our workmanship, on top of the manufacturers' product warranties. See our [terms and conditions](/terms-and-conditions/) for what it covers.",
+    },
+    {
+      layer: "location",
+      question: "Where are you located?",
+      answer: [
+        `${site.address.display.replace(", Australia", "")}. Phone ${site.phone.display}, email ${site.email}.`,
+        site.openingHours ? `We're open ${site.openingHours.display}.` : null,
+      ]
+        .filter(Boolean)
+        .join(" "),
+    },
+    {
+      layer: "quote",
+      question: "How do I check you're the right installer?",
+      answer:
+        "Read [how to choose a solar installer in Perth](/how-to-choose-solar-installer-perth/), then [get a free quote](/get-a-quote/) and check us against all ten points.",
+    },
+  ];
+}

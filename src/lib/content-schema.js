@@ -13,7 +13,43 @@
  * @typedef {object} Faq
  * @property {string} question
  * @property {string} answer Markdown.
+ * @property {FaqLayer} [layer] Group the question is shown under (7-layer FAQ sets).
  */
+
+/**
+ * The seven FAQ groups from the content handover, in display order.
+ * @typedef {"beginner" | "cost" | "technical" | "installation" | "support" | "location" | "quote"} FaqLayer
+ */
+
+/** Label shown above each FAQ group, in display order. */
+export const FAQ_LAYERS = /** @type {const} */ ({
+  beginner: "Getting started",
+  cost: "Cost",
+  technical: "Technical",
+  installation: "Installation",
+  support: "Warranty & support",
+  location: "Local",
+  quote: "Get a quote",
+});
+
+/** Blog categories, in display order on the blog index. */
+export const POST_CATEGORIES = /** @type {const} */ ([
+  "Residential Solar",
+  "Solar Batteries & Rebates",
+  "Commercial Solar",
+  "Buying Guides",
+]);
+
+/** System-size tags. Product pages show posts that share their tag. */
+export const SIZE_TAGS = /** @type {const} */ ([
+  "6.6kW",
+  "7.7kW",
+  "10kW",
+  "13.2kW",
+  "30kW",
+  "50kW",
+  "100kW",
+]);
 
 /**
  * @typedef {"residential" | "commercial" | "battery" | "packages"} ProductCategory
@@ -25,7 +61,8 @@
  * @property {string} slug URL segment. For hubs it equals the category base path.
  * @property {ProductCategory} category
  * @property {"hub" | "detail"} kind
- * @property {string} title Page H1 and card title.
+ * @property {string} title Card, menu and breadcrumb title (and the H1 unless `heading` is set).
+ * @property {string} [heading] Page H1, when it differs from `title`.
  * @property {string} summary Short description for cards (from the live meta description).
  * @property {string | null} image Key in src/content/images.js for cards, or null.
  * @property {{ desktop: string, mobile: string } | null} banner Image keys of the live page banner.
@@ -39,6 +76,10 @@
  * @property {SeoMeta} seo
  * @property {Faq[]} faqs
  * @property {string} bodyFile Markdown file in src/content/pages/.
+ * @property {string[]} [tags] Blog tags whose posts are shown as related guides.
+ * @property {{ label: string, value: string }[]} [specs] Key specs table (detail pages).
+ * @property {{ suits: string[], consider: string[] }} [fit] "Is this size right for you?" lists.
+ * @property {{ label: string, href: string }[]} [compare] Links to the next size up or down.
  * @property {boolean} bodyHiddenOnLive True if the live site ships this copy hidden (`d-none`).
  */
 
@@ -46,10 +87,16 @@
  * @typedef {object} PostFrontmatter
  * @property {string} title
  * @property {string} date ISO date (YYYY-MM-DD).
- * @property {string} category
- * @property {string} image Key in src/content/images.js.
- * @property {string} excerpt Excerpt as shown on the live blog listing.
+ * @property {string} category One of POST_CATEGORIES.
+ * @property {string | null} image Key in src/content/images.js, or null (no own image yet).
+ * @property {string} excerpt Short summary for cards.
  * @property {SeoMeta} seo
+ * @property {string[]} [tags] Size and topic tags (SIZE_TAGS link posts to product pages).
+ * @property {Faq[]} [faqs] Shown after the article, with FAQPage structured data.
+ * @property {{ title: string, text: string }} [cta] Closing call to action.
+ * @property {string} [notice] Dated update box shown above the article (Markdown).
+ * @property {string} [updated] ISO date of the last substantive update (shown as "Last updated").
+ * @property {{ name: string, role: string }} [reviewedBy] Licensed reviewer, shown in the author box once set.
  */
 
 /**
@@ -81,6 +128,8 @@
  * @property {string} tagline
  * @property {{ latitude: number, longitude: number } | null} [geo] Only if confirmed; never estimated.
  * @property {string[]} [socials] Profile URLs for sameAs (none yet).
+ * @property {{ saa: string | null, electrical: string | null }} licences Shown once set.
+ * @property {{ display: string, schema: string[] } | null} openingHours Shown once set.
  * @property {string} description Short site description (footer, metadata).
  * @property {{ display: string, href: string, international: string }} phone
  * @property {string} email
@@ -121,6 +170,7 @@ export const STATIC_ROUTES = [
   "/about-exchange-power/",
   "/blog/",
   "/contact/",
+  "/get-a-quote/",
   "/privacy-policy/",
   "/terms-and-conditions/",
 ];
@@ -137,6 +187,7 @@ export const RESERVED_TOP_LEVEL = [
   "about-exchange-power",
   "blog",
   "contact",
+  "get-a-quote",
   "privacy-policy",
   "terms-and-conditions",
   "api",
@@ -223,6 +274,23 @@ export function assertSeo(seo, label) {
 }
 
 /**
+ * Validates a list of FAQs. Throws a descriptive error.
+ * @param {unknown[]} faqs
+ * @param {string} label
+ */
+export function assertFaqs(faqs, label) {
+  faqs.forEach((f, i) => {
+    const faq = /** @type {Record<string, unknown>} */ (f);
+    assertString(faq?.question, `${label}.faqs[${i}].question`);
+    assertString(faq?.answer, `${label}.faqs[${i}].answer`);
+    if (faq.layer !== undefined && !(String(faq.layer) in FAQ_LAYERS))
+      throw new Error(
+        `Content error: ${label}.faqs[${i}].layer "${String(faq.layer)}" is unknown`,
+      );
+  });
+}
+
+/**
  * Validates one product entry. Throws a descriptive error.
  * @param {unknown} product
  * @param {number} index
@@ -246,10 +314,7 @@ export function assertProduct(product, index) {
   assertSeo(p.seo, label);
   if (!Array.isArray(p.faqs))
     throw new Error(`Content error: ${label}.faqs must be an array`);
-  p.faqs.forEach((f, i) => {
-    assertString(f?.question, `${label}.faqs[${i}].question`);
-    assertString(f?.answer, `${label}.faqs[${i}].answer`);
-  });
+  assertFaqs(p.faqs, label);
   if (!Array.isArray(p.highlights))
     throw new Error(`Content error: ${label}.highlights must be an array`);
   if (!Array.isArray(p.bodyImages))
@@ -278,8 +343,46 @@ export function assertProduct(product, index) {
  * @returns {asserts data is PostFrontmatter}
  */
 export function assertPostFrontmatter(data, fileName) {
-  for (const key of ["title", "category", "image", "excerpt"]) {
+  for (const key of ["title", "category", "excerpt"]) {
     assertString(data[key], `${fileName} frontmatter "${key}"`);
+  }
+  if (data.image !== null)
+    assertString(data.image, `${fileName} frontmatter "image"`);
+  if (!POST_CATEGORIES.includes(/** @type {any} */ (data.category)))
+    throw new Error(
+      `Content error: ${fileName} category "${String(data.category)}" is not one of ${POST_CATEGORIES.join(", ")}`,
+    );
+  if (
+    data.tags !== undefined &&
+    !(Array.isArray(data.tags) && data.tags.every((t) => typeof t === "string"))
+  )
+    throw new Error(`Content error: ${fileName} "tags" must be a string array`);
+  if (data.faqs !== undefined) {
+    if (!Array.isArray(data.faqs))
+      throw new Error(`Content error: ${fileName} "faqs" must be an array`);
+    assertFaqs(data.faqs, fileName);
+  }
+  if (data.cta !== undefined) {
+    const cta = /** @type {Record<string, unknown>} */ (data.cta);
+    assertString(cta?.title, `${fileName} cta.title`);
+    assertString(cta?.text, `${fileName} cta.text`);
+  }
+  if (data.notice !== undefined)
+    assertString(data.notice, `${fileName} frontmatter "notice"`);
+  if (
+    data.updated !== undefined &&
+    !(
+      typeof data.updated === "string" &&
+      /^\d{4}-\d{2}-\d{2}$/.test(data.updated)
+    )
+  )
+    throw new Error(
+      `Content error: ${fileName} frontmatter "updated" must be YYYY-MM-DD`,
+    );
+  if (data.reviewedBy !== undefined) {
+    const r = /** @type {Record<string, unknown>} */ (data.reviewedBy);
+    assertString(r?.name, `${fileName} reviewedBy.name`);
+    assertString(r?.role, `${fileName} reviewedBy.role`);
   }
   if (typeof data.date !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(data.date)) {
     throw new Error(
@@ -287,6 +390,15 @@ export function assertPostFrontmatter(data, fileName) {
     );
   }
   assertSeo(data.seo, fileName);
+}
+
+/**
+ * ABN in the usual 2-3-3-3 grouping.
+ * @example formatAbn("25693550202") // "25 693 550 202"
+ * @param {string} abn
+ */
+export function formatAbn(abn) {
+  return abn.replace(/^(\d{2})(\d{3})(\d{3})(\d{3})$/, "$1 $2 $3 $4");
 }
 
 /**

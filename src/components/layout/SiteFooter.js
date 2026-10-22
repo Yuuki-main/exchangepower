@@ -3,12 +3,14 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import {
   ChatIcon,
+  ClockIcon,
   MailIcon,
   MapPinIcon,
   PhoneIcon,
 } from "@/components/ui/Icon";
 import { getNavigation, getSite } from "@/lib/content";
 import { getApprovedImage } from "@/lib/content";
+import { formatAbn } from "@/lib/content-schema";
 import { CopyrightYear } from "./CopyrightYear";
 import { Wordmark } from "./Wordmark";
 
@@ -28,6 +30,14 @@ export function SiteFooter() {
       href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${site.name}, ${site.address.display}`)}`,
     },
   ];
+  // ABN always; licence numbers once the business confirms them.
+  const credentials = [
+    `ABN ${formatAbn(site.abn)}`,
+    site.licences.saa ? `SAA accreditation ${site.licences.saa}` : null,
+    site.licences.electrical
+      ? `Electrical contractor licence ${site.licences.electrical}`
+      : null,
+  ].filter(Boolean);
 
   return (
     <footer className="bg-brand-950 text-foreground-inverse [--ring:var(--color-accent-300)]">
@@ -53,6 +63,28 @@ export function SiteFooter() {
               </li>
             ))}
           </ul>
+          {site.openingHours ? (
+            <p className="mt-2 inline-flex items-start gap-3 text-foreground-inverse-muted">
+              <ClockIcon size={18} className="mt-0.5 text-accent-400" />
+              {site.openingHours.display}
+            </p>
+          ) : null}
+          {site.socials?.length ? (
+            <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-1">
+              {site.socials.map((url) => (
+                <li key={url}>
+                  <a
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-11 items-center text-sm text-foreground-inverse-muted underline underline-offset-4 hover:text-white"
+                  >
+                    {socialLabel(url)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
 
         <nav
@@ -86,9 +118,12 @@ export function SiteFooter() {
 
       <div className="border-t border-white/10">
         <Container className="flex flex-col gap-3 py-6 text-sm text-foreground-inverse-muted sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © <CopyrightYear /> {site.name}. All rights reserved.
-          </p>
+          <div>
+            <p>
+              © <CopyrightYear /> {site.name}. All rights reserved.
+            </p>
+            <p className="mt-1">{credentials.join(" · ")}</p>
+          </div>
           <p className="flex items-center gap-3">
             {badge ? (
               // eslint-disable-next-line @next/next/no-img-element -- props come from next/image getImageProps()
@@ -109,4 +144,14 @@ export function SiteFooter() {
       </div>
     </footer>
   );
+}
+
+/** Readable name for a profile link. */
+function socialLabel(/** @type {string} */ url) {
+  const host = new URL(url).hostname.replace(/^www\./, "");
+  if (/facebook\./.test(host)) return "Facebook";
+  if (/instagram\./.test(host)) return "Instagram";
+  if (/linkedin\./.test(host)) return "LinkedIn";
+  if (/google\.|g\.page|goo\.gl/.test(host)) return "Google reviews";
+  return host;
 }

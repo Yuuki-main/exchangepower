@@ -12,6 +12,7 @@ import { PRODUCTS } from "@/content/products.js";
 import { SITE } from "@/content/site.js";
 import {
   CATEGORIES,
+  assertFaqs,
   assertPostFrontmatter,
   assertProduct,
   assertSeo,
@@ -88,20 +89,12 @@ export function getHome() {
 }
 
 /**
- * The homepage FAQs, resolved to the verbatim FAQ entries on product pages.
- * @returns {(Faq & { href: string })[]}
+ * The homepage FAQs (the homepage set from the content handover).
+ * @returns {Faq[]}
  */
 export function getHomeFaqs() {
-  return HOME.faq.items.map(({ product, index }, i) => {
-    const source = PRODUCTS.find((p) => p.slug === product);
-    const faq = source?.faqs[index];
-    if (!source || !faq) {
-      throw new Error(
-        `Content error: home.faq.items[${i}] points to a missing FAQ (${product} #${index})`,
-      );
-    }
-    return { ...faq, href: productPath(source) };
-  });
+  assertFaqs(HOME.faq.items, "home.faq");
+  return HOME.faq.items;
 }
 
 export function getAbout() {
@@ -331,16 +324,44 @@ export function getPost(slug) {
 }
 
 /**
- * Other posts to read next: same category first, newest first.
+ * Other posts to read next: those sharing the most tags first, then the same
+ * category, newest first within each.
  * @param {Post} post
  * @param {number} [limit=3]
  * @returns {Post[]}
  */
 export function getRelatedPosts(post, limit = 3) {
-  const others = getAllPosts().filter((p) => p.slug !== post.slug);
-  const same = others.filter((p) => p.category === post.category);
-  const rest = others.filter((p) => p.category !== post.category);
-  return [...same, ...rest].slice(0, limit);
+  const tags = new Set(post.tags ?? []);
+  const score = (/** @type {Post} */ p) =>
+    (p.tags ?? []).filter((t) => tags.has(t)).length * 2 +
+    (p.category === post.category ? 1 : 0);
+  return getAllPosts()
+    .filter((p) => p.slug !== post.slug)
+    .map((p, i) => ({ p, i, s: score(p) }))
+    .sort((a, b) => b.s - a.s || a.i - b.i)
+    .slice(0, limit)
+    .map(({ p }) => p);
+}
+
+/**
+ * Posts that share any of these tags, the most matches first, then newest.
+ * Used for the "Related guides" block on product pages.
+ * @param {string[]} tags
+ * @param {number} [limit=3]
+ * @returns {Post[]}
+ */
+export function getPostsByTags(tags, limit = 3) {
+  const wanted = new Set(tags);
+  return getAllPosts()
+    .map((p, i) => ({
+      p,
+      i,
+      s: (p.tags ?? []).filter((t) => wanted.has(t)).length,
+    }))
+    .filter(({ s }) => s > 0)
+    .sort((a, b) => b.s - a.s || a.i - b.i)
+    .slice(0, limit)
+    .map(({ p }) => p);
 }
 
 /** @param {Post} post */

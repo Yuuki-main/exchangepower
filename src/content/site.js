@@ -35,7 +35,19 @@ export const SITE = {
 
   // Not on the live site. Add confirmed values to include them in structured data.
   geo: null,
+  // Profile URLs (Google Business Profile, Facebook…). Used for sameAs in
+  // structured data and as links in the footer once added.
   socials: [],
+
+  // Details the content handover asks for, not yet confirmed by the business.
+  // Each one appears on the site (footer, About) and in structured data as
+  // soon as it is set here; until then nothing is shown.
+  licences: {
+    saa: null, // Solar Accreditation Australia number, e.g. "S1234567"
+    electrical: null, // WA electrical contractor licence, e.g. "EC012345"
+  },
+  // e.g. { display: "Mon–Fri 8am–5pm", schema: ["Mo-Fr 08:00-17:00"] }
+  openingHours: null,
 
   badges: {
     netcc: {
@@ -76,16 +88,17 @@ export const SITE = {
     text: "Get new solar battery for lowest price",
     cta: {
       label: "Claim now",
-      // TODO(PLAN Part C item 8): the live link is empty. Decide the target.
-      href: null,
+      // The live link is empty; it now goes to the battery rebate page
+      // (content handover, audit item 4; CONTENT-NOTES 2.1).
+      href: "/solar-battery/wa-residential-battery-rebates/",
     },
   },
 
   cta: {
     quoteLabel: "Get a free quote",
-    // Every "Get a free quote" button goes to the contact page (Step 8).
-    // Change this one value to switch them all.
-    quoteHref: "/contact/",
+    // Every "Get a free quote" button goes to the quote page (content
+    // handover, audit item 15). Change this one value to switch them all.
+    quoteHref: "/get-a-quote/",
     title: "Your Solar Journey, Made Simple",
     subtitle: "Get Started with your Free Consultation Today!",
     buttonLabel: "Click Here",

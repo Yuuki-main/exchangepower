@@ -1,17 +1,12 @@
-// Blog index page.
-// Imported from the live site by scripts/import-content.mjs, then edited by hand.
-// Copy is verbatim; see docs/CONTENT-NOTES.md for suggested fixes.
-
-// The live page had no meta description (CONTENT-NOTES 6.2). The index's own
-// lead (Step 8 copy, pending approval) is reused as the description.
-const LEAD =
-  "Guides to solar system sizes, batteries and rebates in Western Australia.";
+// Blog index page. Title, description and H1 from the content handover
+// (Page updates & SEO).
 
 export const BLOG = {
-  title: "Blogs",
-  lead: LEAD,
+  title: "Solar and Battery Guides",
+  lead: "Practical guides on solar sizing, batteries, rebates, DEBS and commercial solar in Perth and WA.",
   seo: {
-    title: "Blog - Exchange Power",
-    description: LEAD,
+    title: "Solar & Battery Guides for WA | Exchange Power Blog",
+    description:
+      "Practical guides on solar sizing, batteries, rebates, DEBS and commercial solar in Perth and WA, for homeowners and businesses.",
   },
 };

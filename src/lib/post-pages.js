@@ -8,7 +8,7 @@ import {
   getRelatedPosts,
   isOwnPhoto,
 } from "./content";
-import { renderMarkdown } from "./markdown";
+import { renderMarkdown, renderMarkdownWithHeadings } from "./markdown";
 import { buildMetadata } from "./seo";
 
 /** @typedef {import("./content-schema.js").Post} Post */
@@ -56,10 +56,15 @@ export function postMetadata(slug) {
 export function getPostPageData(slug) {
   const post = getPost(slug);
   if (!post) return null;
+  const { html, headings } = renderMarkdownWithHeadings(post.body);
+  const words = post.body.split(/\s+/).filter(Boolean).length;
   return {
     post,
     path: getPostPath(post),
-    bodyHtml: renderMarkdown(post.body),
+    bodyHtml: html,
+    // Table of contents for posts over 1,000 words (content handover, Blog CMS setup).
+    toc: words > 1000 ? headings.filter((h) => h.level === 2) : [],
+    noticeHtml: post.notice ? renderMarkdown(post.notice) : null,
     related: getRelatedPosts(post).map(toPostSummary),
   };
 }

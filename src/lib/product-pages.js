@@ -2,6 +2,7 @@ import "server-only";
 
 import {
   getCardPhoto,
+  getPostsByTags,
   isOwnPhoto,
   getCategoryHub,
   getProduct,
@@ -12,6 +13,7 @@ import {
 } from "./content";
 import { CATEGORIES } from "./content-schema.js";
 import { renderMarkdown } from "./markdown";
+import { toPostSummary } from "./post-pages";
 import { buildMetadata } from "./seo";
 
 /**
@@ -72,6 +74,7 @@ export function getHubPageData(category) {
     // Approved new intro wins; otherwise the live copy (verbatim, see CONTENT-NOTES 3.1).
     introHtml: renderMarkdown(hub.hubIntroOverride ?? getProductBody(hub)),
     introIsLiveCopy: hub.hubIntroOverride == null,
+    guides: getPostsByTags(hub.tags ?? []).map(toPostSummary),
   };
 }
 
@@ -115,5 +118,7 @@ export function getProductPageData(category, slug) {
     ],
     bodyHtml: renderMarkdown(getProductBody(product)),
     related: getRelatedProducts(product).map(toProductSummary),
+    // "Related guides": blog posts tagged with this page's tags.
+    guides: getPostsByTags(product.tags ?? []).map(toPostSummary),
   };
 }

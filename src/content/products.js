@@ -1,27 +1,99 @@
 // Product, service and category hub pages.
-// Imported from the live site by scripts/import-content.mjs, then edited by hand.
-// Copy is verbatim; see docs/CONTENT-NOTES.md for suggested fixes.
+//
+// Titles, meta descriptions, H1s ("heading"), specs and the 7-layer FAQ sets
+// come from the content handover (Exchange Power Website Content &
+// Developer Handover, 18 October 2026: "Page FAQs" and "Page updates & SEO").
+// Figures follow its verified facts sheet (rebates and connection rules
+// checked October 2026). Questions whose answers were still placeholders in
+// the handover (prices, brands, lead times, service areas) are left out until
+// the business confirms them. The original live copy is in git history.
+
+/** Shared FAQ answers, so the same fact reads the same everywhere. */
+const WORKMANSHIP =
+  "Manufacturer warranties on the panels and inverter (and battery, if fitted), plus our 5-year workmanship warranty. See our [terms](/terms-and-conditions/) for details.";
+const CONNECTION_RULES =
+  "Since 1 May 2026, inverter systems up to 30 kVA can connect on a standard single- or three-phase connection in Perth, subject to your retailer's export settings and a site check. New inverters must support remote management, or be export-limited to 1.5 kW.";
 
 /** @type {import("../lib/content-schema.js").Product[]} */
 export const PRODUCTS = [
+  // ---------------------------------------------------------------- residential
   {
     slug: "residential-solar",
     category: "residential",
     kind: "hub",
     title: "Residential Solar",
-    summary: "Residential Solar Archive - Exchange Power",
+    heading: "Residential Solar Systems in Perth",
+    summary:
+      "Home solar systems from 6.6kW to 13.2kW, sized from your power bill, battery-ready and with the STC discount applied.",
     image: null,
     banner: null,
     highlights: [],
     bodyImages: [],
     seo: {
-      title: "Residential Solar Archive - Exchange Power",
-      description: "Residential Solar Archive - Exchange Power",
+      title: "Residential Solar Perth | 6.6kW to 13.2kW Systems",
+      description:
+        "Compare 6.6kW, 7.7kW, 10kW and 13.2kW home solar systems in Perth. Sized from your bill, battery-ready, with the STC discount applied.",
     },
-    faqs: [],
+    tags: ["6.6kW", "7.7kW", "10kW", "13.2kW"],
+    faqs: [
+      {
+        layer: "beginner",
+        question: "How does home solar work?",
+        answer:
+          "Panels turn sunlight into DC power, an inverter converts it to AC for your home, and any surplus is exported to the grid or stored in a battery.",
+      },
+      {
+        layer: "beginner",
+        question: "Is solar worth it in Perth?",
+        answer:
+          "Perth's high sunshine makes solar one of the most effective ways to cut daytime power costs, especially if you use power during the day.",
+      },
+      {
+        layer: "cost",
+        question: "What affects the price of a home solar system?",
+        answer:
+          "System size, panel and inverter choice, roof type, switchboard condition and the current STC discount.",
+      },
+      {
+        layer: "technical",
+        question:
+          "What is the difference between 6.6kW, 7.7kW, 10kW and 13.2kW?",
+        answer:
+          "Larger systems produce more power and suit higher usage. A 6.6kW system averages about 26–29 kWh a day in Perth; a 13.2kW system about 52–58 kWh.",
+      },
+      {
+        layer: "technical",
+        question: "Can I add a battery later?",
+        answer:
+          "Yes. Choosing a hybrid inverter now makes it simpler, but most systems can take an AC-coupled battery later.",
+      },
+      {
+        layer: "installation",
+        question: "What happens on installation day?",
+        answer:
+          "Panels and rails go on the roof, the inverter is mounted, the switchboard is connected and the system is tested and commissioned.",
+      },
+      {
+        layer: "support",
+        question: "Do solar panels need maintenance?",
+        answer:
+          "Little. An annual clean and an inspection every 2–3 years keep performance and safety on track.",
+      },
+      {
+        layer: "location",
+        question: "Do new WA connection rules affect my system?",
+        answer:
+          "Systems installed since 1 May 2026 must meet new requirements, including remote management or a fixed 1.5 kW export limit. We handle this.",
+      },
+      {
+        layer: "quote",
+        question: "Which size should I choose?",
+        answer:
+          "Send your bill and we will recommend a size. Compare options in our [solar system cost guide](/solar-system-cost-perth/).",
+      },
+    ],
     bodyFile: "residential-solar.md",
-    keyFacts: [], // No figures in this page's copy or FAQs.
-    // Approved new intro (Markdown) replaces the duplicated live copy when set (CONTENT-NOTES 3.1–3.2).
+    keyFacts: [],
     hubIntroOverride: null,
     bodyHiddenOnLive: true,
   },
@@ -30,8 +102,9 @@ export const PRODUCTS = [
     category: "residential",
     kind: "detail",
     title: "6.6kW Solar System",
+    heading: "6.6kW Solar System for Perth Homes",
     summary:
-      "Get a 6.6kW solar system WA with expert 6.6kW solar system installers WA for efficient residential solar installation in Western Australia.",
+      "For households of 2–4 people using about 15–25 kWh a day, with some daytime use.",
     image: "products-6-6kw-solar-system-wa",
     banner: {
       desktop: "products-6-6kw-solar-system-wa",
@@ -40,48 +113,127 @@ export const PRODUCTS = [
     highlights: [],
     bodyImages: [],
     seo: {
-      title:
-        "6.6kW Solar System WA | 6.6 kW Solar Panel System Western Australia",
+      title: "6.6kW Solar System Perth | Price, Output & Panels",
       description:
-        "Get a 6.6kW solar system WA with expert 6.6kW solar system installers WA for efficient residential solar installation in Western Australia.",
+        "A 6.6kW system makes about 26–29 kWh a day in Perth. See what's included, STC discount, panels, warranties and get a fixed-price quote.",
     },
+    tags: ["6.6kW"],
+    specs: [
+      { label: "Panels", value: "About 15 × 440 W" },
+      { label: "Average daily output in Perth", value: "About 26–29 kWh" },
+      {
+        label: "STCs if installed in 2026",
+        value: "About 45 (about 36 in 2027)",
+      },
+      { label: "Typical household", value: "2–4 people, 15–25 kWh a day" },
+    ],
+    fit: {
+      suits: [
+        "Your household uses about 15–25 kWh a day",
+        "Someone is home for part of the day",
+        "You want a strong saving for a modest outlay",
+      ],
+      consider: [
+        "You run air conditioning most afternoons (look at 7.7kW)",
+        "You have a pool, home office or EV (look at 10kW)",
+        "You plan a large battery soon",
+      ],
+    },
+    compare: [
+      {
+        label: "Compare the 7.7kW system",
+        href: "/residential-solar/7-7kw-solar-system-wa/",
+      },
+      { label: "Add a battery", href: "/solar-battery/" },
+    ],
     faqs: [
       {
-        question: "What is a 6.6kW Solar System WA and How Does It Work?",
+        layer: "beginner",
+        question: "Who is a 6.6kW system best for?",
         answer:
-          "A 6.6kW solar system WA is a domestic solar installation, which provides power to homes through conversion of sunlight into power with the help of solar panels.",
+          "Households of 2–4 people using about 15–25 kWh a day, with some daytime use.",
       },
       {
-        question:
-          "Is a 6.6kW Solar System Western Australia Suitable for Homes?",
+        layer: "beginner",
+        question: "Why is 6.6kW so popular?",
         answer:
-          "Yes, the size of a 6.6kW solar system Western Australia is just perfect when applied in medium-size houses and capable of meeting most of daily electricity demands effectively.",
+          "It fits most roofs, pairs with a standard inverter and gives a strong saving for its cost.",
       },
       {
-        question:
-          "How much energy does a 6.6 kW solar panel system WA produce?",
+        layer: "cost",
+        question: "How much is a 6.6kW system in Perth?",
         answer:
-          "The average output of a 6.6 kW solar panel system WA will be 24-28 kWh per day, based on the sun exposure and efficiency of the system.",
+          "It depends on the panels, inverter, roof and switchboard. Every quote shows the STC discount as a line item: about 45 certificates for 2026 installations.",
       },
       {
-        question: "How Many Panels are Required for a 6.6kw Solar System WA?",
+        layer: "cost",
+        question: "What is included in the price?",
         answer:
-          "A standard 6.6kW solar system WA system uses approximately 16 to 18 solar panels, depending upon the panel power and system specifications.",
+          "Panels, inverter, mounting, installation, switchboard connection, compliance paperwork and monitoring. Any switchboard upgrade is listed separately.",
       },
       {
-        question: "What is the Payback Period for a 6.6kW Solar System WA?",
+        layer: "technical",
+        question: "How much power does a 6.6kW system produce in Perth?",
         answer:
-          "A 6.6kW system WA solar system is expected to have a payback period ranging between 3 to 5 years depending on the saving and usage.",
+          "About 26–29 kWh a day on average, more in summer and less in winter.",
+      },
+      {
+        layer: "technical",
+        question: "How many panels are in a 6.6kW system?",
+        answer: "About 15 panels at 440 W, or more with lower-wattage panels.",
+      },
+      {
+        layer: "installation",
+        question: "How long does a 6.6kW installation take?",
+        answer: "Usually one day.",
+      },
+      {
+        layer: "installation",
+        question: "Do I need approval to install?",
+        answer:
+          "We arrange the network and retailer paperwork, including DEBS setup with Synergy.",
+      },
+      {
+        layer: "support",
+        question: "What warranties come with the system?",
+        answer: WORKMANSHIP,
+      },
+      {
+        layer: "support",
+        question: "How do I know it is working?",
+        answer:
+          "You get monitoring on your phone, showing daily generation and alerts.",
+      },
+      {
+        layer: "location",
+        question: "How much will a 6.6kW system save on a Synergy bill?",
+        answer:
+          "It depends on self-use. As an example, using 40% of output at home could save around $1,300 a year on the Home Plan (A1).",
+      },
+      {
+        layer: "location",
+        question: "Does the STC rebate change in 2027?",
+        answer:
+          "Yes. A 6.6kW system gets about 45 STCs in 2026 and about 36 in 2027. See [why the solar rebate drops in 2027](/solar-rebate-drop-january-2027-wa/).",
+      },
+      {
+        layer: "quote",
+        question: "How do I get a 6.6kW quote?",
+        answer:
+          "Send a recent bill and roof photo. [Get a quote](/get-a-quote/) or compare with our [7.7kW system](/residential-solar/7-7kw-solar-system-wa/).",
+      },
+      {
+        layer: "quote",
+        question: "Can I upgrade to a bigger system later?",
+        answer:
+          "Yes, but it is usually cheaper per kW to choose the right size now.",
       },
     ],
     bodyFile: "6-6kw-solar-system-wa.md",
     keyFacts: [
-      // Source: FAQ "How much energy does a 6.6 kW solar panel system WA produce?"
-      { label: "Average daily output", value: "24–28 kWh" },
-      // Source: FAQ "How Many Panels are Required for a 6.6kw Solar System WA?"
-      { label: "Panels", value: "16–18" },
-      // Source: FAQ "What is the Payback Period for a 6.6kW Solar System WA?"
-      { label: "Expected payback", value: "3–5 years" },
+      { label: "Average daily output", value: "26–29 kWh" },
+      { label: "Panels", value: "About 15" },
+      { label: "STCs (2026 install)", value: "About 45" },
     ],
     bodyHiddenOnLive: false,
   },
@@ -91,7 +243,7 @@ export const PRODUCTS = [
     kind: "detail",
     title: "7.7kW Solar System",
     summary:
-      "Get a 7.7kW solar system WA with expert 7.7kW solar system installers WA for efficient residential solar installation in Western Australia.",
+      "For growing families using about 20–30 kWh a day, often with afternoon air conditioning.",
     image: "products-6-6kw-solar-system-wa",
     banner: {
       desktop: "products-6-6kw-solar-system-wa",
@@ -100,55 +252,129 @@ export const PRODUCTS = [
     highlights: [],
     bodyImages: [],
     seo: {
-      title:
-        "7.7kW Solar System WA | 7.7 kW Solar Panel System Western Australia",
+      title: "7.7kW Solar System Perth | For Families & Air Con",
       description:
-        "Get a 7.7kW solar system WA with expert 7.7kW solar system installers WA for efficient residential solar installation in Western Australia.",
+        "A 7.7kW system suits growing families and afternoon air conditioning. About 30–34 kWh a day. See inclusions, warranties and pricing.",
     },
+    tags: ["7.7kW"],
+    specs: [
+      { label: "Panels", value: "About 17–18 × 440 W" },
+      { label: "Average daily output in Perth", value: "About 30–34 kWh" },
+      {
+        label: "STCs if installed in 2026",
+        value: "About 53 (about 42 in 2027)",
+      },
+      { label: "Typical household", value: "Growing family, 20–30 kWh a day" },
+    ],
+    fit: {
+      suits: [
+        "Your family uses about 20–30 kWh a day",
+        "You run air conditioning in the afternoon",
+        "You want about 17% more output than a 6.6kW system",
+      ],
+      consider: [
+        "Your use is under about 20 kWh a day (look at 6.6kW)",
+        "You have a pool, home office or EV (look at 10kW)",
+        "Your roof is small or shaded",
+      ],
+    },
+    compare: [
+      {
+        label: "Compare the 6.6kW system",
+        href: "/residential-solar/6-6kw-solar-system-wa/",
+      },
+      {
+        label: "Compare the 10kW system",
+        href: "/residential-solar/10kw-solar-system-wa/",
+      },
+      { label: "Add a battery", href: "/solar-battery/" },
+    ],
     faqs: [
       {
-        question: "What is a 7.7kW solar system in WA?",
+        layer: "beginner",
+        question: "Who is a 7.7kW system best for?",
         answer:
-          "A 7.7kW solar system in WA is a residential solar system which is geared towards producing enough electricity to supply a medium, or even a large household. It consists of high-efficiency panels, an inverter and professional installation to change sunlight into useful power.",
+          "Growing families using about 20–30 kWh a day, often with afternoon air conditioning.",
       },
       {
-        question: "Is a 7.7kW solar system in Perth suitable for homes?",
+        layer: "beginner",
+        question: "Is 7.7kW much better than 6.6kW?",
         answer:
-          "Yes, It is suitable to homes with a moderate to high energy consumption. It has the ability to efficiently supply power to homes appliances, air conditioning, and everyday home requirements, and it saves on electricity bills.",
+          "It produces about 17% more power, which helps homes with higher daytime use.",
       },
       {
-        question:
-          "How much energy does a 7.7kW solar panel system in WA produce?",
+        layer: "cost",
+        question: "How much does a 7.7kW system cost?",
         answer:
-          "In WA, a 7.7kW size can be used to establish a solar panel system that may produce high output on a daily basis based on the weather conditions in terms of the sun position, panel direction, and efficiency. Perth has an optimum energy production due to its sunny climate.",
+          "It depends on the equipment, roof and switchboard. The quote includes an STC discount of about 53 certificates for 2026 installations.",
       },
       {
-        question:
-          "What are the benefits of installing 7.7kW solar panels in WA?",
+        layer: "cost",
+        question: "Why is 7.7kW only a little more than 6.6kW?",
         answer:
-          "The solar panels of 7.7kW in WA reduce electricity expenses and decrease the reliance on electricity grids, as well as promote the use of clean energy. They also boost savings in the long-term and enhance property value.",
+          "Fixed costs such as labour and paperwork are shared, so the extra panels cost less per kW.",
       },
       {
-        question:
-          "Why is professional solar panel installation in WA important?",
-        answer:
-          "Professional solar panel installation in WA will bring good system design, safe installations and maximum system efficiency. Professional installation will prevent problems in performance and provide considerable reliability in the long term.",
+        layer: "technical",
+        question: "How much power does a 7.7kW system produce?",
+        answer: "About 30–34 kWh a day on average in Perth.",
       },
       {
-        question:
-          "What is included in residential solar installation in Perth?",
-        answer:
-          "Residential solar installation in Perth covers the design of the system, the installation of panels, inverters, and the post-commissioning. It guarantees a full and smooth transal to solar energy.",
+        layer: "technical",
+        question: "How many panels does it use?",
+        answer: "About 17–18 panels at 440 W.",
       },
       {
-        question:
-          "What services are covered under solar system installation services in WA?",
+        layer: "installation",
+        question: "How long does it take to install?",
+        answer: "Usually one day on a single-storey home.",
+      },
+      {
+        layer: "installation",
+        question: "Will my switchboard need an upgrade?",
         answer:
-          "The services available in the solar system installation industry in WA include consultation, site inspection, system design, provision of equipment, installation and testing to achieve the optimum performance.",
+          "Some older homes do. We check a switchboard photo before quoting.",
+      },
+      {
+        layer: "support",
+        question: "What warranty applies?",
+        answer: WORKMANSHIP,
+      },
+      {
+        layer: "support",
+        question: "What maintenance does it need?",
+        answer: "An annual clean and a periodic inspection.",
+      },
+      {
+        layer: "location",
+        question: "Can a 7.7kW system run my air conditioner?",
+        answer:
+          "On sunny afternoons it can cover much of a typical split or ducted system's running.",
+      },
+      {
+        layer: "location",
+        question: "Is 7.7kW allowed on single-phase power?",
+        answer:
+          "Yes. Since 1 May 2026 larger systems can connect on single phase, subject to retailer settings.",
+      },
+      {
+        layer: "quote",
+        question: "How do I choose between 6.6kW and 7.7kW?",
+        answer:
+          "Send your bill and we will model both. Read [6.6kW vs 7.7kW](/6-6kw-solar-system-vs-7-7kw-solar-system-which-is-better/).",
+      },
+      {
+        layer: "quote",
+        question: "Can I add a battery?",
+        answer: "Yes. Ask for a battery-ready hybrid inverter in your quote.",
       },
     ],
     bodyFile: "7-7kw-solar-system-wa.md",
-    keyFacts: [], // No figures in this page's copy or FAQs.
+    keyFacts: [
+      { label: "Average daily output", value: "30–34 kWh" },
+      { label: "Panels", value: "About 17–18" },
+      { label: "STCs (2026 install)", value: "About 53" },
+    ],
     bodyHiddenOnLive: false,
   },
   {
@@ -156,8 +382,9 @@ export const PRODUCTS = [
     category: "residential",
     kind: "detail",
     title: "10kW Solar System",
+    heading: "10kW Solar System for Larger Homes",
     summary:
-      "Get a 10kW solar system in Perth WA with expert solar panel installation in WA, residential solar installation in Perth & inverter services.",
+      "For larger households using about 25–40 kWh a day, often with a pool, home office or ducted air conditioning.",
     image: "products-10kw-solar-system-3",
     banner: {
       desktop: "banners-10kw-solar-system-1",
@@ -166,57 +393,137 @@ export const PRODUCTS = [
     highlights: [],
     bodyImages: [],
     seo: {
-      title:
-        "10kW Solar System in WA | 10kW Solar System in Perth WA | Solar Installation Services",
+      title: "10kW Solar System Perth | Output, Price & Roof Size",
       description:
-        "Get a 10kW solar system in Perth WA with expert solar panel installation in WA, residential solar installation in Perth & inverter services.",
+        "A 10kW system averages 40–44 kWh a day in Perth. Ideal for larger homes, pools and home offices. Battery-ready options available.",
     },
+    tags: ["10kW"],
+    specs: [
+      { label: "Panels", value: "About 23 × 440 W" },
+      { label: "Roof area needed", value: "About 46–50 m²" },
+      {
+        label: "Average daily output in Perth",
+        value: "About 40–44 kWh (about 55–62 in summer, 25–32 in winter)",
+      },
+      {
+        label: "STCs if installed in 2026",
+        value: "About 69 (about 55 in 2027)",
+      },
+      {
+        label: "Typical household",
+        value: "4–5 people, pool or home office, 25–40 kWh a day",
+      },
+    ],
+    fit: {
+      suits: [
+        "Your household uses about 25–40 kWh a day",
+        "You run a pool pump, home office or ducted air conditioning",
+        "You may add a battery later",
+      ],
+      consider: [
+        "You are out all day with low use (look at 6.6kW or 7.7kW)",
+        "You charge an EV or want a 13 kWh+ battery (look at 13.2kW)",
+        "Your roof has less than about 46 m² of good space",
+      ],
+    },
+    compare: [
+      {
+        label: "Compare the 7.7kW system",
+        href: "/residential-solar/7-7kw-solar-system-wa/",
+      },
+      {
+        label: "Compare the 13.2kW system",
+        href: "/residential-solar/13-2kw-solar-system/",
+      },
+      { label: "Add a battery", href: "/solar-battery/" },
+    ],
     faqs: [
       {
-        question:
-          "What is a 10kW solar system in WA and who is it suitable for?",
+        layer: "beginner",
+        question: "Who should consider a 10kW system?",
         answer:
-          "The 10kW solar system in WA is a high capacity solar system that is installed in the middle to large houses that have increased electricity consumption. It is perfect in households that utilize numerous appliances, air conditioning or in the work stations.",
+          "Larger households using about 25–40 kWh a day, often with a pool, home office or ducted air conditioning.",
       },
       {
-        question: "How much power does a 10kW solar system in Perth generate?",
+        layer: "beginner",
+        question: "Is 10kW too big for my home?",
         answer:
-          "A 10kW solar system in Perth would yield about 35-45 kWh per day based on the sunshine, orientation of the panels and efficiency of that solar system.",
+          "Not if you use power during the day or plan a battery. If you are out all day with low use, a smaller system may suit better.",
       },
       {
-        question:
-          "Is a 10kW solar system in Perth suitable for residential use?",
+        layer: "cost",
+        question: "How much does a 10kW system cost in Perth?",
         answer:
-          "Yes, residential solar installation in Perth usually involves systems with a 10kW capacity in houses that have more energy demands or are planning to extend the house in future.",
+          "It depends on the equipment, roof and switchboard. The quote includes about 69 STCs for 2026 installations.",
       },
       {
-        question: "Do 10kW solar panels in WA work during cloudy days?",
+        layer: "cost",
+        question: "Is a 10kW system better value per kW?",
         answer:
-          "Yes, the 10kW solar panels in WA can still produce electricity on cloudy days although the quantity produced may be less than on sunny days.",
+          "Usually yes, because fixed installation costs are spread over more panels.",
       },
       {
-        question:
-          "Can a 10kW solar system in Perth WA reduce electricity bills?",
+        layer: "technical",
+        question: "How much power does a 10kW system produce?",
         answer:
-          "Yes, a 10kW solar power system in Perth WA will actually save electricity bills by creating a sizeable amount of day-to-day power requirements.",
+          "About 40–44 kWh a day on average in Perth, from about 55–62 kWh in summer to 25–32 kWh in winter.",
       },
       {
-        question:
-          "What is included in residential solar installation in Perth?",
-        answer:
-          "Battery storage may be installed with a 10kW solar system in WA, which will store excess energy, and can be used at night or during outages.",
+        layer: "technical",
+        question: "How much roof space do I need?",
+        answer: "About 46–50 m² of usable, unshaded roof for around 23 panels.",
       },
       {
-        question:
-          "Why choose Exchange Power for solar system installation services in WA?",
+        layer: "installation",
+        question: "Can a 10kW system go on single-phase power?",
+        answer: CONNECTION_RULES,
+      },
+      {
+        layer: "installation",
+        question: "How long does installation take?",
+        answer: "One to two days, depending on roof type and access.",
+      },
+      {
+        layer: "support",
+        question: "What warranties apply?",
+        answer: WORKMANSHIP,
+      },
+      {
+        layer: "support",
+        question: "How do I monitor performance?",
         answer:
-          "Exchange Power is a reputable solar system installer in WA with quality system parts, professional guidance and customized energy offers to all homes.",
+          "Through the inverter app, with alerts for faults or low output.",
+      },
+      {
+        layer: "location",
+        question: "How does a 10kW system work with DEBS?",
+        answer:
+          "Exports earn 10c/kWh from 3pm to 9pm and 2c at other times, so using solar at home or storing it gives the best value.",
+      },
+      {
+        layer: "location",
+        question: "Will Emergency Solar Management affect me?",
+        answer:
+          "It is a rare, short, last-resort measure. Your system stays connected and normally operates as usual.",
+      },
+      {
+        layer: "quote",
+        question: "How do I know if 10kW or 13.2kW suits me?",
+        answer:
+          "Send your bill and we will price both. Read our [10kW vs 13.2kW guide](/10kw-vs-13-2kw-solar-system/).",
+      },
+      {
+        layer: "quote",
+        question: "What should I send for a quote?",
+        answer: "A recent bill, a switchboard photo and your address.",
       },
     ],
     bodyFile: "10kw-solar-system-wa.md",
     keyFacts: [
-      // Source: FAQ "How much power does a 10kW solar system in Perth generate?"
-      { label: "Daily output", value: "35–45 kWh" },
+      { label: "Average daily output", value: "40–44 kWh" },
+      { label: "Panels", value: "About 23" },
+      { label: "Roof area", value: "46–50 m²" },
+      { label: "STCs (2026 install)", value: "About 69" },
     ],
     bodyHiddenOnLive: false,
   },
@@ -226,7 +533,7 @@ export const PRODUCTS = [
     kind: "detail",
     title: "13.2kW Solar System",
     summary:
-      "Get a premium 13.2kW solar system Perth with expert 13.2kW solar panel installation WA for efficient home solar power in Western Australia.",
+      "For high-use homes over 40 kWh a day, or homes with an EV, a large battery or all-electric appliances.",
     image: "products-13-2kw-solar-system-3",
     banner: {
       desktop: "banners-13-2kw-solar-system-wa",
@@ -235,79 +542,212 @@ export const PRODUCTS = [
     highlights: [],
     bodyImages: [],
     seo: {
-      title:
-        "13.2kW Solar System WA | 13.2kW Solar System in Perth WA | Solar Installation Services",
+      title: "13.2kW Solar System Perth | For EVs & High Use",
       description:
-        "Get a premium 13.2kW solar system Perth with expert 13.2kW solar panel installation WA for efficient home solar power in Western Australia.",
+        "Our largest home package: about 52–58 kWh a day for EV charging, batteries and all-electric homes. Check roof, phase and export options.",
     },
+    tags: ["13.2kW"],
+    specs: [
+      { label: "Panels", value: "About 30 × 440 W" },
+      { label: "Roof area needed", value: "About 60–65 m²" },
+      { label: "Average daily output in Perth", value: "About 52–58 kWh" },
+      {
+        label: "STCs if installed in 2026",
+        value: "About 91 (about 72 in 2027)",
+      },
+      { label: "Phase", value: "Single or three phase; we check your supply" },
+      {
+        label: "Typical household",
+        value: "5+ people, EV, battery or all-electric home",
+      },
+    ],
+    fit: {
+      suits: [
+        "You use more than about 40 kWh a day",
+        "You charge an EV at home or plan to",
+        "You want a 13 kWh or larger battery that fills in winter",
+      ],
+      consider: [
+        "Your use is 25–40 kWh a day (look at 10kW)",
+        "Your roof has less than about 60 m² of good space",
+        "Most extra output would export at 2c/kWh",
+      ],
+    },
+    compare: [
+      {
+        label: "Compare the 10kW system",
+        href: "/residential-solar/10kw-solar-system-wa/",
+      },
+      { label: "Add a battery", href: "/solar-battery/" },
+    ],
     faqs: [
       {
-        question: "What is a 13.2kW solar system WA suitable for?",
+        layer: "beginner",
+        question: "Who is a 13.2kW system for?",
         answer:
-          "A 13.2kW solar system WA would be appropriate in large homes that consume much electricity such as homes with air conditioning, electric cars, pools, home offices and various appliances that are used on a daily basis.",
+          "High-use homes using over 40 kWh a day, or homes with an EV, large battery or all-electric appliances.",
       },
       {
-        question: "How much power can a 13.2kW solar system Perth generate?",
+        layer: "beginner",
+        question: "Is 13.2kW the largest home system you install?",
         answer:
-          "The solar system Perth 13.2kW can produce copious power throughout the day, based on the availability of sunlight, the orientation of the roof, and how well the system is efficient, and can thus be relevant in high consumption houses.",
+          "It is our largest standard package. Larger systems can be designed on request.",
       },
       {
-        question:
-          "Is a 13.2kW solar system Western Australia a good investment?",
+        layer: "cost",
+        question: "How much does a 13.2kW system cost?",
         answer:
-          "Yes, a 13.2kW solar system in Western Australia can serve to cut down the electricity costs, enhance energy self-sufficiency, and offer high potential savings in terms of long-term household savings to those who consume more power.",
+          "It depends on the equipment, roof, phase and switchboard. About 91 STCs apply for 2026 installations.",
       },
       {
-        question:
-          "How many solar panels are required for a 13.2kW solar panel system WA?",
+        layer: "cost",
+        question: "Does a bigger system pay back faster?",
         answer:
-          "The panels within the 13.2kW solar panel system WA will also depend on the panel wattage, though a majority of solar panel systems will need approximately 28-32 panels.",
+          "Only if you use or store most of the extra power. Exports before 3pm earn just 2c/kWh.",
       },
       {
-        question: "How long does 13.2kW solar installation WA take?",
-        answer:
-          "The installation process of a professional 13.2kW solar installation WA can take one to two days (depending on the roof size, accessibility to properties, and the complexity of the installation).",
+        layer: "technical",
+        question: "How much power does a 13.2kW system produce?",
+        answer: "About 52–58 kWh a day on average in Perth.",
       },
       {
-        question:
-          "Can a 13.2kW solar power system Perth reduce electricity bills significantly?",
-        answer:
-          "Yes, a 13.2kW solar power system Perth can make a considerable reduction on the electricity expenses by creating clean solar energy which can be used in daytime to power up the household.",
+        layer: "technical",
+        question: "How many panels and how much roof?",
+        answer: "About 30 panels at 440 W, needing about 60–65 m² of roof.",
       },
       {
-        question:
-          "Why choose a larger 13.2kW solar system WA instead of a smaller system?",
+        layer: "installation",
+        question: "Do I need three-phase power?",
         answer:
-          "A bigger 13.2kW solar System WA can take into account the growing electric needs of the homes and is more flexible in the long-term regarding electric cars, battery power, and additional upgrades.",
+          "Not necessarily under the 2026 rules, but three phase can help balance large loads. We check your supply.",
+      },
+      {
+        layer: "installation",
+        question: "How long does installation take?",
+        answer: "Usually two days.",
+      },
+      {
+        layer: "support",
+        question: "What warranty applies to a 13.2kW system?",
+        answer: WORKMANSHIP,
+      },
+      {
+        layer: "support",
+        question: "Does a larger system need more maintenance?",
+        answer:
+          "Not much more, but more panels mean cleaning and inspections are worth scheduling.",
+      },
+      {
+        layer: "location",
+        question: "What export limit will my system have?",
+        answer:
+          "It depends on your retailer's settings and connection. Without remote management, exports are limited to 1.5 kW.",
+      },
+      {
+        layer: "location",
+        question: "Can I add a battery and claim the WA rebate?",
+        answer:
+          "Yes, with an approved battery, SAA-accredited installer and VPP enrolment.",
+      },
+      {
+        layer: "quote",
+        question: "How do I start?",
+        answer:
+          "Send your bill and future plans (EV, battery). [Get a quote](/get-a-quote/) or read [single vs three-phase solar](/single-phase-vs-three-phase-solar-wa/).",
+      },
+      {
+        layer: "quote",
+        question: "Can you design for my EV charger too?",
+        answer: "Yes. Tell us your vehicle and daily driving.",
       },
     ],
     bodyFile: "13-2kw-solar-system.md",
     keyFacts: [
-      // Source: FAQ "How many solar panels are required for a 13.2kW solar panel system WA?"
-      { label: "Panels", value: "28–32" },
-      // Source: FAQ "How long does 13.2kW solar installation WA take?"
-      { label: "Installation", value: "1–2 days" },
+      { label: "Average daily output", value: "52–58 kWh" },
+      { label: "Panels", value: "About 30" },
+      { label: "Roof area", value: "60–65 m²" },
+      { label: "STCs (2026 install)", value: "About 91" },
     ],
     bodyHiddenOnLive: false,
   },
+
+  // ---------------------------------------------------------------- commercial
   {
     slug: "commercial-solar",
     category: "commercial",
     kind: "hub",
     title: "Commercial Solar",
-    summary: "Commercial Solar Archive - Exchange Power",
+    heading: "Commercial Solar for WA Businesses",
+    summary:
+      "Solar for WA warehouses, offices, retail and manufacturing, sized from your interval data, with ROI and finance options.",
     image: null,
     banner: null,
     highlights: [],
     bodyImages: [],
     seo: {
-      title: "Commercial Solar Archive - Exchange Power",
-      description: "Commercial Solar Archive - Exchange Power",
+      title: "Commercial Solar Perth | 30kW, 50kW & 100kW Systems",
+      description:
+        "Commercial solar for WA warehouses, offices, retail and manufacturing. Sized from interval data, with ROI and finance options.",
     },
-    faqs: [],
+    tags: ["30kW", "50kW", "100kW"],
+    faqs: [
+      {
+        layer: "beginner",
+        question: "Which businesses benefit most from solar?",
+        answer:
+          "Businesses with steady daytime use: warehouses, cold storage, manufacturing, retail, offices, schools, hospitality and farms.",
+      },
+      {
+        layer: "beginner",
+        question: "What system sizes do you install for businesses?",
+        answer:
+          "Standard packages of 30kW, 50kW and 100kW, plus custom designs.",
+      },
+      {
+        layer: "cost",
+        question: "How is commercial solar priced?",
+        answer:
+          "By system size, roof type, switchboard and network requirements, monitoring and access. STCs reduce the price for systems up to 100kW.",
+      },
+      {
+        layer: "cost",
+        question: "Can we finance commercial solar?",
+        answer:
+          "Yes. Options include cash, equipment finance, leasing and power purchase agreements. See [paying for commercial solar](/commercial-solar-finance-options-wa/).",
+      },
+      {
+        layer: "technical",
+        question: "How do you size a commercial system?",
+        answer:
+          "From 12 months of 30-minute interval data, matched to your roof area and daytime load.",
+      },
+      {
+        layer: "installation",
+        question: "Do commercial systems need network approval?",
+        answer:
+          "Systems above 30 kVA need a Western Power application and technical assessment.",
+      },
+      {
+        layer: "installation",
+        question: "Will installation disrupt our operations?",
+        answer:
+          "Most work happens on the roof during business hours. Final connection needs a short scheduled shutdown.",
+      },
+      {
+        layer: "location",
+        question: "Do you install commercial solar in Wangara and nearby?",
+        answer:
+          "Yes. We are based in Wangara and install across Perth's northern industrial areas. See [commercial solar for warehouses in north Perth](/commercial-solar-warehouses-perth-north/).",
+      },
+      {
+        layer: "quote",
+        question: "How do we get a commercial proposal?",
+        answer:
+          "Send recent bills and interval data. Read our [commercial solar ROI guide](/commercial-solar-roi-wa/) first.",
+      },
+    ],
     bodyFile: "commercial-solar.md",
-    keyFacts: [], // No figures in this page's copy or FAQs.
-    // Approved new intro (Markdown) replaces the duplicated live copy when set (CONTENT-NOTES 3.1–3.2).
+    keyFacts: [],
     hubIntroOverride: null,
     bodyHiddenOnLive: true,
   },
@@ -316,8 +756,9 @@ export const PRODUCTS = [
     category: "commercial",
     kind: "detail",
     title: "30kW Solar System",
+    heading: "30kW Commercial Solar System",
     summary:
-      "Get a 30kW solar system WA with expert 30kW solar installation WA. Premium commercial 30kW solar panel system WA solutions.",
+      "For offices, clinics, small workshops and retail using about 150–300 kWh on a weekday.",
     image: "products-30kw-solar-system-3",
     banner: {
       desktop: "banners-30kw-solar-system",
@@ -326,52 +767,137 @@ export const PRODUCTS = [
     highlights: [],
     bodyImages: [],
     seo: {
-      title:
-        "30kW Solar System WA | Commercial 30kW Solar System Western Australia",
+      title: "30kW Commercial Solar System | Perth & WA",
       description:
-        "Get a 30kW solar system WA with expert 30kW solar installation WA. Premium commercial 30kW solar panel system WA solutions.",
+        "A 30kW system produces about 130 kWh a day. Suits offices, clinics and small workshops, and can fit the standard 30 kVA connection.",
     },
+    tags: ["30kW"],
+    specs: [
+      { label: "Panels", value: "About 68 × 440 W" },
+      { label: "Roof area needed", value: "About 150–170 m²" },
+      { label: "Average daily output in Perth", value: "About 130 kWh" },
+      { label: "Annual output", value: "About 48,000 kWh" },
+      { label: "STCs if installed in 2026", value: "About 207" },
+      {
+        label: "Network connection",
+        value: "Can fit within the 30 kVA standard connection",
+      },
+      {
+        label: "Typical business",
+        value: "Offices, clinics, small workshops, retail",
+      },
+    ],
+    fit: {
+      suits: [
+        "Your business uses about 150–300 kWh on a weekday",
+        "Your weekday daytime load averages around 15 kW",
+        "You want a simpler connection under the 30 kVA standard",
+      ],
+      consider: [
+        "Your daytime load averages 20–30 kW (look at 50kW)",
+        "You close on weekends and most output would export",
+        "You have a large roof and heavy daytime use (look at 100kW)",
+      ],
+    },
+    compare: [
+      {
+        label: "Compare the 50kW system",
+        href: "/commercial-solar/50kw-solar-system/",
+      },
+      { label: "Commercial solar ROI", href: "/commercial-solar-roi-wa/" },
+      {
+        label: "Finance options",
+        href: "/commercial-solar-finance-options-wa/",
+      },
+    ],
     faqs: [
       {
-        question: "What is a 30kW solar system suitable for?",
+        layer: "beginner",
+        question: "Which businesses suit a 30kW system?",
         answer:
-          "The solar system of 30kW is suitable to large residential buildings, commercial buildings, offices, factories, educational establishments, and companies with high electricity needs per day.",
+          "Offices, clinics, small workshops and retail using about 150–300 kWh on a weekday.",
       },
       {
-        question:
-          "How much electricity does a 30kW solar system generate per day?",
+        layer: "beginner",
+        question: "Can a home use a 30kW system?",
         answer:
-          "An average solar construction of 30kW will be capable of producing about 120kWh to 150kWh of electricity in relation to sunlight hours, panel efficiency, location, and weather conditions.",
+          "Rarely. It is designed for business loads, though large rural homes may consider it.",
       },
       {
-        question: "How many solar panels are required for a 30kW solar system?",
+        layer: "cost",
+        question: "How much does a 30kW system cost?",
         answer:
-          "The quantity of panels will be determined by the panel wattage. Newly, a 30kW solar system will need about 54-56 solar panels using 550W solar panels.",
+          "It depends on the roof, switchboard and access. About 207 STCs apply for 2026 installations.",
       },
       {
-        question: "How much roof space is needed for a 30kW solar system?",
+        layer: "cost",
+        question: "What is a typical payback?",
         answer:
-          "The solar panels used tend to be bigger and more efficient and so a 30 kW system would need approximately 130 to 180 metres of roof area.",
+          "It depends on self-consumption and tariff. Sites using most solar on site often see short paybacks.",
       },
       {
-        question: "Is battery storage recommended with a 30kW solar system?",
+        layer: "technical",
+        question: "How much does a 30kW system produce?",
         answer:
-          "Adding battery storage can be very welcome when energy use does not stop at the end of the day or during peak tariffs. It can store surplus solar energy to be utilized later and enhance dependability on energy.",
+          "About 130 kWh a day, or 48,000 kWh a year, on average in Perth.",
       },
       {
-        question: "How long does it take to install a 30kW solar system?",
+        layer: "technical",
+        question: "How much roof space is needed?",
+        answer: "About 150–170 m² for around 68 panels.",
+      },
+      {
+        layer: "installation",
+        question: "Does 30kW need a Western Power application?",
         answer:
-          "A typical 30kW solar power system could require 2 to 5 days, based on the site aspects, system configuration, weather and the electrical design needs.",
+          "A system up to 30 kVA can often connect under the standard connection introduced on 1 May 2026.",
+      },
+      {
+        layer: "installation",
+        question: "How long does it take to install?",
+        answer: "Usually two to three days.",
+      },
+      {
+        layer: "support",
+        question: "What monitoring is included?",
+        answer:
+          "Online monitoring with fault alerts, shared with our team if you choose.",
+      },
+      {
+        layer: "support",
+        question: "What warranty applies?",
+        answer: WORKMANSHIP,
+      },
+      {
+        layer: "location",
+        question: "What buyback rate applies to business exports?",
+        answer:
+          "It depends on your retailer arrangement. We check this before estimating savings.",
+      },
+      {
+        layer: "location",
+        question: "Can we add a battery later?",
+        answer:
+          "Yes, if the design allows. Ask for a battery-ready configuration.",
+      },
+      {
+        layer: "quote",
+        question: "What do you need to quote?",
+        answer:
+          "12 months of bills or interval data, your address and roof access details. Compare sizes in [30kW vs 50kW vs 100kW](/30kw-vs-50kw-vs-100kw-commercial-solar/).",
+      },
+      {
+        layer: "quote",
+        question: "Do you offer a site visit?",
+        answer: "Yes, free for commercial enquiries.",
       },
     ],
     bodyFile: "30kw-solar-system.md",
     keyFacts: [
-      // Source: FAQ "How much electricity does a 30kW solar system generate per day?"
-      { label: "Daily output", value: "120–150 kWh" },
-      // Source: FAQ "How many solar panels are required for a 30kW solar system?"
-      { label: "Panels", value: "54–56 × 550W" },
-      // Source: FAQ "How long does it take to install a 30kW solar system?"
-      { label: "Installation", value: "2–5 days" },
+      { label: "Average daily output", value: "About 130 kWh" },
+      { label: "Panels", value: "About 68" },
+      { label: "Roof area", value: "150–170 m²" },
+      { label: "STCs (2026 install)", value: "About 207" },
     ],
     bodyHiddenOnLive: false,
   },
@@ -380,8 +906,9 @@ export const PRODUCTS = [
     category: "commercial",
     kind: "detail",
     title: "50kW Solar System",
+    heading: "50kW Commercial Solar System",
     summary:
-      "Reduce business energy costs with a 50kW solar system in Western Australia. Reliable commercial solar installation in WA with high-performance energy solutions.",
+      "For larger workshops, gyms, supermarkets, schools and sites with refrigeration or all-day air conditioning.",
     image: "products-50kw-solar-system-3",
     banner: {
       desktop: "banners-50kw-solar-system",
@@ -390,51 +917,135 @@ export const PRODUCTS = [
     highlights: [],
     bodyImages: [],
     seo: {
-      title:
-        "50kW Solar System WA | Commercial 50kW Solar System Western Australia",
+      title: "50kW Commercial Solar System | Perth & WA",
       description:
-        "Reduce business energy costs with a 50kW solar system in Western Australia. Reliable commercial solar installation in WA with high-performance energy solutions.",
+        "About 220 kWh a day for workshops, supermarkets, gyms and schools. Design, Western Power approval and installation handled.",
     },
+    tags: ["50kW"],
+    specs: [
+      { label: "Panels", value: "About 114 × 440 W" },
+      { label: "Roof area needed", value: "About 250–280 m²" },
+      { label: "Average daily output in Perth", value: "About 220 kWh" },
+      { label: "Annual output", value: "About 80,000 kWh" },
+      { label: "STCs if installed in 2026", value: "About 345" },
+      {
+        label: "Network connection",
+        value: "Western Power application required",
+      },
+      {
+        label: "Typical business",
+        value: "Larger workshops, gyms, supermarkets, schools",
+      },
+    ],
+    fit: {
+      suits: [
+        "Your weekday daytime load averages 20–30 kW",
+        "You run refrigeration, compressors or all-day air conditioning",
+        "You have about 250–280 m² of usable roof",
+      ],
+      consider: [
+        "Your daytime load averages around 15 kW (look at 30kW)",
+        "Your daytime load averages 40–50 kW (look at 100kW)",
+        "You close on weekends and would export a lot",
+      ],
+    },
+    compare: [
+      {
+        label: "Compare the 30kW system",
+        href: "/commercial-solar/30kw-solar-system/",
+      },
+      {
+        label: "Compare the 100kW system",
+        href: "/commercial-solar/100kw-solar-system/",
+      },
+      { label: "Commercial solar ROI", href: "/commercial-solar-roi-wa/" },
+      {
+        label: "Finance options",
+        href: "/commercial-solar-finance-options-wa/",
+      },
+    ],
     faqs: [
       {
-        question: "Is a 50kW solar system WA suitable for warehouses?",
+        layer: "beginner",
+        question: "Which businesses suit a 50kW system?",
         answer:
-          "Yes, a 50kW solar system WA is the solution in warehouses with high power operating during the day and contribute to lower operating costs and increase energy efficiency.",
+          "Larger workshops, gyms, supermarkets, schools and sites with refrigeration or all-day air conditioning.",
       },
       {
-        question:
-          "What type of inverter is used in a 50kW solar panel system WA?",
+        layer: "beginner",
+        question: "Is 50kW too big for us?",
         answer:
-          "A 50kW solar panel system WA typically employs commercial inverter grade string inverters or tailored inverter systems that are high efficiency and high reliability.",
+          "Not if your weekday daytime load averages 20–30 kW. We check this from interval data.",
       },
       {
-        question: "How long does a 50kW solar system WA last?",
+        layer: "cost",
+        question: "How much does a 50kW system cost?",
         answer:
-          "Well installed 50kW solar system WA can serve a life of 25 years and above and quality and well maintained panels guarantee performance over time.",
+          "It depends on the roof, switchboard, access and network requirements. About 345 STCs apply for 2026 installations.",
       },
       {
-        question:
-          "Can a 50kW solar panel installation WA be installed on metal roofs?",
+        layer: "cost",
+        question: "What extra costs might apply?",
         answer:
-          "Yes, a 50kW solar panel installation WA is capable of being mounted in metal, flat and commercial roofing systems when the correct mounting system is used.",
+          "Western Power application costs, switchboard upgrades or roof safety equipment, quoted upfront.",
       },
       {
-        question:
-          "Will a 50kW solar installation WA work during cloudy weather?",
-        answer:
-          "Yes, even a 50kW solar installation WA can still produce electricity even when clouds block the sun though it might produce less power than when the sun is shining brightly.",
+        layer: "technical",
+        question: "How much does a 50kW system produce?",
+        answer: "About 220 kWh a day, or 80,000 kWh a year, on average.",
       },
       {
-        question:
-          "Why choose a 50kW solar panel installation WA for commercial properties?",
+        layer: "technical",
+        question: "How much roof area is needed?",
+        answer: "About 250–280 m².",
+      },
+      {
+        layer: "installation",
+        question: "What approvals are needed?",
         answer:
-          "The reduced costs of electricity, sustainable energy production, higher efficiency of operation and long-term commercial value of a 50kW solar panel installation WA will be provided.",
+          "A Western Power application and technical assessment, which may set an export limit.",
+      },
+      {
+        layer: "installation",
+        question: "How long does installation take?",
+        answer:
+          "Installation itself takes three to five days, after network approval.",
+      },
+      {
+        layer: "support",
+        question: "Is roof leak cover included?",
+        answer:
+          "Our 5-year workmanship warranty covers the roof penetrations we make.",
+      },
+      {
+        layer: "location",
+        question: "Do you install 50kW systems on metal industrial roofs?",
+        answer:
+          "Yes. Kliplok, Trimdek and similar profiles are common in Perth's industrial areas.",
+      },
+      {
+        layer: "location",
+        question: "What about asbestos roofs?",
+        answer: "These need specialist advice before any solar work.",
+      },
+      {
+        layer: "quote",
+        question: "How do we start?",
+        answer:
+          "Request a site assessment and share interval data. See [warehouse solar in north Perth](/commercial-solar-warehouses-perth-north/).",
+      },
+      {
+        layer: "quote",
+        question: "Can you provide a business case?",
+        answer: "Yes, with output, savings and payback estimates.",
       },
     ],
     bodyFile: "50kw-solar-system.md",
     keyFacts: [
-      // Source: FAQ "How long does a 50kW solar system WA last?"
-      { label: "System life", value: "25+ years" },
+      { label: "Average daily output", value: "About 220 kWh" },
+      { label: "Panels", value: "About 114" },
+      { label: "Roof area", value: "250–280 m²" },
+      { label: "STCs (2026 install)", value: "About 345" },
     ],
     bodyHiddenOnLive: false,
   },
@@ -443,8 +1054,9 @@ export const PRODUCTS = [
     category: "commercial",
     kind: "detail",
     title: "100kW Solar System",
+    heading: "100kW Commercial Solar System",
     summary:
-      "Get a 100kW solar system WA with expert 100kW solar installation WA. Premium commercial 100kW solar panel system WA solutions.",
+      "For warehouses, cold stores, manufacturers and large retail with heavy daytime loads and large roofs.",
     image: "products-100kw-solar-system-2",
     banner: {
       desktop: "banners-100kw-solar-system",
@@ -453,68 +1065,231 @@ export const PRODUCTS = [
     highlights: [],
     bodyImages: [],
     seo: {
-      title:
-        "100kW Solar System WA | Commercial 100kW Solar System Western Australia",
+      title: "100kW Commercial Solar System | Perth & WA",
       description:
-        "Get a 100kW solar system WA with expert 100kW solar installation WA. Premium commercial 100kW solar panel system WA solutions.",
+        "The largest STC-eligible size: about 440 kWh a day for warehouses, cold stores and manufacturers. Business case and finance options.",
     },
+    tags: ["100kW"],
+    specs: [
+      { label: "Panels", value: "About 227 × 440 W" },
+      { label: "Roof area needed", value: "About 500–560 m²" },
+      { label: "Average daily output in Perth", value: "About 440 kWh" },
+      { label: "Annual output", value: "About 160,000 kWh" },
+      { label: "STCs if installed in 2026", value: "About 691" },
+      {
+        label: "Network connection",
+        value: "Western Power application required",
+      },
+      {
+        label: "Typical business",
+        value: "Warehouses, cold storage, manufacturing, large retail",
+      },
+    ],
+    fit: {
+      suits: [
+        "Your weekday daytime load averages 40–50 kW or more",
+        "You have about 500–560 m² of usable roof",
+        "You want the largest STC-eligible system",
+      ],
+      consider: [
+        "Your daytime load averages 20–30 kW (look at 50kW)",
+        "You close on weekends and export limits apply",
+        "Your roof needs repairs or an engineering check first",
+      ],
+    },
+    compare: [
+      {
+        label: "Compare the 50kW system",
+        href: "/commercial-solar/50kw-solar-system/",
+      },
+      { label: "Commercial solar ROI", href: "/commercial-solar-roi-wa/" },
+      {
+        label: "Finance options",
+        href: "/commercial-solar-finance-options-wa/",
+      },
+    ],
     faqs: [
       {
-        question: "What is a 100kW solar system WA suitable for?",
+        layer: "beginner",
+        question: "Who needs a 100kW system?",
         answer:
-          "A 100kW solar system WA is suitable in medium to large commercial businesses like warehouses, factories, offices, schools, farms, retail centres and hospitality venues with a high daytime power consumption.",
+          "Warehouses, cold stores, manufacturers and large retail with heavy daytime loads and large roofs.",
       },
       {
-        question:
-          "How much electricity can a 100kW solar system Western Australia generate?",
+        layer: "beginner",
+        question: "Is 100kW the biggest system you install?",
         answer:
-          "Depending on the conditions of sunlight, the direction of the roof, shading, and the design of the system a 100kW solar system Western Australia will be able to produce a lot of energy per day, it will be viable to use this energy source in the demand of the businesses with high power needs.",
+          "It is our largest standard package and the largest STC-eligible size. Larger systems can be designed.",
       },
       {
-        question: "Is a 100kW commercial solar system WA a good investment?",
+        layer: "cost",
+        question: "How much does a 100kW system cost?",
         answer:
-          "No doubt a 100kW commercial solar system WA can present robust long run savings by cutting on electricity bills, enhancing energy efficiency and providing handsome payback on the investments by commercial firms.",
+          "It depends on the roof, switchboard, access and network requirements. About 691 STCs apply for 2026 installations.",
       },
       {
-        question:
-          "How much roof space is needed for a 100kW solar panel system WA?",
+        layer: "cost",
+        question: "How can we fund it?",
         answer:
-          "The size of a typical large commercial roof in a 100kW solar panel system WA will depend on the efficiency of the panel used, the system design and the installation layout.",
+          "Cash, equipment finance, leasing or a power purchase agreement. See our [finance guide](/commercial-solar-finance-options-wa/).",
       },
       {
-        question: "What is the time required to install 100kW solar in WA?",
+        layer: "technical",
+        question: "How much power does 100kW produce?",
         answer:
-          "A 100kW solar installation time WA is a timeline that necessitates site conditions, approvals, complexity of the system and what is required to install but commercial projects are usually done in planned stages.",
+          "About 440 kWh a day, or 160,000 kWh a year, on average in Perth.",
       },
       {
-        question:
-          "Can a 100kW solar system WA reduce electricity bills significantly?",
+        layer: "technical",
+        question: "How much roof space is needed?",
+        answer: "About 500–560 m² for roughly 227 panels.",
+      },
+      {
+        layer: "installation",
+        question: "What approval does 100kW need?",
         answer:
-          "Yes, a professionally designed 100kW solar system WA can significantly reduce commercial electricity costs by generating clean power during peak business operating hours.",
+          "A Western Power application and assessment; export limits are common at this size.",
+      },
+      {
+        layer: "installation",
+        question: "Will the roof need an engineering check?",
+        answer: "Often yes, especially on older buildings.",
+      },
+      {
+        layer: "support",
+        question: "How long will the system last?",
+        answer:
+          "Panels are typically warranted for 25–30 years of performance; plan for inverter replacement during that time.",
+      },
+      {
+        layer: "location",
+        question: "Is 100kW eligible for STCs?",
+        answer:
+          "Yes. Systems up to 100kW can create STCs; larger systems use a different certificate scheme.",
+      },
+      {
+        layer: "quote",
+        question: "How do we get a 100kW proposal?",
+        answer:
+          "Share 12 months of interval data and [book a site visit](/get-a-quote/).",
+      },
+      {
+        layer: "quote",
+        question: "Can you model savings with a battery?",
+        answer:
+          "Yes. We can compare solar-only and solar plus battery scenarios.",
       },
     ],
     bodyFile: "100kw-solar-system.md",
-    keyFacts: [], // No figures in this page's copy or FAQs.
+    keyFacts: [
+      { label: "Average daily output", value: "About 440 kWh" },
+      { label: "Panels", value: "About 227" },
+      { label: "Roof area", value: "500–560 m²" },
+      { label: "STCs (2026 install)", value: "About 691" },
+    ],
     bodyHiddenOnLive: false,
   },
+
+  // ---------------------------------------------------------------- battery
   {
     slug: "solar-battery",
     category: "battery",
     kind: "hub",
     title: "Solar Battery",
-    summary: "Solar Battery Archive - Exchange Power",
+    heading: "Home Solar Batteries in Perth",
+    summary:
+      "Store your daytime solar for the evening, with the WA rebate and federal discount, backup options and VPP setup.",
     image: null,
     banner: null,
     highlights: [],
     bodyImages: [],
     seo: {
-      title: "Solar Battery Archive - Exchange Power",
-      description: "Solar Battery Archive - Exchange Power",
+      title: "Solar Batteries Perth | Home Battery Installation WA",
+      description:
+        "Store your solar for the evening. Approved home batteries with WA rebate and federal discount, backup options and VPP setup.",
     },
-    faqs: [],
+    tags: ["battery"],
+    faqs: [
+      {
+        layer: "beginner",
+        question: "What does a solar battery do?",
+        answer:
+          "It stores surplus solar from the day so you can use it in the evening and overnight instead of buying grid power.",
+      },
+      {
+        layer: "beginner",
+        question: "Do I need solar to get a battery?",
+        answer:
+          "For the rebates and real savings, yes. Batteries are designed to charge from rooftop solar.",
+      },
+      {
+        layer: "cost",
+        question: "How much does a home battery cost?",
+        answer:
+          "It depends on capacity, brand and backup needs. WA and federal support reduce the upfront cost, and your quote shows each one separately.",
+      },
+      {
+        layer: "cost",
+        question: "What rebates are available?",
+        answer:
+          "The WA Residential Battery Scheme rebate (up to $1,300 for Synergy or $3,800 for Horizon Power customers) plus the federal Cheaper Home Batteries discount.",
+      },
+      {
+        layer: "technical",
+        question: "What size battery do I need?",
+        answer:
+          "Many homes suit 10–14 kWh of usable capacity, based on evening use and solar surplus. See our [battery sizing guide](/what-size-solar-battery-wa/).",
+      },
+      {
+        layer: "technical",
+        question: "Can a battery work with my existing solar?",
+        answer:
+          "Usually yes, using AC coupling or a hybrid inverter. See [adding a battery to existing solar](/add-battery-to-existing-solar-perth/).",
+      },
+      {
+        layer: "installation",
+        question: "How long does battery installation take?",
+        answer: "Usually one day.",
+      },
+      {
+        layer: "installation",
+        question: "Who can install a rebate-eligible battery?",
+        answer:
+          "An installer with SAA Grid Connected Battery System accreditation, through a scheme-accredited vendor.",
+      },
+      {
+        layer: "support",
+        question: "How long do batteries last?",
+        answer:
+          "Most carry about a 10-year warranty, with conditions on retained capacity or energy throughput.",
+      },
+      {
+        layer: "support",
+        question: "Will I get backup in a blackout?",
+        answer:
+          "Only if the system is designed for backup. Tell us at quote stage. See [battery backup in a blackout](/solar-battery-blackout-backup-perth/).",
+      },
+      {
+        layer: "location",
+        question: "Do I have to join a VPP?",
+        answer:
+          "Yes, to claim the WA state rebate or loan. The federal discount does not require it.",
+      },
+      {
+        layer: "location",
+        question: "Do batteries earn DEBS export rates?",
+        answer:
+          "Yes. Battery exports earn the same time-based DEBS rates as solar.",
+      },
+      {
+        layer: "quote",
+        question: "How do I get a battery quote?",
+        answer:
+          "Send a recent bill or Synergy interval data. [Get a battery quote](/get-a-quote/).",
+      },
+    ],
     bodyFile: "solar-battery.md",
-    keyFacts: [], // No figures in this page's copy or FAQs.
-    // Approved new intro (Markdown) replaces the duplicated live copy when set (CONTENT-NOTES 3.1–3.2).
+    keyFacts: [],
     hubIntroOverride: null,
     bodyHiddenOnLive: true,
   },
@@ -523,88 +1298,181 @@ export const PRODUCTS = [
     category: "battery",
     kind: "detail",
     title: "WA Residential Battery Rebates",
+    heading: "WA Residential Battery Scheme: Rebates and Loans",
     summary:
-      "Claim Solar battery rebate WA, Federal solar battery rebate, Synergy battery rebate & WA battery rebate VPP under WA residential rebate scheme.",
+      "The WA state rebate (up to $1,300 for Synergy or $3,800 for Horizon Power customers), the federal discount and no-interest loans.",
     image: "products-wa-residential-battery-rebates",
     banner: {
       desktop: "products-wa-residential-battery-rebates",
       mobile: "products-wa-residential-battery-rebates",
     },
+    // Facts sheet, checked October 2026 (rebate wording approved in the handover).
     highlights: [
-      "Up to $5,000 for Synergy customers",
-      "Up to $7,500 for Horizon Power customers",
+      "Up to $1,300 for Synergy customers",
+      "Up to $3,800 for Horizon Power customers",
     ],
     bodyImages: ["products-wa-residential-battery-rebates-2"],
     seo: {
-      title:
-        "WA Residential Battery Scheme | Federal & WA Government Solar Battery Rebate 2026",
+      title: "WA Battery Rebate 2026 | Synergy & Horizon Power",
       description:
-        "Claim Solar battery rebate WA, Federal solar battery rebate, Synergy battery rebate & WA battery rebate VPP under WA residential rebate scheme.",
+        "WA state rebate up to $1,300 (Synergy) or $3,800 (Horizon Power), plus the federal discount and no-interest loans. Check eligibility.",
     },
+    tags: ["battery", "rebates"],
     faqs: [
       {
-        question: "What is the Solar battery rebate WA?",
-        answer:
-          "Solar battery rebate WA is a financial assistance that is offered in the WA Residential Battery Scheme to lower the initial expense of installing a battery system in a residence. It is applicable together with federal rebates to a higher saving.",
-      },
-      {
-        question:
-          "How much rebate is available under the WA Government solar battery rebate 2026?",
-        answer:
-          "The WA Government offers solar battery rebate 2026 to allow eligible households to have a large financial contribution to installing a 10kWh battery system. Synergy customers can also get up to $5000, and Horizon Power customers will get up to $7500, but this is based on getting quotas and eligibility requirements.",
-      },
-      {
+        layer: "beginner",
         question: "What is the WA Residential Battery Scheme?",
         answer:
-          "The WA Residential Battery Scheme is a government program in Western Australia that is offering financial support to households in installing their battery storage systems in the forms of rebates and interest free loans. The plan assists in energy self-sufficiency and lowers the prices of electricity.",
+          "A WA Government program offering rebates and optional no-interest loans for eligible households installing a home battery.",
       },
       {
-        question:
-          "Can the Federal solar battery rebate be combined with the WA rebate?",
+        layer: "beginner",
+        question: "Who runs the scheme?",
         answer:
-          "Yes, the Federal solar battery rebate would be eligible in conjunction with the WA Residential Battery Scheme subsidies. Battery rebate Australia structure is an integrated approach that assists in reducing the total installation costs.",
+          "Energy Policy WA, with Plenti appointed as scheme administrator and loan provider.",
       },
       {
-        question: "Who is eligible for the Western Australia battery rebate?",
+        layer: "cost",
+        question: "How much is the WA battery rebate?",
         answer:
-          "The Western Australia battery rebate is based on the type of property, household income (to be eligible to take the loan), certifications on the use of approved battery systems, and even installation of the system by the certified installers.",
+          "$130 per usable kWh for Synergy customers, up to $1,300; $380 per kWh for Horizon Power customers, up to $3,800. The cap applies at 10 kWh.",
+      },
+      {
+        layer: "cost",
+        question: "Can I combine it with the federal discount?",
+        answer:
+          "Yes. The state rebate is in addition to the federal Cheaper Home Batteries discount, which depends on battery size and install date.",
+      },
+      {
+        layer: "technical",
+        question: "Which batteries are eligible?",
+        answer:
+          "New, VPP-capable batteries on the Synergy or Horizon Power supported list.",
+      },
+      {
+        layer: "technical",
+        question: "Does a bigger battery get a bigger WA rebate?",
+        answer: "No. The state rebate is capped at 10 kWh of usable capacity.",
+      },
+      {
+        layer: "installation",
+        question: "How do I apply?",
+        answer:
+          "Your accredited vendor creates the rebate application in the Plenti portal; if you want a loan, you apply with Plenti online.",
+      },
+      {
+        layer: "installation",
+        question: "What must happen after installation?",
+        answer:
+          "The battery is commissioned and enrolled in an approved VPP before the rebate is paid.",
+      },
+      {
+        layer: "support",
+        question: "Does joining a VPP affect my battery warranty?",
+        answer:
+          "VPP use is designed to sit within normal battery operation. Check your battery's warranty terms.",
+      },
+      {
+        layer: "support",
+        question: "Can I leave the VPP?",
+        answer:
+          "Check the scheme terms first; leaving early may affect rebate conditions.",
+      },
+      {
+        layer: "location",
+        question: "Why do Horizon Power customers get more?",
+        answer:
+          "Regional energy and installation costs are higher, so the rebate is larger.",
+      },
+      {
+        layer: "location",
+        question: "Is the loan available to everyone?",
+        answer:
+          "No. Household gross income must be under $210,000 and loans are credit-assessed. The rebate is not income-tested.",
+      },
+      {
+        layer: "quote",
+        question: "How do I claim the rebate with Exchange Power?",
+        answer:
+          "[Get a battery quote](/get-a-quote/) and we help with the application. Read about the [no-interest loan](/wa-battery-scheme-no-interest-loan/).",
+      },
+      {
+        layer: "quote",
+        question: "When does the scheme close?",
+        answer:
+          "It runs while funding lasts. Check with us for current availability.",
       },
     ],
     bodyFile: "wa-residential-battery-rebates.md",
     keyFacts: [
-      // Source: Body: "Synergy battery rebate up to $5,000" (also FAQ 2)
-      { label: "Synergy customers", qualifier: "Up to", value: "$5,000" },
-      // Source: Body: "Horizon Power rebate up to $7,500" (also FAQ 2)
-      { label: "Horizon Power customers", qualifier: "Up to", value: "$7,500" },
-      // Source: Body: "households that install a 10kWh battery"
-      { label: "Battery size", value: "10kWh" },
-      // Source: Body: "no-interest loans of up to 10,000"
+      { label: "Synergy customers", qualifier: "Up to", value: "$1,300" },
+      { label: "Horizon Power customers", qualifier: "Up to", value: "$3,800" },
+      { label: "Rebate cap", qualifier: "At", value: "10 kWh" },
       { label: "No-interest loan", qualifier: "Up to", value: "$10,000" },
-      // Source: Body: "annual combined income of less than 210, 000 dollars"
       { label: "Household income", qualifier: "Under", value: "$210,000" },
-      // Source: Body: "The duration of repayment can go to ten years"
-      { label: "Loan repayment", qualifier: "Up to", value: "10 years" },
+      { label: "Loan term", qualifier: "Up to", value: "10 years" },
     ],
     bodyHiddenOnLive: false,
   },
+
+  // ---------------------------------------------------------------- packages
   {
     slug: "solar-packages",
     category: "packages",
     kind: "hub",
     title: "Solar Packages",
-    summary: "Solar Packages Archive - Exchange Power",
+    summary:
+      "Fixed-price solar packages from 6.6kW to 100kW, with clear inclusions, warranties and the STC discount on every package.",
     image: null,
     banner: null,
     highlights: [],
     bodyImages: [],
     seo: {
-      title: "Solar Packages Archive - Exchange Power",
-      description: "Solar Packages Archive - Exchange Power",
+      title: "Solar Packages Perth | Fixed-Price Home & Business Solar",
+      description:
+        "Compare fixed-price solar packages from 6.6kW to 100kW. Clear inclusions, warranties and STC discount on every package.",
     },
-    faqs: [],
+    tags: ["pricing", "warranty"],
+    faqs: [
+      {
+        layer: "beginner",
+        question: "What is a solar package?",
+        answer:
+          "A pre-designed system with matched panels, inverter, mounting and installation at a fixed price for typical homes or businesses.",
+      },
+      {
+        layer: "cost",
+        question: "What does a package price include?",
+        answer:
+          "Equipment, standard installation, compliance paperwork, monitoring and the STC discount. Non-standard work, such as switchboard upgrades, is quoted separately.",
+      },
+      {
+        layer: "cost",
+        question: "Are package prices fixed?",
+        answer:
+          "Yes for standard installations. Complex roofs, two-storey access or upgrades may add cost, shown in writing before you sign.",
+      },
+      {
+        layer: "technical",
+        question: "Can I change the panels or inverter in a package?",
+        answer:
+          "Yes. We can swap to a different brand or a hybrid inverter and requote.",
+      },
+      {
+        layer: "support",
+        question: "Do packages have the same warranty as custom systems?",
+        answer:
+          "Yes. All installations include manufacturer warranties and our 5-year workmanship warranty.",
+      },
+      {
+        layer: "quote",
+        question: "Which package should I choose?",
+        answer:
+          "Compare sizes in our [solar cost guide](/solar-system-cost-perth/), then send your bill for a recommendation.",
+      },
+    ],
     bodyFile: "solar-packages.md",
-    keyFacts: [], // No figures in this page's copy or FAQs.
-    // Approved new intro (Markdown) replaces the duplicated live copy when set (CONTENT-NOTES 3.1–3.2).
+    keyFacts: [],
     hubIntroOverride: null,
     bodyHiddenOnLive: true,
   },
@@ -614,7 +1482,7 @@ export const PRODUCTS = [
     kind: "detail",
     title: "Solar Panel Installation in WA",
     summary:
-      "Expert solar panel installation WA by trusted solar installers WA. Reliable solar company WA for residential & commercial solar installation services.",
+      "How our WA solar installation works: assessment, design, approvals, installation and support, for homes and businesses.",
     image: "products-solar-rebates-and-incentives-wa",
     banner: {
       desktop: "banners-solar-rebates-and-incentives-in-wa",
@@ -623,40 +1491,67 @@ export const PRODUCTS = [
     highlights: [],
     bodyImages: [],
     seo: {
-      title:
-        "Solar Panel Installation WA | Solar Installers WA | Solar Company WA",
+      title: "Solar Panel Installation WA | Perth Solar Installers",
       description:
-        "Expert solar panel installation WA by trusted solar installers WA. Reliable solar company WA for residential & commercial solar installation services.",
+        "How our WA solar installation works: assessment, design, approvals, install and support, from a NETCC Approved Seller based in Wangara.",
     },
+    tags: ["installation", "maintenance", "design"],
     faqs: [
       {
-        question: "What is Solar Panel Installation WA and How does it work?",
+        layer: "beginner",
+        question: "What does a solar installation include?",
         answer:
-          "Solar panel installation WA is the process of installing solar panels on roofs or property to make use of sunlight to generate electricity which will reduce the need to rely on grid power and reduce energy bills.",
+          "Site assessment, system design, approvals, installation, testing, commissioning, monitoring setup and handover documents.",
       },
       {
-        question: "Why Choose Exchange Power as a Solar Company WA?",
-        answer:
-          "Exchange Power is a reliable solar company WA providing superior quality systems, professional solar installers and dependable solar installations services that suits the households and business requirements.",
+        layer: "beginner",
+        question: "Do you install for homes and businesses?",
+        answer: "Yes, from 6.6kW home systems to 100kW commercial systems.",
       },
       {
-        question: "How Long Does Solar Power Installation WA Take?",
+        layer: "technical",
+        question: "What roof types can you install on?",
         answer:
-          "The average time required to install solar power projects in WA is one-two days after approvals depending on the size and location of the system.",
+          "Colorbond and metal sheeting, terracotta and concrete tile, and flat roofs with tilt frames. Asbestos roofs need specialist advice.",
       },
       {
-        question: "What are the Benefits of Home Solar Installation WA?",
+        layer: "technical",
+        question: "Will my switchboard need work?",
         answer:
-          "Home solar install WA works to decrease the cost of electricity, improve the value of property and enhance the application of sustainable power, and save money long term.",
+          "Some older switchboards need upgrades or extra space. We check this before quoting.",
       },
       {
-        question: "Why Invest in Commercial Solar Panel Installation WA?",
+        layer: "installation",
+        question: "What are the steps from quote to switch-on?",
         answer:
-          "The commercial solar panel installation WA assists companies to reduce electricity costs and increase the ROI and environmental responsibility through clean energy adoption.",
+          "1. Bill and roof review. 2. Design and quote. 3. Network and retailer paperwork. 4. Installation day. 5. Testing and commissioning. 6. Handover and monitoring.",
+      },
+      {
+        layer: "support",
+        question: "What do I receive at handover?",
+        answer:
+          "Electrical compliance certificate, system diagram, warranty documents, monitoring login and shutdown instructions.",
+      },
+      {
+        layer: "support",
+        question: "Who do I call if something goes wrong?",
+        answer: "Our local team on 08 6370 4963.",
+      },
+      {
+        layer: "location",
+        question: "Do you handle the May 2026 connection requirements?",
+        answer:
+          "Yes. We commission each system under the correct export arrangement for your retailer.",
+      },
+      {
+        layer: "quote",
+        question: "How do I book a site assessment?",
+        answer:
+          "[Book online](/get-a-quote/) or call us. Learn how [roof direction affects output](/roof-orientation-shading-solar-perth/).",
       },
     ],
     bodyFile: "solar-panel-installation-in-wa.md",
-    keyFacts: [], // No figures in this page's copy or FAQs.
+    keyFacts: [],
     bodyHiddenOnLive: false,
   },
   {
@@ -664,8 +1559,9 @@ export const PRODUCTS = [
     category: "packages",
     kind: "detail",
     title: "Solar Panel Installation Wangara",
+    heading: "Solar Panel Installation in Wangara",
     summary:
-      "Solar panel installation Wangara by expert solar installers Wangara. Trusted solar company Wangara for residential & commercial solar installation.",
+      "Wangara-based solar and battery installers for homes and businesses in Perth's northern suburbs.",
     image: "products-solar-rebates-and-incentives-wa",
     banner: {
       desktop: "banners-solar-rebates-and-incentives-in-wa",
@@ -674,42 +1570,50 @@ export const PRODUCTS = [
     highlights: [],
     bodyImages: [],
     seo: {
-      title:
-        "Solar Panel Installation Wangara | Solar Installers Wangara | Solar Company Wangara",
+      title: "Solar Installers Wangara | Local Solar Company",
       description:
-        "Solar panel installation Wangara by expert solar installers Wangara. Trusted solar company Wangara for residential & commercial solar installation.",
+        "Wangara-based solar and battery installers for homes and businesses in Perth's northern suburbs. Visit us at Prindiville Drive.",
     },
+    tags: ["Wangara", "installer"],
     faqs: [
       {
-        question:
-          "What are the Benefits of Residential Solar Installers Wangara?",
+        layer: "beginner",
+        question: "Are you based in Wangara?",
         answer:
-          "Residential solar installers Wangara help reduce electricity bills, increase property value, and promote eco-friendly living.",
+          "Yes. Our office is at 5/17 Prindiville Drive, Wangara WA 6065.",
       },
       {
-        question: "Why Choose Professional Solar Installers Wangara?",
+        layer: "beginner",
+        question: "Do you install residential and commercial solar in Wangara?",
         answer:
-          "Professional solar installers Wangara ensure correct system design, safe installation, and maximum energy efficiency for long-term performance.",
+          "Yes, for homes in surrounding suburbs and businesses in the Wangara industrial area.",
       },
       {
-        question: "Which is the Best Solar Company Wangara for Installation?",
-        answer:
-          "Exchange Power is a reputable solar company Wangara, which has quality solar installations services Wangara, and customer loyalty.",
+        layer: "technical",
+        question: "Are Wangara industrial roofs suitable for solar?",
+        answer: "Most metal roofs are, after a structural and condition check.",
       },
       {
-        question:
-          "What Services are Included in Solar Installation Services Wangara?",
+        layer: "support",
+        question: "Do you provide local service after installation?",
         answer:
-          "Solar installation services Wangara has offered consultation services, system design, installation, testing and maintenance services.",
+          "Yes. Our Wangara team handles service, warranty claims and inspections.",
       },
       {
-        question: "How Long Does Solar Power Installation Wangara Take?",
+        layer: "location",
+        question: "Who is the electricity retailer in Wangara?",
         answer:
-          "Solar power installation Wangara usually takes a few days depending on the system size and project requirements.",
+          "Synergy, on Perth's main grid. DEBS and the Synergy battery rebate apply.",
+      },
+      {
+        layer: "quote",
+        question: "How do I get a quote in Wangara?",
+        answer:
+          "[Book a free quote](/get-a-quote/) and we come to you, or call 08 6370 4963.",
       },
     ],
     bodyFile: "solar-panel-installation-wangara.md",
-    keyFacts: [], // No figures in this page's copy or FAQs.
+    keyFacts: [],
     bodyHiddenOnLive: false,
   },
   {
@@ -718,7 +1622,7 @@ export const PRODUCTS = [
     kind: "detail",
     title: "Solar Rebates and Incentives in WA",
     summary:
-      "Explore solar panels rebate WA, solar power rebate Western Australia, Perth solar rebate, WA government solar rebate and solar rebates WA 2026 guide.",
+      "Every solar and battery incentive in WA: the STC discount, the WA battery rebate, the federal battery discount and DEBS buyback.",
     image: "products-solar-rebates-and-incentives-wa",
     banner: {
       desktop: "banners-solar-rebates-and-incentives-in-wa",
@@ -727,35 +1631,80 @@ export const PRODUCTS = [
     highlights: [],
     bodyImages: [],
     seo: {
-      title:
-        "Solar Power Rebate Western Australia 2026 | Solar Panels Rebate WA | Perth Solar Rebate",
+      title: "Solar Rebates WA 2026 | STCs, Battery Rebate, DEBS",
       description:
-        "Explore solar panels rebate WA, solar power rebate Western Australia, Perth solar rebate, WA government solar rebate and solar rebates WA 2026 guide.",
+        "Every solar and battery incentive in WA: STC discount, WA battery rebate, federal battery discount and DEBS buyback, checked October 2026.",
     },
+    tags: ["rebates", "STC", "DEBS"],
     faqs: [
       {
-        question: "What is the solar power rebate in Western Australia?",
+        layer: "beginner",
+        question: "What solar and battery incentives are available in WA?",
         answer:
-          "The solar power rebate Western Australia program consists of financial incentives that make it easier to cut on the initial cost of acquiring solar panels. Such rebates are provided under the schemes of energy supply and government programs in order to motivate households and businesses to use renewable energy systems.",
+          "The federal STC discount for solar, the federal Cheaper Home Batteries discount, the WA Residential Battery Scheme rebate and loan, and DEBS export payments.",
       },
       {
-        question: "Who is eligible for solar panels rebate WA?",
+        layer: "cost",
+        question: "How much is the solar STC discount in Perth?",
         answer:
-          "Western Australia homeowners and businesses are able to access the solar panels rebate WA subsidy upon installing accepted solar systems. The requirements tend to be property ownership, system size and installation by the certified solar power installers Perth.",
+          "About 45 STCs for a 6.6kW system installed in 2026, worth roughly $1,600–$1,800 depending on the STC price.",
       },
       {
-        question: "How much can solar panel rebates reduce installation costs?",
-        answer:
-          "The solar panel rebates Western Australia incentives can make the installation cost much less based on the system size and the amount of certificates issued under the federal scheme.",
+        layer: "cost",
+        question: "Is the discount taken off the price?",
+        answer: "Yes. Most installers apply it upfront on the quote.",
       },
       {
-        question: "Are there government rebates on solar panels in Australia?",
+        layer: "technical",
+        question: "How are STCs calculated?",
         answer:
-          "Yes, the federal government rebates for solar power are available across Australia under the Small-scale Renewable Energy Scheme. This program supports solar panel rebate Western Australia and other renewable energy installations.",
+          "System size (kW) × Perth's Zone 3 rating (1.382) × the deeming years (5 in 2026, 4 in 2027).",
+      },
+      {
+        layer: "installation",
+        question: "Do I need an accredited installer to get rebates?",
+        answer:
+          "Yes. The system must be designed and installed by an SAA-accredited installer using approved products.",
+      },
+      {
+        layer: "support",
+        question: "Do rebates affect my warranty?",
+        answer: "No. Warranties come from manufacturers and your installer.",
+      },
+      {
+        layer: "location",
+        question: "What does Synergy pay for exported solar?",
+        answer:
+          "Under DEBS, 10c/kWh from 3pm to 9pm and 2c/kWh at other times (rates from 1 July 2025, reviewed yearly).",
+      },
+      {
+        layer: "location",
+        question: "What changed on 1 May 2026?",
+        answer:
+          "New WA connection rules for inverters, and the federal battery discount became tiered by size and now steps down every six months.",
+      },
+      {
+        layer: "quote",
+        question: "How do I find out exactly what I can claim?",
+        answer:
+          "Send your address, retailer and bill and we will list every incentive for your system. Read [why the solar rebate drops in 2027](/solar-rebate-drop-january-2027-wa/).",
       },
     ],
     bodyFile: "solar-rebates-and-incentives-in-wa.md",
-    keyFacts: [], // No figures in this page's copy or FAQs.
+    keyFacts: [
+      {
+        label: "WA battery rebate (Synergy)",
+        qualifier: "Up to",
+        value: "$1,300",
+      },
+      {
+        label: "WA battery rebate (Horizon Power)",
+        qualifier: "Up to",
+        value: "$3,800",
+      },
+      { label: "DEBS 3pm–9pm", value: "10c/kWh" },
+      { label: "STCs, 6.6kW in 2026", qualifier: "About", value: "45" },
+    ],
     bodyHiddenOnLive: false,
   },
 ];

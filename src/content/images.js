@@ -353,14 +353,15 @@ export const IMAGES = {
   // src/content/backgrounds.js. Re-download with: npm run images:fetch -- --only=bg-
   "bg-home-hero": {
     approved: true,
-    src: "https://images.unsplash.com/photo-1658298775754-5839ffd434cc?w=1920&q=80&fm=jpg&fit=max",
-    localPath: "/images/backgrounds/home-hero.jpg",
+    // Rooftop solar at blue hour: a darker, solar-specific hero (2026-10-22).
+    src: "https://images.unsplash.com/photo-1674168481499-983f0968a68f?w=1920&q=80&fm=jpg&fit=max",
+    localPath: "/images/backgrounds/home-hero-dusk.jpg",
     alt: "",
     width: 1920,
     height: 1280,
     credit: {
-      name: "Soren H",
-      url: "https://unsplash.com/photos/omfN1pW-n2Y",
+      name: "Benjamin Peck",
+      url: "https://unsplash.com/photos/1lsoCjbLm3I",
     },
   },
   "bg-quote-cta": {

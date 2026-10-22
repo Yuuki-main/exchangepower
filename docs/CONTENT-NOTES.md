@@ -194,7 +194,7 @@ Every dark page header, the homepage hero, the homepage quote section, the "Get 
 
 | Key                           | Used on                                                                       | Photo                                                                        |
 | ----------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `bg-home-hero`                | `home.hero`                                                                   | [Soren H](https://unsplash.com/photos/omfN1pW-n2Y)                           |
+| `bg-home-hero`                | `home.hero`                                                                   | [Benjamin Peck](https://unsplash.com/photos/1lsoCjbLm3I)                     |
 | `bg-quote-cta`                | `home.quote`                                                                  | [VD Photography](https://unsplash.com/photos/9KCRGQySNiw)                    |
 | `bg-cta-band`                 | `ctaBand`                                                                     | [American Public Power Association](https://unsplash.com/photos/XGAZzyLzn18) |
 | `bg-residential`              | `products/residential-solar`                                                  | [Wiseman Mabasa](https://unsplash.com/photos/f93lJ_3wOmM)                    |
@@ -252,3 +252,49 @@ Every dark page header, the homepage hero, the homepage quote section, the "Get 
 Cards show these images whole, with no tint or overlaid labels, because the images have text baked in. The homepage system-size cards keep their stock photos, because the kW figure is set over them.
 
 **Not done yet:** the images haven't been downloaded. This session's permission rules blocked `npm run images:fetch`. Until they're downloaded, the stock photos and the typeset wordmark show.
+
+## 16. Content handover applied (2026-10-22)
+
+The client's handover document (_Exchange Power — Website Content & Developer Handover_, 18 October 2026) was applied where it needed no further client input. The old imported copy is in git history; `npm run content:verify` now reports differences from the live site by design.
+
+**Done:**
+
+- Battery rebate figures corrected to the handover facts sheet (WA rebate up to $1,300 Synergy / $3,800 Horizon Power, plus the federal discount), dated "checked October 2026": homepage hero and battery section, rebate page, battery hub, rebates page.
+- New SEO titles, meta descriptions and H1s (`heading`) for every page in the handover table, including the four "… Archive" hubs and the blog index.
+- New body copy for all 15 product and hub pages (commercial hub no longer 100kW-only; battery hub and rebate page rewritten; keyword stuffing removed).
+- System-size pages follow the handover template: key specs table, "Is this size right for you?", inclusions, pricing and rebates, process, four warranty cards, compare links, related guides (by tag), 7-layer FAQs, CTA. Service structured data on every product page.
+- 7-layer FAQ sets on every product page, the hubs and the homepage, grouped by layer, with FAQPage structured data.
+- 20 new blog posts (handover blogs 01–20), with FAQs, a per-post CTA, categories and size tags. Posts over 1,000 words get a table of contents.
+- The 8 existing posts moved to the new categories and tagged; dated update notices on the 4 rebate posts; keyword links to the homepage repointed to the relevant page.
+- New `/get-a-quote/` page; every "Get a free quote" button links to it. Top-bar "Claim now" now links to the rebate page (2.1).
+- Homepage sections reordered to the handover order; "How it works" cut to four steps.
+
+**Left out until the client confirms** (the handover marks these as placeholders): prices, brands and models, lead times, service suburbs, SAA accreditation and EC licence numbers, review platform, reviewer names and author box, Plenti-accredited vendor wording, local case studies. FAQs whose answers were only placeholders were dropped. "SAA-accredited" and "reviewed by licensed professionals" were removed from two meta descriptions for the same reason.
+
+**Not changed (client decision, see 15):** the homepage stats (50,000+, 1,000+, 15,000kWh+), "Over 5,000 Australians", the 4.8 rating, "up to 80%", "Best price guarantee" and the homepage "3–5 year expected payback" line.
+
+**Small correction to the handover:** Blog 05 says waiting three months on a $110/month saving "costs more than" the 6.6kW STC drop ($340); $330 is about the same, so the post says "about as much as".
+
+## 17. Owner decisions and fill-in slots (2026-10-22)
+
+**Owner decisions:**
+
+- **Kept:** the trust numbers (50,000+ panels, 1,000+ customers, 15,000kWh+, "Over 5,000 Australians", 4.8 from 1,194 reviews).
+- **Removed:** "up to 80%" (homepage packages lead), "3–5 year expected payback" (homepage 6.6kW card) and "Best price guarantee" (homepage "Why" point, replaced by "Clear, written quotes" from Terms 4.3).
+- **Images:** keep the current photos (stock backgrounds plus the old site's images once approved).
+- **Prices:** neither the handover nor the old site has any, so none are shown.
+
+**Added from confirmed sources:** the ABN in the footer and LocalBusiness structured data (Terms clause 1). The brand list from the live "Brands We Install" strip now appears on the system-size pages and the About page. About page title, description and FAQs come from the handover, answered from confirmed details only. Blog posts now have an author box ("Written by the Exchange Power team", last updated date).
+
+**Fill-in slots** (shown nowhere until set, then appear automatically):
+
+| Detail | Where to set it | Where it appears |
+| --- | --- | --- |
+| SAA accreditation number | `site.licences.saa` | Footer, About FAQ |
+| Electrical contractor licence | `site.licences.electrical` | Footer, About FAQ |
+| Opening hours | `site.openingHours` (`display` and schema.org `schema`) | Footer, About FAQ, LocalBusiness `openingHours` |
+| Google Business Profile, Facebook | `site.socials` (URLs) | Footer links, LocalBusiness `sameAs` |
+| Customer reviews | `home.reviews.items` | Homepage reviews section |
+| Blog reviewer | post frontmatter `reviewedBy: {"name":"…","role":"…"}` | Author box on the post |
+
+**Still needs the business:** package prices, service suburbs, lead times, whether site assessments are free, commercial maintenance plans, founding year and owners, in-house or subcontracted installers, Plenti vendor accreditation, review platform, reviewer names, local case studies.

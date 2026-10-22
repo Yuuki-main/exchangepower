@@ -19,6 +19,7 @@ import {
   REDIRECTS,
   RESERVED_TOP_LEVEL,
   STATIC_ROUTES,
+  assertFaqs,
   assertPostFrontmatter,
   assertProduct,
   assertSeo,
@@ -95,7 +96,7 @@ for (const file of readdirSync(path.join(CONTENT, "posts")).filter((f) =>
       `posts/${file}`,
     );
     assertPostFrontmatter(data, `posts/${file}`);
-    if (!(data.image in IMAGES))
+    if (data.image !== null && !(data.image in IMAGES))
       throw new Error(
         `posts/${file}: image key "${data.image}" not in images.js`,
       );
@@ -108,7 +109,12 @@ for (const file of readdirSync(path.join(CONTENT, "posts")).filter((f) =>
         `posts/${file}: slug "${slug}" clashes with a top-level route folder`,
       );
     }
-    posts.push({ slug, body, file: `posts/${file}` });
+    // Links in the FAQs and update notice are checked with the body.
+    const extra = [
+      ...(data.faqs ?? []).map((f) => f.answer),
+      data.notice ?? "",
+    ].join("\n");
+    posts.push({ slug, body: `${body}\n${extra}`, file: `posts/${file}` });
   });
 }
 // Also check against the real folders in src/app (catches new routes).
@@ -162,14 +168,7 @@ check(() => {
 });
 check(() => {
   assertSeo(HOME.seo, "home");
-  // Homepage FAQs point to real product FAQs.
-  HOME.faq.items.forEach(({ product, index }, i) => {
-    if (!PRODUCTS.find((p) => p.slug === product)?.faqs[index]) {
-      throw new Error(
-        `home.faq.items[${i}] points to a missing FAQ (${product} #${index})`,
-      );
-    }
-  });
+  assertFaqs(HOME.faq.items, "home.faq");
   // System sizes point to real products.
   for (const item of HOME.systems.groups.flatMap((g) => g.items)) {
     if (!PRODUCTS.some((p) => p.slug === item.slug && p.kind === "detail")) {
@@ -254,6 +253,11 @@ function walkHomeLinks(node, where) {
   }
 }
 walkHomeLinks(HOME, "home");
+for (const { answer } of HOME.faq.items)
+  for (const [, , href] of answer.matchAll(mdLink)) checkLink(href, "home.faq");
+for (const p of PRODUCTS)
+  for (const link of p.compare ?? [])
+    checkLink(link.href, `products ${p.slug} compare`);
 walkHomeLinks(SITE.cta, "site.cta");
 
 /** @param {import("../src/lib/content-schema.js").NavItem[]} items @param {string} where */

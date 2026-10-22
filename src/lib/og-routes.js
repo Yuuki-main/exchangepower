@@ -7,7 +7,7 @@ import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { ABOUT } from "../content/about.js";
 import { BLOG } from "../content/blog.js";
-import { CONTACT } from "../content/contact.js";
+import { CONTACT, QUOTE_PAGE } from "../content/contact.js";
 import { HOME } from "../content/home.js";
 import { PRODUCTS } from "../content/products.js";
 import { CATEGORIES, parseFrontmatter, productPath } from "./content-schema.js";
@@ -47,6 +47,11 @@ export function ogRoutes() {
     { path: "/about-exchange-power/", eyebrow: "About us", title: ABOUT.title },
     { path: "/blog/", eyebrow: "Guides", title: BLOG.title },
     { path: "/contact/", eyebrow: CONTACT.eyebrow, title: CONTACT.title },
+    {
+      path: "/get-a-quote/",
+      eyebrow: QUOTE_PAGE.eyebrow,
+      title: QUOTE_PAGE.title,
+    },
     {
       path: "/privacy-policy/",
       eyebrow: "Legal",

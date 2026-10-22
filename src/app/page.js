@@ -21,7 +21,12 @@ import {
   getProductPath,
   getSite,
 } from "@/lib/content";
-import { buildMetadata, localBusinessJsonLd, webSiteJsonLd } from "@/lib/seo";
+import {
+  buildMetadata,
+  faqPageJsonLd,
+  localBusinessJsonLd,
+  webSiteJsonLd,
+} from "@/lib/seo";
 
 const home = getHome();
 
@@ -75,6 +80,7 @@ export default function HomePage() {
     <>
       <JsonLd data={webSiteJsonLd()} />
       <JsonLd data={localBusinessJsonLd()} />
+      <JsonLd data={faqPageJsonLd(getHomeFaqs())} />
       <HomeHero
         content={home.hero}
         phone={site.phone}
@@ -82,21 +88,24 @@ export default function HomePage() {
         rating={home.promise.rating}
       />
       <Credentials {...home.credentials} overlap />
+      {/* Section order follows the content handover's homepage rewrite:
+          paths, packages, how it works, rebates, why us, reviews, guides
+          and FAQs, final CTA. */}
+      <SolutionIndex {...solutions} />
+      <SystemSizeGuide {...home.systems} groups={systemGroups} />
+      <ProcessTimeline {...home.process} />
+      <BatteryFeature {...home.battery} />
+      <WhyChoose
+        {...home.why}
+        brands={site.brands}
+        address={`Based at ${site.address.display}`}
+      />
       <PromiseSection
         {...home.promise}
         tabs={home.promise.tabs.map((tab) => ({
           ...tab,
           photo: getCardPhoto(tab.image, tab.fallback),
         }))}
-      />
-      <SolutionIndex {...solutions} />
-      <SystemSizeGuide {...home.systems} groups={systemGroups} />
-      <BatteryFeature {...home.battery} />
-      <ProcessTimeline {...home.process} />
-      <WhyChoose
-        {...home.why}
-        brands={site.brands}
-        address={`Based at ${site.address.display}`}
       />
       <Testimonials {...home.reviews} />
       <FaqSection

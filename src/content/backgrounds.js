@@ -56,5 +56,27 @@ export const BACKGROUNDS = {
       "bg-post-7-7-families",
     "why-the-6-6kw-solar-system-is-australias-most-popular-choice":
       "bg-post-6-6-popular",
+    // New guides (content handover, October 2026). Shared stock photos
+    // until each post has its own image from the graphic briefs.
+    "solar-system-cost-perth": "bg-packages",
+    "10kw-vs-13-2kw-solar-system": "bg-13-2kw",
+    "how-much-power-10kw-solar-system-perth": "bg-10kw",
+    "single-phase-vs-three-phase-solar-wa": "bg-installation-wa",
+    "solar-rebate-drop-january-2027-wa": "bg-rebates-incentives",
+    "debs-synergy-solar-feed-in-explained": "bg-residential",
+    "roof-orientation-shading-solar-perth": "bg-7-7kw",
+    "solar-panel-inverter-warranty-checklist": "bg-6-6kw",
+    "what-size-solar-battery-wa": "bg-battery",
+    "add-battery-to-existing-solar-perth": "bg-post-battery-scheme",
+    "virtual-power-plant-wa": "bg-battery-rebates",
+    "solar-battery-blackout-backup-perth": "bg-post-battery-rebate-2026",
+    "is-solar-battery-worth-it-perth": "bg-battery",
+    "wa-battery-scheme-no-interest-loan": "bg-battery-rebates",
+    "commercial-solar-roi-wa": "bg-commercial",
+    "30kw-vs-50kw-vs-100kw-commercial-solar": "bg-50kw",
+    "commercial-solar-warehouses-perth-north": "bg-100kw",
+    "commercial-solar-finance-options-wa": "bg-30kw",
+    "solar-panel-cleaning-maintenance-perth": "bg-installation-wangara",
+    "how-to-choose-solar-installer-perth": "bg-about",
   },
 };

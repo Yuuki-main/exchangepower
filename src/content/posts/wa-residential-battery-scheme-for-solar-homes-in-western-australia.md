@@ -1,17 +1,20 @@
 ---
 title: "WA Residential Battery Scheme for Solar Homes in Western Australia"
 date: "2026-02-05"
-category: "Solar"
+category: "Solar Batteries & Rebates"
 image: "post-wa-residential-battery-scheme-for-solar-homes-in-western-australia"
 excerpt: "Western Australia remains a leader in the clean energy transition in all of Australia as the state..."
 seo: {"title":"WA Residential Battery Scheme for Solar Homes in Western Australia - Exchange Power","description":"Explore the WA Residential Battery Scheme for solar homes, offering battery rebates, no-interest loans, and energy savings in Western Australia."}
+tags: ["battery","rebates","VPP"]
+notice: "**22 October 2026:** This guide was written in February 2026. The WA state rebate is now up to $1,300 for Synergy customers or $3,800 for Horizon Power customers, and the federal Cheaper Home Batteries discount changed on 1 May 2026. See [WA residential battery rebates](/solar-battery/wa-residential-battery-rebates/) for current figures and [Virtual Power Plants in WA](/virtual-power-plant-wa/) for the VPP requirement."
+updated: "2026-10-22"
 ---
 
 Western Australia remains a leader in the clean energy transition in all of Australia as the state State encourages households to implement more intelligent and efficient power solutions. Residential energy storage became a major concern to homeowners as the cost of electricity is rising and there has been a straining pressure on the electricity grid. The WA Residential Battery Scheme is implemented to make battery storage more convenient, cheaper, and useful in the solar-powered homes of the whole state. This program is considered one of the most effective programs on energy that households are looking to save on energy and achieve energy savings in the long term in 2026.
 
 A residential battery is a new type of energy storage that aims at storing surplus electricity produced by roof-top solar batteries. At times of the day when the solar panels are usually generating more electricity than a house uses it is stored rather than being sold out to the grid at a lower feed-in tariff. This energy can be stored to be used later either at night, during peak demand periods or when there is less generation of sun energy. Consequently, it leads to a higher amount of power controlled by households, less dependence on the grid, and more predictable payments.
 
-**[WA Residential Battery Scheme](/)** is used to eliminate the financial obstacles that had acted as barriers to the investment of battery technology in many homes. Through a continued synergistic process of state-based incentives and national assistance the program is able to provide a high-speed avenue of assisting homeowners to upgrade their solar systems and optimize their returns on renewable energy investments. The scheme is in line with the long term objectives of grid stability, emission reduction and enhanced resilience to energy in western Australia.
+**[WA Residential Battery Scheme](/solar-battery/wa-residential-battery-rebates/)** is used to eliminate the financial obstacles that had acted as barriers to the investment of battery technology in many homes. Through a continued synergistic process of state-based incentives and national assistance the program is able to provide a high-speed avenue of assisting homeowners to upgrade their solar systems and optimize their returns on renewable energy investments. The scheme is in line with the long term objectives of grid stability, emission reduction and enhanced resilience to energy in western Australia.
 
 Among the greatest attractions of this program is the Solar battery rebate the homeowners of WA will be able to obtain in 2026. The scheme has opened applications on solar battery rebates and loans so that eligible households can enjoy now. These rebates will greatly lower the initial price of installing a battery and clean energy storage will become cheaper to more residents. In the case of the battery, this economic freedom enables many families to decide to install the battery in time.
 

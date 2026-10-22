@@ -4,32 +4,39 @@ import { PageHeader } from "@/components/sections/PageHeader";
 import { QuoteForm } from "@/components/forms/QuoteForm";
 import { Section } from "@/components/ui/Section";
 import { CONTACT } from "@/content/contact.js";
+import { CheckIcon } from "@/components/ui/Icon";
 import { breadcrumbJsonLd, localBusinessJsonLd } from "@/lib/seo";
 import { getBackground } from "@/lib/content";
 
 /**
  * Contact page: the quote form (the only client component) beside every
- * way to reach the team.
+ * way to reach the team. Also used for /get-a-quote/ with its own copy and
+ * a list of what to send.
  *
  * @param {object} props
  * @param {import("@/lib/content-schema.js").SiteInfo} props.site
+ * @param {{ eyebrow: string, title: string, lead: string, tips?: { title: string, items: string[], note: string } }} [props.copy]
+ * @param {{ label: string, href: string }} [props.crumb] Last breadcrumb.
+ * @param {string} [props.background] getBackground() name.
  */
-export function ContactPage({ site }) {
+export function ContactPage({
+  site,
+  copy = CONTACT,
+  crumb = { label: "Contact", href: "/contact/" },
+  background = "contact",
+}) {
   const form = site.forms.quote;
-  const breadcrumbs = [
-    { label: "Home", href: "/" },
-    { label: "Contact", href: "/contact/" },
-  ];
+  const breadcrumbs = [{ label: "Home", href: "/" }, crumb];
   return (
     <>
       <JsonLd data={localBusinessJsonLd()} />
       <JsonLd data={breadcrumbJsonLd(breadcrumbs)} />
       <PageHeader
         breadcrumbs={breadcrumbs}
-        background={getBackground("contact")}
-        eyebrow={CONTACT.eyebrow}
-        title={CONTACT.title}
-        lead={CONTACT.lead}
+        background={getBackground(background)}
+        eyebrow={copy.eyebrow}
+        title={copy.title}
+        lead={copy.lead}
       />
       <Section labelledBy="quote-form-title">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-8">
@@ -63,6 +70,27 @@ export function ContactPage({ site }) {
               Based in Wangara, installing across Western Australia.
             </p>
             <ContactMethods site={site} tone="light" className="mt-6" />
+            {copy.tips ? (
+              <div className="mt-10 rounded-2xl bg-surface-muted p-6 ring-1 ring-border">
+                <h3 className="font-display text-xl font-semibold text-brand-900">
+                  {copy.tips.title}
+                </h3>
+                <ul className="mt-4 space-y-2">
+                  {copy.tips.items.map((item) => (
+                    <li key={item} className="flex gap-2">
+                      <CheckIcon
+                        size={18}
+                        className="mt-1 shrink-0 text-success-600"
+                      />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-4 text-sm text-foreground-muted">
+                  {copy.tips.note}
+                </p>
+              </div>
+            ) : null}
           </aside>
         </div>
       </Section>

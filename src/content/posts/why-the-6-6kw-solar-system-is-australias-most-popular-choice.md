@@ -1,10 +1,11 @@
 ---
 title: "Why the 6.6kW Solar System is Australia’s Most Popular Choice?"
 date: "2026-06-08"
-category: "Solar"
+category: "Residential Solar"
 image: "post-why-the-6-6kw-solar-system-is-australias-most-popular-choice"
 excerpt: "Australia has a global leader on adoption of rooftop solar and homeowners around the country are also..."
 seo: {"title":"Why the 6.6kW Solar System is Australia's Most Popular Choice? - Exchange Power","description":"Explore why the 6.6kW solar system is Australia’s favourite, delivering high efficiency, lower bills, and ideal performance for households."}
+tags: ["6.6kW"]
 ---
 
 Australia has a global leader on adoption of rooftop solar and homeowners around the country are also shifting towards solar energy as a way of saving on power bills and have more control on how much electricity their homes use. The 6.6kW solar system has become the most popular solar system among all the available residential solar systems. Combination of its low cost, capability to produce high energy, fit in regular Australian family housing, and high returns on investment has made it a perfect solution to a vast number of households in Australia.
@@ -21,7 +22,7 @@ One more consideration is the system design which is prevalent in Australia. Qui
 
 The 6.6kW solar system is also very versatile. It is capable of comfortably serving the fundamental appliances used at home like refrigerators, laundry machines, televisions, lighting networks, air conditioners and kitchen appliances. The system provides sufficient electricity to power a big percentage of the family daytime energy expenditures to many families. The idle power may be sold to the electric power grid where it may yield homeowners feed-in credits to lower the total energy bills even more.
 
-The increased interest in breaking energy dependence has also increased the demand of 6.6kW **[solar system](/)**. The increase in the electricity prices has stimulated the need by homeowners to have substitutes that offer more control of the costs of energy. With solar, the home can now produce electricity by themselves instead of always depending on electricity producers. This translates to protection against future rise in the price of energy and also allows the household to better balance their financial obligations in the long term.
+The increased interest in breaking energy dependence has also increased the demand of 6.6kW **[solar system](/residential-solar/)**. The increase in the electricity prices has stimulated the need by homeowners to have substitutes that offer more control of the costs of energy. With solar, the home can now produce electricity by themselves instead of always depending on electricity producers. This translates to protection against future rise in the price of energy and also allows the household to better balance their financial obligations in the long term.
 
 The solar system of 6.6kW is extremely attractive since it is applicable to most forms of property. Installed on a suburban family house, a modern town and a country dwelling, the system can bring significant energy savings. The system has an appropriate size of about 28 to 35 square metres of roof space which most installations do not have. It is very popular with homeowners because of the flexibility of installation.
 

@@ -1,27 +1,36 @@
-Solar Rebates and Incentives in WA is significant to make customers embrace renewable energy throughout Western Australia. The solar power rebate Western Australia has greatly lowered the expense of installation of solar systems. A large number of homeowners are increasingly opting to use clean energy due to the solar rebate that is reducing the solar installations as more affordable and practical. The intense sun rays all the year round have seen solar energy advance to be one of the most trusted sources of energy in homes.
+*Rebate settings checked October 2026.* WA homes and businesses can reduce the cost of solar and batteries through four incentives: the federal STC discount on solar, the federal Cheaper Home Batteries discount, the WA Residential Battery Scheme rebate and loan, and DEBS payments for exported power.
 
-The rising demand of the solar systems has also enhanced the demand of experienced solar power installers Perth. Professional installation will help solar systems to be fitted in accordance all the necessary standards and operate effectively in a long run. Families that hire certified installers will also be able to receive the govt rebate on a solar panel located under national renewable energy programs. This will ensure the optimum financial gain to the homeowners through the solar incentives available to them.
+## 1. The STC discount on solar panels
 
-The Solar rebate scheme of the government of Western Australia is mainly backed up by a national program known as the Small-scale Renewable Energy Scheme. This program provides federal government rebates on solar power in the form of certificates which express the clean energy produced by solar systems. These certificates are established depending on the capacity of the system and the estimated electricity generation. The market worth of these certificates lowers the cost of installation by means of a direct discount.
+Eligible solar systems up to 100kW create Small-scale Technology Certificates (STCs). Most installers take their value off your price upfront.
 
-The rebate solar government is implemented in the process of installation and not after the installation process. This approach eases the procedure of homeowners. The government subsidy on solar reduces the initial price and will compel more households to buy solar technology. Due to such an arrangement, solar uptake continues to rise throughout Western Australia.
+**STCs = system size (kW) × zone rating × deeming years**
 
-The WA solar panel rebate is based on the size of the solar system that is to be installed at the premises. The larger systems are usually offered high rebate because of their capacity to produce more renewable energy. The Western solar panel rebate is also based on the classification of solar zones of the area. High levels of solar radiation are experienced in Western Australia and this increases the overall value of solar incentives.
+Perth is in Zone 3 (rating 1.382). The deeming period is 5 years for 2026 installations and drops by one year each 1 January until the scheme ends after 2030.
 
-To most of the households, the rebate offered on the solar panels saves them the installation cost by a considerable margin. The cost of installation is reduced, which makes the solar power systems economical to households. The solar energy rebate will help in saving in the long term because it enables households to produce their own electricity rather than being fully dependent on the electricity produced by the grids. This economic benefit has kept on drawing new solar adopters annually.
+| System | STCs if installed in 2026 | STCs if installed in 2027 |
+| --- | --- | --- |
+| 6.6kW | About 45 | About 36 |
+| 7.7kW | About 53 | About 42 |
+| 10kW | About 69 | About 55 |
+| 13.2kW | About 91 | About 72 |
 
-The solar rebate Perth has assisted many households to switch to renewable energy in the metropolitan areas. The problem is that Perth has one of the highest rates of solar adoption among other Australian cities because of the good weather conditions and the support of the policy. The Perth solar rebate is a policy that has guaranteed that the citizens of the city may access some financial aid in case of installing solar systems.
+At around $35–$40 per certificate, a 6.6kW system installed in 2026 gets roughly $1,600–$1,800 off. The installation date, not the signing date, sets the number of STCs. Read [why the solar rebate drops on 1 January 2027](/solar-rebate-drop-january-2027-wa/).
 
-The other critical reason that affects the adoption of solar is that incentives result in a thinning out as time goes by. Solar rebates WA 2026 is the program which indicates the gradual decline of the national solar incentives. These step-down adjustments are made every year as the technology of solar technology will cost less. With these cuts, the solar rebate WA 2026 still represents substantial financial assistance to households.
+## 2. The WA battery rebate and loan
 
-Placing early adoptions enables the homeowner to have a higher value of rebates before it drops to lower levels. The solar power rebate Perth is thus still a significant bonus to households looking to install a solar in the nearest future. The earlier the installation of solar systems is done the more the financial returns are maximized through government programs.
+WA households can combine the WA Residential Battery Scheme rebate (up to $1,300 for Synergy customers or $3,800 for Horizon Power customers) with the federal Cheaper Home Batteries discount. The federal amount depends on your battery size and install date. Ask us for your exact figure.
 
-Western Australia has come with programs which facilitate storage of solar energy. Battery subsidies enable households to save any surplus solar energy generated in the daytime hours. These programs will supplement the solar energy rebate Australia and stimulate the renewable energy ecosystem. Storing energy assists households to streamline on grid power and enhance energy autonomy.
+The state rebate is $130 per usable kWh for Synergy customers or $380 per kWh for Horizon Power customers, capped at 10 kWh. The battery must be enrolled in an approved Virtual Power Plant. Eligible households can also borrow $2,001 to $10,000 interest-free over up to 10 years (household income under $210,000, credit assessed). See [WA residential battery rebates](/solar-battery/wa-residential-battery-rebates/).
 
-Solar systems also have the benefit that the surplus of electricity can be sent back to the power grid. Through the energy buyback programs, households are given credits like excess electricity generated by the solar panels. These subsidies enhance the general worth of solar investments. These export programs generate more financial implication in combination with the western australia solar panels rebates.
+## 3. The federal battery discount
 
-The solar rebates Perth market has a high competition owing to high number of installers and service providers of solar. The existence of the competition contributes to the high level of installation and affordable cost of the solar systems. The availability of the WA government solar rebate also enhances the affordability of the solar technology among residential owners.
+The Cheaper Home Batteries program takes around 30% off through STCs for batteries of at least 5 kWh. Since 1 May 2026, support is tiered by size (lower per kWh above 14 kWh), and the STC factor (6.8 for May–December 2026) steps down every six months.
 
-Solar incentives are also available to the regional communities in Western Australia. The solar rebate program will make sure that similar financial aid can be collected by the inhabitants of small towns. Regional locations have high sunlight which enables the solar system to produce high output of electricity. These terms enhance the utility of the solar energy rebate among the rural residents.
+## 4. DEBS: payments for exported solar
 
-The solar technology is still gaining new efficiency and durability. The modern systems generate higher electric power with longer lifespan of operation. With these enhancements in association with incentives like the solar panel rebate Western Australia, solar power has come out as one of the most sure long-term energy investment options that can be made by homeowners.
+Synergy pays 10c/kWh for exports from 3pm to 9pm and 2c/kWh at other times (rates from 1 July 2025, reviewed every July), on the first 50 kWh you export each day. Battery exports earn the same rates. Read [DEBS explained](/debs-synergy-solar-feed-in-explained/).
+
+## What you need to claim
+
+Every incentive needs approved products and an accredited installer: SAA accreditation for solar, and SAA Grid Connected Battery System accreditation for batteries. We apply the STC discount on your quote and help with the battery rebate application.

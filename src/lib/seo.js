@@ -53,10 +53,16 @@ export function buildMetadata({
   };
 }
 
+/** Where the business installs (content handover, Structured data). */
+const AREA_SERVED = [
+  { "@type": "City", name: "Perth" },
+  { "@type": "State", name: "Western Australia" },
+];
+
 /**
  * Structured data for the business, from src/content/site.js only.
- * Fields the business hasn't confirmed (ABN, opening hours, reviews) are
- * deliberately left out. `geo` is added only if coordinates are recorded in
+ * Fields the business hasn't confirmed (opening hours, reviews) are left
+ * out until they are set in site.js. `geo` is added only if coordinates are recorded in
  * site.js, and `sameAs` only if social accounts exist (none yet).
  */
 export function localBusinessJsonLd() {
@@ -70,6 +76,7 @@ export function localBusinessJsonLd() {
     url: `${SITE.url}/`,
     telephone: SITE.phone.international,
     email: SITE.email,
+    taxID: SITE.abn,
     address: {
       "@type": "PostalAddress",
       streetAddress: `${address.unit}/${address.street}`,
@@ -78,7 +85,7 @@ export function localBusinessJsonLd() {
       postalCode: address.postcode,
       addressCountry: address.countryCode,
     },
-    areaServed: { "@type": "State", name: "Western Australia" },
+    areaServed: AREA_SERVED,
     ...(SITE.geo
       ? {
           geo: {
@@ -89,6 +96,7 @@ export function localBusinessJsonLd() {
         }
       : {}),
     ...(SITE.socials?.length ? { sameAs: SITE.socials } : {}),
+    ...(SITE.openingHours ? { openingHours: SITE.openingHours.schema } : {}),
   };
 }
 
@@ -137,9 +145,9 @@ export function faqPageJsonLd(faqs) {
 
 /**
  * Article structured data for a blog post. No image until one is approved.
- * @param {{ title: string, description: string, date: string, path: string }} post
+ * @param {{ title: string, description: string, date: string, updated?: string, path: string }} post
  */
-export function articleJsonLd({ title, description, date, path }) {
+export function articleJsonLd({ title, description, date, updated, path }) {
   const url = new URL(path, SITE.url).href;
   const org = { "@type": "Organization", name: SITE.name, url: `${SITE.url}/` };
   return {
@@ -148,10 +156,44 @@ export function articleJsonLd({ title, description, date, path }) {
     headline: title,
     description,
     datePublished: date,
+    dateModified: updated ?? date,
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     url,
     author: org,
     publisher: org,
+  };
+}
+
+/**
+ * Service structured data for a product or service page, provided by the
+ * business (by @id, defined in localBusinessJsonLd on the homepage).
+ * @param {{ name: string, description: string, path: string, serviceType: string, areaServed?: string[] }} service
+ *   `areaServed` replaces the default Perth / Western Australia with named places.
+ */
+export function serviceJsonLd({
+  name,
+  description,
+  path,
+  serviceType,
+  areaServed,
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name,
+    description,
+    serviceType,
+    url: new URL(path, SITE.url).href,
+    areaServed: areaServed
+      ? areaServed.map((place) => ({ "@type": "Place", name: place }))
+      : AREA_SERVED,
+    provider: {
+      "@type": "LocalBusiness",
+      "@id": `${SITE.url}/#business`,
+      name: SITE.name,
+      url: `${SITE.url}/`,
+      telephone: SITE.phone.international,
+    },
   };
 }
 

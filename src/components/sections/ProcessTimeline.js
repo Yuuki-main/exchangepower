@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/Icon";
 import { Section } from "@/components/ui/Section";
 import { SectionIntro } from "@/components/ui/SectionIntro";
+import { cn } from "@/lib/cn";
 
 const ICONS = {
   quote: ChatIcon,
@@ -32,7 +33,12 @@ export function ProcessTimeline({ eyebrow, title, steps }) {
   return (
     <Section labelledBy="process-title">
       <SectionIntro id="process-title" eyebrow={eyebrow} title={title} />
-      <ol className="mt-12 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:gap-6">
+      <ol
+        className={cn(
+          "mt-12 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:gap-6",
+          steps.length === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3",
+        )}
+      >
         {steps.map((step, i) => {
           const Icon = step.icon
             ? ICONS[/** @type {keyof typeof ICONS} */ (step.icon)]

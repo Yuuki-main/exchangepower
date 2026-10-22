@@ -1,23 +1,29 @@
-A 13.2kW solar system WA is a high-powered solar system suitable in large residences that consume higher electricity. Ideal in homes that run numerous air conditioners, electric hot water, pool systems, electric vehicles and appliances that are energy intensive, this system provides excellent energy generation and long term savings. Western Australia has enough sunshine and a professionally designed 13.2kW solar system Perth can assist homeowners in saving on using grid electricity and adopt environmentally friendly renewable energy. The solar panel system WA, an efficient, sustainable and economically cost effective 13.2kW system, is an ideal mix of efficiency, sustainability, and cost savings of modern Australian homes.
+A 13.2kW solar system is our largest standard home package. It makes about 52–58 kWh a day in Perth, enough for high-use homes, daytime EV charging, a large battery or an all-electric home with heat-pump hot water and induction cooking. In winter, when panels make roughly half their summer output, the extra capacity helps a battery fill on short days.
 
-With the constantly increasing electricity rates in the area, people are opting to install bigger solar installations to become more energy-dependent and decreased the monthly utility checks. The solar system Western Australia 13.2kW would be appropriate in families where the power consumption is high during the day since it would produce high levels of solar power that can be used to compensate with high power consumption in the households.
+## What's included
 
-The conditions in Western Australia are best suited to produce solar energy, owing to the abundance of sunlight in the majority of the year. This renders investing in a **[13.2kW solar installation WA](/residential-solar/13-2kw-solar-system/)** a feasible and future-oriented choice that can enable homeowners to gain the most advantages in terms of rooftop solar in the long term. Perth has good access to solar production, which is why a 13.2kW solar power system Perth is such a viable choice based on both financial and environmental considerations.
+- About 30 solar panels at 440 W, needing about 60–65 m² of north, east or west-facing roof
+- A single- or three-phase inverter that meets AS/NZS 4777.2 and supports remote management
+- Mounting, installation and the switchboard connection
+- Compliance paperwork, network approval and DEBS setup
+- Monitoring with fault alerts
 
-The solar panel installation WA is a 13.2kW, modern solar panel that has been constructed with expensive solar technology to achieve durability, efficiency and long performance. The solar panels of premium grade are used to convert the sunlight to clean electricity and the quality inverters are used to have a smooth conversion of power which can be used in the house. An aged 13.2kW solar panel system WA is professionally designed to suit the roof orientation, shade on the roof, and the household power needs to achieve maximum output.
+Brands we install include Sofar, Fronius, Jinko Solar, Neovolt, Solis, Growatt, Seraphim and Trina Solar. Your quote names the exact models, so you can check each one before you sign.
 
-Big houses demand greater solar systems since typical residential packages may not produce sufficient electricity to sustain the continuous energy demands. The 13.2kW solar system WA fits perfectly well in a household with increasing electricity requirement especially in homes with more than one family member, home offices, electric vehicles, and entertainment systems. The selection of the appropriate system size can assist in providing greater savings in the long-term.
+## Pricing and rebates
 
-The installation of a commercially mounted 13.2kW solar system Perth has the potential to drastically decrease dependence on conventional energy suppliers due to its on-site production of renewable power. Rather than buying the economically costly power in the daytime, the homeowners can utilise solar-powered energy to directly supply power to the appliances. This brings in some significant savings and more insurance against any future rise in electricity prices.
+A 13.2kW system costs more in total but usually less per kW than a 10kW system. About 91 STCs apply for a 2026 installation (about 72 in 2027); see the [STC discount explained](/solar-packages/solar-rebates-and-incentives-in-wa/).
 
-Another significant motivation as to why homeowners prefer a 13.2kW **[solar system Western Australia](/)** is connected with environmental responsibility. The use of solar energy would help minimize the fuel usage of electricity that is produced using fossil fuels and reduce household carbon emission. With the growing significance of the sustainability concept, there is a promising future of bigger residential solar systems that can be used as a way of achieving a cleaner lifestyle.
+Whether the extra panels pay off depends on self-use: if they mostly export at 2c/kWh before 3pm, the gain is small; if they charge an EV or a [home battery](/solar-battery/), it can be large. We price both 13.2kW and [10kW](/residential-solar/10kw-solar-system-wa/) from your real usage so the numbers decide.
 
-All 13.2kW solar installations WA start with proper planning and site evaluation. The size of the roof, its orientation, shading patterns, and the present utilization of electricity are all factors that affect system design. Bespoke installation will give the 13.2kW solar panel installation WA an effective installation and a predictable long-time yield, which meets the needs of households.
+## Phase and export settings
 
-Perth residents are buying bigger systems in increased numbers, due to the continually increasing use of energy. Residential power consumption has soared due to the demand of air conditioning, adoption of electric vehicles, the use of smart home technologies and workplace arrangements conducive to remote working. Perth 13.2kW is a solar power system that has generated power that can support these changing energy demands without being compromised.
+You don't necessarily need three-phase power under the 2026 rules, but three phase can help balance large loads. Your export limit depends on your retailer's settings; without remote management, exports are limited to 1.5 kW. Read [single-phase vs three-phase solar in WA](/single-phase-vs-three-phase-solar-wa/).
 
-Homeowners can also invest in a smart investment through a 13.2kW solar panel system WA as they prepare to upgrade their homes in future. Homes thinking of charging electric vehicles, battery storage or electrifying appliances often find it more convenient to install a higher capacity in the beginning of installation instead of upgrading the system after a few years. This future-proof strategy enhances long-term cost saving and energy flexibility.
+## Installation process
 
-The quality of installation is important to system performance. An experienced 13.2kW solar system is necessary to position the panels correctly, comply with electricity requirements, establish an efficient inverter, and make secure connections to the grid. Quality workmanship safeguards the high reliability performance during the entire system life and reduces maintenance problems.
-
-The 13.2kW solar system Perth can also increase value in the property by making the property more efficient in terms of energy use and lowering maintenance costs. Buyers are also becoming more demanding on houses that have already developed renewable energy generation systems especially in the energy-sensitive markets. Solar investment usually generates utility save upfront and resale value in the future.
+1. **Bill and plans.** Send your bill and any EV or battery plans.
+2. **Design and quote.** We check roof space, phase and switchboard capacity.
+3. **Approvals.** Network and retailer paperwork.
+4. **Installation.** Usually two days.
+5. **Commissioning and handover.** Testing, monitoring and documents.
